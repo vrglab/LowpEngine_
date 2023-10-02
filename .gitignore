@@ -365,9 +365,7 @@ yarn-error.log
 # Ignore custom compiled binary files
 *.o
 *.out
-*.dll
 *.so
-*.exe
 
 # Ignore custom compiled Java class files
 *.class
