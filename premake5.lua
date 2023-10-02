@@ -25,11 +25,11 @@ project "Engine"
 
 	includedirs
 	{
-		"%packages/includes"
+		"%packages"
 	}
 
 	filter "system:windows"
-		cppdialect "C++22"
+		cppdialect "C++17"
 		staticruntime "On"
 		systemversion "latest"
 
