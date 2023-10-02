@@ -2,7 +2,7 @@
 Unity like Game Engine. fully free and open source.
 
 # Building
-Clone the project using Visual Studio and it should work out of the box
+Clone the project using git `git clone git@github.com:vrglab/LowpEngine_.git` and Run the `Genearte` file that your os can execute
 
 # Currently Supported features
 This are all of the feature that are already fully or partially implemented into the engine
