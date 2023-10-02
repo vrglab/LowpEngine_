@@ -1051,3 +1051,7 @@ _site/
 
 # Ignore custom custom custom Hugo cache directory
 resources
+/LowpEngine/*.csproj
+/*.sln
+/Engine/*.vcxproj
+/Editor/*.csproj
