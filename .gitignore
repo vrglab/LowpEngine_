@@ -32,9 +32,7 @@ Thumbs.db
 # Ignore compiled binary files and executables
 *.o
 *.out
-*.dll
 *.so
-*.exe
 
 # Ignore Node.js related files
 node_modules/
@@ -626,9 +624,7 @@ yarn-error.log
 # Ignore custom custom compiled binary files
 *.o
 *.out
-*.dll
 *.so
-*.exe
 
 # Ignore custom custom compiled Java class files
 *.class
@@ -889,9 +885,7 @@ yarn-error.log
 # Ignore custom custom custom compiled binary files
 *.o
 *.out
-*.dll
 *.so
-*.exe
 
 # Ignore custom custom custom compiled Java class files
 *.class
