@@ -25,7 +25,12 @@ project "Engine"
 
 	includedirs
 	{
-		"%packages"
+		"%packages/c++/includes"
+	}
+	
+	links
+	{
+		"%packages/c++/libs/*.lib"
 	}
 
 	filter "system:windows"

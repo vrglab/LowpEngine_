@@ -1,6 +1,0 @@
-<tool name="conan">
-	<located path="tools/conan/conan.exe" />
-	<InstallCommand>
-		install "{*{packagesDirectory}*}"
-	</InstallCommand>
-</tool>

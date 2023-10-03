@@ -1,6 +1,0 @@
-<tool name="nuget">
-	<located path="tools/nuget/nuget.exe" />
-	<InstallCommand>
-		install {*{packagename}*} -Version "{*{packageversion}*}" -OutputDirectory "{*{packagesDirectory}*}"
-	</InstallCommand>
-</tool>
