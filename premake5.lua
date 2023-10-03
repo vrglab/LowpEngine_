@@ -44,6 +44,12 @@ project "Engine"
 		"Packages/c++/libs/fsbank.dll"
 	}
 
+	vpaths {
+		["Headers"] = { "**.h", "**.hpp" },
+		["Sources/*"] = {"**.c", "**.cpp"}
+	}
+
+
 	filter "system:windows"
 		cppdialect "C++17"
 		staticruntime "On"
@@ -51,9 +57,21 @@ project "Engine"
 
 	filter "configurations:Debug"
 		symbols "On"
+		links
+		{
+			"Packages/c++/libs/bgfxDebug.lib",
+			"Packages/c++/libs/bimgDebug.lib",
+			"Packages/c++/libs/bxDebug.lib"
+		}
 
 	filter "configurations:Release"
 		optimize "On"
+		links
+		{
+			"Packages/c++/libs/bgfxRelease.lib",
+			"Packages/c++/libs/bimgRelease.lib",
+			"Packages/c++/libs/bxRelease.lib"
+		}
 		
 project "LowpEngine"
 	location "LowpEngine"

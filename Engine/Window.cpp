@@ -9,5 +9,11 @@ Window::Window(WindowInfo* info)
 	}
 
 	sdl_window = SDL_CreateWindow(info->name.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, info->resolution.width, info->resolution.height, info->flags);
+	this->info = info;
+}
 
+Window::~Window()
+{
+	free(sdl_window);
+	free(info);
 }
