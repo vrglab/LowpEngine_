@@ -88,7 +88,8 @@ project "LowpEngine"
 	
 	links
 	{
-		"Engine"
+		"Engine",
+		"Packages/c#/log4net/net20/log4net.dll"
 	}
 
 	filter "configurations:Debug"
@@ -112,7 +113,8 @@ project "Editor"
 
 	links
 	{
-		"LowpEngine"
+		"LowpEngine",
+		"Packages/c#/log4net/net20/log4net.dll"
 	}
 
 	filter "configurations:Debug"
