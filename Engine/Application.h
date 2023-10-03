@@ -1,5 +1,6 @@
 #pragma once
 #include "Window.h"
+typedef void(*Update)();
 
 class Application
 {
@@ -8,7 +9,7 @@ class Application
 
 	public:
 		Application();
-		void Run();
+		void Run(Update update);
 		~Application();
 };
 

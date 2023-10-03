@@ -12,11 +12,12 @@ Application::Application()
 	window = new Window(&info);
 }
 
-void Application::Run()
+void Application::Run(Update update)
 {
 	while(!window->ShouldClose())
 	{
 		window->ProcessEvents();
+		update();
 
 	}
 }
@@ -38,8 +39,8 @@ LP_Extern {
 		free(app);
 	}
 
-	LP_Export void Application_run(Application* app)
+	LP_Export void Application_run(Application* app, Update update)
 	{
-		app->Run();
+		app->Run(update);
 	}
 }
