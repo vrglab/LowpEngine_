@@ -5,8 +5,10 @@ class Application
 {
 	private:
 		Window* window;
+
 	public:
 		Application();
+		void Run();
 		~Application();
 };
 

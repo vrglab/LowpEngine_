@@ -9,9 +9,9 @@
 #include<bgfx/bgfx.h>
 #include<bgfx/platform.h>
 #include<bgfx/defines.h>
+#include<bx/bx.h>
 using namespace bgfx;
 #endif _lpEngine_bgfx
-
 #include <sstream>
 #include <iostream>
 #include <memory>
@@ -25,3 +25,5 @@ using namespace bgfx;
 #include <unordered_set>
 
 using namespace std;
+
+#include "LowpEngine.h"
