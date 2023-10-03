@@ -6,9 +6,7 @@ workspace "LowpEngine"
 		"Debug",
 		"Release"
 	}
-
-outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
-
+	outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 project "Engine"
 	location "Engine"
 	kind "SharedLib"
@@ -16,6 +14,9 @@ project "Engine"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	pchheader "lppch.h"
+	pchsource "%{prj.name}/lppch.cpp"
 
 	files 
 	{
@@ -25,13 +26,29 @@ project "Engine"
 
 	includedirs
 	{
-		"%packages/c++/includes"
+		"Packages/c++/includes/"
 	}
 	
 	links
 	{
-		"%packages/c++/libs/*.lib"
+		"Packages/c++/libs/SDL2.lib",
+		"Packages/c++/libs/HLSL.lib",
+		"Packages/c++/libs/OpenAL32.lib",
+		"Packages/c++/libs/shaderc.lib",
+		"Packages/c++/libs/SPIRV.lib",
+		"Packages/c++/libs/vulkan-1.lib",
+		"Packages/c++/libs/fmod.lib",
+		"Packages/c++/libs/fmodstudio.lib",
+		"Packages/c++/libs/opus.dll",
+		"Packages/c++/libs/libfsbvorbis64.dll",
+		"Packages/c++/libs/fsbank.dll"
 	}
+
+	vpaths {
+		["Headers"] = { "**.h", "**.hpp" },
+		["Sources/*"] = {"**.c", "**.cpp"}
+	}
+
 
 	filter "system:windows"
 		cppdialect "C++17"
@@ -40,10 +57,21 @@ project "Engine"
 
 	filter "configurations:Debug"
 		symbols "On"
+		links
+		{
+			"Packages/c++/libs/bgfxDebug.lib",
+			"Packages/c++/libs/bimgDebug.lib",
+			"Packages/c++/libs/bxDebug.lib"
+		}
 
 	filter "configurations:Release"
 		optimize "On"
-		
+		links
+		{
+			"Packages/c++/libs/bgfxRelease.lib",
+			"Packages/c++/libs/bimgRelease.lib",
+			"Packages/c++/libs/bxRelease.lib"
+		}
 		
 project "LowpEngine"
 	location "LowpEngine"
@@ -60,15 +88,16 @@ project "LowpEngine"
 	
 	links
 	{
-		"Engine"
+		"Engine",
+		"Packages/c#/log4net/net20/log4net.dll"
 	}
 
 	filter "configurations:Debug"
 		symbols "On"
 
 	filter "configurations:Release"
-		optimize "On"
-		
+		optimize "On"	
+
 project "Editor"
 	location "Editor"
 	kind "ConsoleApp"
@@ -84,7 +113,8 @@ project "Editor"
 
 	links
 	{
-		"LowpEngine"
+		"LowpEngine",
+		"Packages/c#/log4net/net20/log4net.dll"
 	}
 
 	filter "configurations:Debug"

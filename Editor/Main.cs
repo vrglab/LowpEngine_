@@ -1,4 +1,8 @@
-﻿using System;
+﻿using log4net;
+using log4net.Repository.Hierarchy;
+using LowpEngine;
+using LowpEngine.Debug;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +14,9 @@ namespace Editor
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello World");
+            Application application = new Application();
+            application.Run();
+            application.Dispose();
         }
     }
 }
