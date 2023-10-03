@@ -562,6 +562,7 @@ build/
 .vscode/
 .code-workspace
 
+*.vcxproj.filters
 *.sln
 *.csproj
 *.vcxproj
