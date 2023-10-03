@@ -19,8 +19,8 @@ project "Engine"
 
 	files 
 	{
-		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/**.h",
+		"%{prj.name}/**.cpp"
 	}
 
 	includedirs
@@ -37,11 +37,6 @@ project "Engine"
 		cppdialect "C++17"
 		staticruntime "On"
 		systemversion "latest"
-
-		postbuildcommands
-		{
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Editor")
-		}
 
 	filter "configurations:Debug"
 		symbols "On"
@@ -60,7 +55,7 @@ project "LowpEngine"
 
 	files 
 	{
-		"%{prj.name}/src/**.cs"
+		"%{prj.name}/**.cs"
 	}
 	
 	links
@@ -84,7 +79,7 @@ project "Editor"
 
 	files 
 	{
-		"%{prj.name}/src/**.cs"
+		"%{prj.name}/**.cs"
 	}
 
 	links
