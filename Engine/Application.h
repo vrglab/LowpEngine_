@@ -1,5 +1,5 @@
 #pragma once
-#include "Window.h"
+#include "LowpEngine.h"
 typedef void(*Update)();
 
 class Application

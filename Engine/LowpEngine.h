@@ -4,5 +4,8 @@
 #ifndef _lpEngine_ 
 #define _lpEngine_
 #include "Macros.h"
+//Windowing
+#include "Window.h"
+#include "Application.h"
 
 #endif // !_lpEngine_ 
