@@ -7,6 +7,7 @@ workspace "LowpEngine"
 		"Release"
 	}
 	outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+
 project "Engine"
 	location "Engine"
 	kind "SharedLib"
@@ -21,7 +22,9 @@ project "Engine"
 	files 
 	{
 		"%{prj.name}/**.h",
-		"%{prj.name}/**.cpp"
+		"%{prj.name}/**.cpp",
+		"%{prj.name}/**/**.h",
+		"%{prj.name}/**/**.cpp"
 	}
 
 	includedirs
@@ -83,7 +86,8 @@ project "LowpEngine"
 
 	files 
 	{
-		"%{prj.name}/**.cs"
+		"%{prj.name}/**.cs",
+		"%{prj.name}/**/**.cs"
 	}
 	
 	links
@@ -108,7 +112,8 @@ project "Editor"
 
 	files 
 	{
-		"%{prj.name}/**.cs"
+		"%{prj.name}/**.cs",
+		"%{prj.name}/**/**.cs"
 	}
 
 	links
@@ -122,6 +127,3 @@ project "Editor"
 
 	filter "configurations:Release"
 		optimize "On"
-
-	filter "configurations:Dist"
-		symbols "On"

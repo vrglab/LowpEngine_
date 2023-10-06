@@ -33,7 +33,7 @@ Window::Window(WindowInfo* info)
 	platformData.backBufferDS = nullptr;
 	setPlatformData(platformData);
 
-	setViewRect(0, 0, 0, 800, 600);
+	setViewRect(0, 0, 0, info->resolution.width, info->resolution.height);
 	setViewClear(0, BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH, 0x303030ff, 1.0f, 0);
 }
 
