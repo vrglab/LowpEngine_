@@ -9,7 +9,7 @@ namespace Editor
         {
             GameInfo gameInfo = new GameInfo()
             {
-                name = "Example",
+                name = "Lol",
                 developer = "Example Dev",
                 version = "1.0.0-Beta"
             };

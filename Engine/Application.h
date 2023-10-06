@@ -8,7 +8,7 @@ class Application
 		Window* window;
 
 	public:
-		Application(string name);
+		Application(const char* name);
 		void Run(Update update);
 		~Application();
 };
