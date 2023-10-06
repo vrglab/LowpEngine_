@@ -1,10 +1,10 @@
 #include "lppch.h"
 #include "Application.h"
 
-Application::Application()
+Application::Application(string name)
 {
 	WindowInfo info = WindowInfo();
-	info.name = "Example";
+	info.name = name.c_str();
 	info.flags = SDL_WINDOW_RESIZABLE;
 	info.resolution.width = 400;
 	info.resolution.height = 400;
@@ -29,9 +29,9 @@ Application::~Application()
 
 LP_Extern {
 
-	LP_Export Application* Application_create()
+	LP_Export Application* Application_create(string name)
 	{
-		return new Application();
+		return new Application(name);
 	}
 
 	LP_Export void Application_destroy(Application* app)

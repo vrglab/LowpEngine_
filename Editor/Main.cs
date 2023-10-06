@@ -7,7 +7,14 @@ namespace Editor
     {
         public static void Main(string[] args)
         {
-            LowpEngine.LowpEngine.Run();
+            GameInfo gameInfo = new GameInfo()
+            {
+                name = "Example",
+                developer = "Example Dev",
+                version = "1.0.0-Beta"
+            };
+            Game exampleGame = new Game(gameInfo);
+            exampleGame.Start();
         }
     }
 }
