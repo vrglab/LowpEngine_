@@ -27,7 +27,7 @@ namespace LowpEngine
                 Debug.Debug.LogError("There was a error: " + ex.Message);
             }
             Debug.Debug.Log("Closing Engine");
-            app.Dispose();
+            GC.Collect();
         }
 
         private static void Update()

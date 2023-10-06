@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LowpEngine
 {
-    public class Application : IDisposable
+    public class Application
     {
         [DllImport("Engine")]
         private static extern IntPtr Application_create();
@@ -27,14 +27,14 @@ namespace LowpEngine
             instance = Application_create();
         }
 
+        ~Application()
+        {
+            Application_destroy(instance);
+        }
+
         public void Run()
         {
             Application_run(instance, OnUpdate);
-        }
-
-        public void Dispose()
-        {
-            Application_destroy(instance);
         }
     }
 }
