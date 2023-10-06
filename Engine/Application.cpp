@@ -1,13 +1,13 @@
 #include "lppch.h"
 #include "Application.h"
 
-Application::Application(const char* name)
+Application::Application(GameInfo* name)
 {
 	WindowInfo info = WindowInfo();
-	info.name = name;
+	info.name = (string)name->name;
 	info.flags = SDL_WINDOW_RESIZABLE;
-	info.resolution.width = 400;
-	info.resolution.height = 400;
+	info.resolution.width = name->resWidth;
+	info.resolution.height = name->resHeight;
 
 	window = new Window(&info);
 }
@@ -29,7 +29,7 @@ Application::~Application()
 
 LP_Extern {
 
-	LP_Export Application* Application_create(const char* name)
+	LP_Export Application* Application_create(GameInfo* name)
 	{
 		return new Application(name);
 	}

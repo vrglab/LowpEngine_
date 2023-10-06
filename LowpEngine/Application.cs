@@ -10,7 +10,7 @@ namespace LowpEngine
     public class Application
     {
         [DllImport("Engine")]
-        private static extern IntPtr Application_create(string name);
+        private static extern IntPtr Application_create(GameInfo gameinfo);
         [DllImport("Engine")]
         private static extern void  Application_destroy(IntPtr app);
         [DllImport("Engine")]
@@ -22,9 +22,9 @@ namespace LowpEngine
         public event Update OnUpdate;
 
 
-        public Application(string name)
+        public Application(GameInfo gameinfo)
         {
-            instance = Application_create(name);
+            instance = Application_create(gameinfo);
         }
 
         ~Application()

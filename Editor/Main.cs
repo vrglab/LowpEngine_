@@ -11,7 +11,9 @@ namespace Editor
             {
                 name = "Lol",
                 developer = "Example Dev",
-                version = "1.0.0-Beta"
+                version = "1.0.0-Beta",
+                resWidth = 400,
+                resHeight = 600,
             };
             Game exampleGame = new Game(gameInfo);
             exampleGame.Start();

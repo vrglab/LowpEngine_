@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using static LowpEngine.Application;
@@ -20,7 +21,7 @@ namespace LowpEngine
         public Game(GameInfo gameInfo)
         {
             this.gameInfo = gameInfo;
-            app = new Application(gameInfo.name);
+            app = new Application(gameInfo);
         }
 
         public void Start()
@@ -49,9 +50,15 @@ namespace LowpEngine
 
     public struct GameInfo
     {
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
         public string name;
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
         public string version;
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
         public string developer;
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
         public string publisher;
+
+        public int resWidth, resHeight;
     }
 }
