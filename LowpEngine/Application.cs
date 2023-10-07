@@ -14,6 +14,10 @@ namespace LowpEngine
         [DllImport("Engine")]
         private static extern void  Application_destroy(IntPtr app);
         [DllImport("Engine")]
+        private static extern void Application_init(IntPtr app);
+        [DllImport("Engine")]
+        private static extern void Application_stop(IntPtr app);
+        [DllImport("Engine")]
         private static extern void Application_run(IntPtr app, Update update);
 
         private IntPtr instance;
@@ -34,7 +38,13 @@ namespace LowpEngine
 
         public void Run()
         {
+            Application_init(instance);
             Application_run(instance, OnUpdate);
+        }
+
+        public void Stop()
+        {
+            Application_stop(instance);
         }
     }
 }

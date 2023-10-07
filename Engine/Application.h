@@ -20,5 +20,7 @@ class Application
 	public:
 		Application(GameInfo* name);
 		void Run(Update update);
+		void Stop();
+		void Initialize();
 		~Application();
 };

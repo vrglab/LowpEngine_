@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -13,6 +14,7 @@ namespace LowpEngine
 
         private Application app;
         private GameInfo gameInfo;
+        private IntPtr engineLib;
 
         public string PersistentDataPath { get => $"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\\{gameInfo.name}"; }
 
@@ -20,8 +22,14 @@ namespace LowpEngine
 
         public Game(GameInfo gameInfo)
         {
+            engineLib = LoadLibrary(Path.Combine(Environment.CurrentDirectory, "Engine.dll"));
             this.gameInfo = gameInfo;
             app = new Application(gameInfo);
+        }
+
+        ~Game()
+        {
+            FreeLibrary(engineLib);
         }
 
         public void Start()
@@ -42,10 +50,21 @@ namespace LowpEngine
             GC.Collect();
         }
 
+        public void Stop()
+        {
+            app.Stop();
+        }
+
         private void Update()
         {
 
         }
+
+        [DllImport("kernel32.dll")]
+        private static extern IntPtr LoadLibrary(string dllToLoad);
+
+        [DllImport("kernel32.dll")]
+        private static extern bool FreeLibrary(IntPtr hModule);
     }
 
     public struct GameInfo

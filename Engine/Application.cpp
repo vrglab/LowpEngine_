@@ -3,13 +3,13 @@
 
 Application::Application(GameInfo* name)
 {
-	WindowInfo info = WindowInfo();
-	info.name = (string)name->name;
-	info.flags = SDL_WINDOW_RESIZABLE;
-	info.resolution.width = name->resWidth;
-	info.resolution.height = name->resHeight;
+	WindowInfo* info = new WindowInfo();
+	info->name = (string)name->name;
+	info->flags = SDL_WINDOW_RESIZABLE;
+	info->resolution.width = name->resWidth;
+	info->resolution.height = name->resHeight;
 
-	window = new Window(&info);
+	window = new Window(info);
 }
 
 void Application::Run(Update update)
@@ -18,8 +18,17 @@ void Application::Run(Update update)
 	{
 		window->ProcessEvents();
 		update();
-
 	}
+}
+
+void Application::Stop()
+{
+	window->Close();
+}
+
+void Application::Initialize()
+{
+	window->Open();
 }
 
 Application::~Application()
@@ -42,5 +51,15 @@ LP_Extern {
 	LP_Export void Application_run(Application* app, Update update)
 	{
 		app->Run(update);
+	}
+
+	LP_Export void Application_init(Application* app)
+	{
+		app->Initialize();
+	}
+
+	LP_Export void Application_stop(Application* app)
+	{
+		app->Stop();
 	}
 }

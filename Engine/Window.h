@@ -2,10 +2,9 @@
 
 struct WindowInfo
 {
-	public:
 		std::string name;
 		Resolution resolution;
-		int flags;
+		int flags = 0;
 };
 
 class Window
@@ -19,6 +18,7 @@ class Window
 		Window(WindowInfo*);
 		~Window();
 		void ProcessEvents();
+		void Open();
 		void Close();
 		bool ShouldClose();
 
