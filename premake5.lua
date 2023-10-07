@@ -16,7 +16,13 @@ project "Engine"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-	pchheader "%{prj.name}/lppch.h"
+
+	if os.target() == "windows" then
+		pchheader "lppch.h"
+	elseif os.target() == "linux" then
+		pchheader "%{prj.name}/lppch.h"
+	end
+
 	pchsource "%{prj.name}/lppch.cpp"
 
 	files 
@@ -31,25 +37,22 @@ project "Engine"
 	{
 		"Packages/c++/includes/"
 	}
-
-
-	libdirs
-    {
-        "../Packages/c++/libs"
-    }
-
-    links
-    {
-        "SDL2",
-        "HLSL",
-        "OpenAL32",
-        "shaderc",
-        "SPIRV",
-        "vulkan-1",
-        "fmod",
-        "fmodstudio",
-        "assimp-vc143-mt"
-    }
+	
+	links
+	{
+		"Packages/c++/libs/SDL2.lib",
+		"Packages/c++/libs/HLSL.lib",
+		"Packages/c++/libs/OpenAL32.lib",
+		"Packages/c++/libs/shaderc.lib",
+		"Packages/c++/libs/SPIRV.lib",
+		"Packages/c++/libs/vulkan-1.lib",
+		"Packages/c++/libs/fmod.lib",
+		"Packages/c++/libs/fmodstudio.lib",
+		"Packages/c++/libs/opus.dll",
+		"Packages/c++/libs/libfsbvorbis64.dll",
+		"Packages/c++/libs/fsbank.dll",
+		"Packages/c++/libs/assimp-vc143-mt.lib"
+	}
 
 	vpaths {
 		["Headers"] = { "**.h", "**.hpp" },
@@ -66,18 +69,18 @@ project "Engine"
 		symbols "On"
 		links
 		{
-			"bgfxDebug",
-			"bimgDebug",
-			"bxDebug"
+			"Packages/c++/libs/bgfxDebug.lib",
+			"Packages/c++/libs/bimgDebug.lib",
+			"Packages/c++/libs/bxDebug.lib"
 		}
 
 	filter "configurations:Release"
 		optimize "On"
 		links
 		{
-			"bgfxRelease",
-			"bimgRelease",
-			"bxRelease"
+			"Packages/c++/libs/bgfxRelease.lib",
+			"Packages/c++/libs/bimgRelease.lib",
+			"Packages/c++/libs/bxRelease.lib"
 		}
 		
 project "LowpEngine"
