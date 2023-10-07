@@ -19,8 +19,16 @@ project "Engine"
 
 	if os.target() == "windows" then
 		pchheader "lppch.h"
+		libdirs
+		{
+			"Packages/c++/libs"
+		}
 	elseif os.target() == "linux" then
 		pchheader "%{prj.name}/lppch.h"
+		libdirs
+		{
+			"../Packages/c++/libs"
+		}
 	end
 
 	pchsource "%{prj.name}/lppch.cpp"
@@ -36,11 +44,6 @@ project "Engine"
 	includedirs
 	{
 		"Packages/c++/includes/"
-	}
-	
-	libdirs
-	{
-		"../Packages/c++/libs"
 	}
 	
 	links
