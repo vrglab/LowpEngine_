@@ -17,7 +17,6 @@ namespace Editor
                 resHeight = 400,
             };
             Game exampleGame = new Game(gameInfo);
-            Game exampleGame3 = new Game(gameInfo);
             exampleGame.Start();
         }
     }

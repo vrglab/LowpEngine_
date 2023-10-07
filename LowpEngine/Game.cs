@@ -44,7 +44,7 @@ namespace LowpEngine
             }
             catch (Exception ex)
             {
-                Debug.Debug.LogError("There was a error: " + ex.Message);
+                Debug.Debug.LogError("There was a error: " + ex.Message, true);
             }
             Debug.Debug.Log("Closing Engine");
             GC.Collect();

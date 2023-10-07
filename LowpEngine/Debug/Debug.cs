@@ -29,9 +29,12 @@ namespace LowpEngine.Debug
             debug.log.Info(message);
         }
 
-        public static void LogError(string message)
+        public static void LogError(string message, bool fetal = false)
         {
-            debug.log.Error(message);
+            if(!fetal)
+                debug.log.Error(message);
+            else
+                debug.log.Fatal(message);
         }
 
         public static void LogWarning(string message)
