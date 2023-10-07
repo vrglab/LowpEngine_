@@ -38,21 +38,24 @@ project "Engine"
 		"Packages/c++/includes/"
 	}
 	
+	libdirs
+	{
+		"../Packages/c++/libs"
+	}
+	
 	links
 	{
-		"Packages/c++/libs/SDL2.lib",
-		"Packages/c++/libs/HLSL.lib",
-		"Packages/c++/libs/OpenAL32.lib",
-		"Packages/c++/libs/shaderc.lib",
-		"Packages/c++/libs/SPIRV.lib",
-		"Packages/c++/libs/vulkan-1.lib",
-		"Packages/c++/libs/fmod.lib",
-		"Packages/c++/libs/fmodstudio.lib",
-		"Packages/c++/libs/opus.dll",
-		"Packages/c++/libs/libfsbvorbis64.dll",
-		"Packages/c++/libs/fsbank.dll",
-		"Packages/c++/libs/assimp-vc143-mt.lib"
+		"SDL2",
+		"HLSL",
+		"OpenAL32",
+		"shaderc",
+		"SPIRV",
+		"vulkan-1",
+		"fmod",
+		"fmodstudio",
+		"assimp-vc143-mt"
 	}
+	
 
 	vpaths {
 		["Headers"] = { "**.h", "**.hpp" },
@@ -69,18 +72,18 @@ project "Engine"
 		symbols "On"
 		links
 		{
-			"Packages/c++/libs/bgfxDebug.lib",
-			"Packages/c++/libs/bimgDebug.lib",
-			"Packages/c++/libs/bxDebug.lib"
+			"bgfxDebug",
+			"libs/bimgDebug",
+			"bxDebug"
 		}
 
 	filter "configurations:Release"
 		optimize "On"
 		links
 		{
-			"Packages/c++/libs/bgfxRelease.lib",
-			"Packages/c++/libs/bimgRelease.lib",
-			"Packages/c++/libs/bxRelease.lib"
+			"bgfxRelease",
+			"bimgRelease",
+			"bxRelease"
 		}
 		
 project "LowpEngine"
