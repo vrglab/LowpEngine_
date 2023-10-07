@@ -44,7 +44,8 @@ project "Engine"
 		"Packages/c++/libs/fmodstudio.lib",
 		"Packages/c++/libs/opus.dll",
 		"Packages/c++/libs/libfsbvorbis64.dll",
-		"Packages/c++/libs/fsbank.dll"
+		"Packages/c++/libs/fsbank.dll",
+		"Packages/c++/libs/assimp-vc143-mt.lib"
 	}
 
 	vpaths {
