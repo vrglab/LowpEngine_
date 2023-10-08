@@ -82,5 +82,28 @@ namespace ConsoleAppEngine
                 fmt.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
                     .Select(fooline => fooline.Trim()));
         }
+
+        public static string GetOptionValue(this KeyValuePair<string, string>[] options, string valueToSearch)
+        {
+            foreach (var option in options)
+            {
+                if (option.Key == valueToSearch)
+                {
+                    return option.Value;
+                }
+            }
+            return String.Empty;
+        }
+        public static bool Contains(this KeyValuePair<string, string>[] options, string valueToSearch)
+        {
+            foreach (var option in options)
+            {
+                if (option.Key == valueToSearch)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
