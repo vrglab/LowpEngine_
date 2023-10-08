@@ -32,7 +32,6 @@ Thumbs.db
 # Ignore compiled binary files and executables
 *.o
 *.out
-*.so
 
 # Ignore Node.js related files
 node_modules/
