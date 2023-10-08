@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 namespace AssetsTool.Commands
 {
     [Command("encode", 2, "comp", "fn")]
+    [HelpCommandData("Encodes the given folder into a .asset file", 
+        new string[]{"Folder To Convert", "Where to save the .asset file"}, 
+        validOptionNames = new string[] {"comp", "fn"}, 
+        validOptionValue = new string[] { "Compress file", "File name" })]
     public class EncodeCommand : ICommand
     {
         public void Execute(string[] args, KeyValuePair<string, string>[] options)

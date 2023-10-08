@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleAppEngine
 {
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct)]
     public class CommandAttribute : Attribute
     {
         public string Name { get; }

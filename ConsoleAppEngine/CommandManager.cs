@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConsoleAppEngine.PremadeCommands;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -11,6 +12,7 @@ namespace ConsoleAppEngine
     {
         public static void ProcessCommands(string[] args)
         {
+            bool foundCommand = false;
             foreach (var item in Utils.GetTypesMarkedWithAttrib(typeof(CommandAttribute)))
             {
                 var object_Created = (ICommand)item.GetConstructors()[0].Invoke(new object[] { });
@@ -22,6 +24,7 @@ namespace ConsoleAppEngine
                     {
                         if (args[0] == attribute.Name)
                         {
+                            foundCommand = true;
                             List<string> commandArgs = new List<string>();
                             for (int i = 1; i < args.Length; i++)
                             {
@@ -67,6 +70,13 @@ namespace ConsoleAppEngine
                         }
                     }
                 }
+            }
+
+            if (foundCommand == false)
+            {
+                HelpCommand helpCommand = new HelpCommand();
+                Console.Error.WriteLine($"{args[0]} is not a valid command");
+                helpCommand.Execute(new string[] { }, new KeyValuePair<string, string>[] { });
             }
         }
     }
