@@ -162,11 +162,6 @@ project "ConsoleAppEngine"
 			"%{prj.name}/**/**.cs"
 		}
 	
-		links
-		{
-			"Packages/c#/log4net/net20/log4net.dll"
-		}
-	
 		filter "configurations:Debug"
 			symbols "On"
 	
@@ -189,8 +184,7 @@ project "AssetsTool"
 		links
 		{
 			"LowpEngine",
-			"ConsoleAppEngine",
-			"Packages/c#/log4net/net20/log4net.dll"
+			"ConsoleAppEngine"
 		}
 	
 		filter "configurations:Debug"
