@@ -8,16 +8,23 @@ namespace Editor
     {
         public static void Main(string[] args)
         {
-            GameInfo gameInfo = new GameInfo()
+            try
             {
-                name = "Lol",
-                developer = "Example Dev",
-                version = "1.0.0-Beta",
-                resWidth = 600,
-                resHeight = 400,
-            };
-            Game exampleGame = new Game(gameInfo);
-            exampleGame.Start();
+                GameInfo gameInfo = new GameInfo()
+                {
+                    name = "Lol",
+                    developer = "Example Dev",
+                    version = "1.0.0-Beta",
+                    resWidth = 600,
+                    resHeight = 400,
+                };
+                Game exampleGame = new Game(gameInfo);
+                exampleGame.Start();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message, true);
+            }
         }
     }
 }

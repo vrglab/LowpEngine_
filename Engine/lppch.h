@@ -6,10 +6,13 @@
 
 #ifndef _lpEngine_bgfx
 #define _lpEngine_bgfx
+#include<bx/bx.h>
+#include<bimg/bimg.h>
 #include<bgfx/bgfx.h>
 #include<bgfx/platform.h>
 #include<bgfx/defines.h>
-#include<bx/bx.h>
+#include<bgfx/embedded_shader.h>
+#include<bgfx/c99/bgfx.h>
 using namespace bgfx;
 #endif _lpEngine_bgfx
 #include <sstream>
@@ -23,7 +26,5 @@ using namespace bgfx;
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
-
-using namespace std;
 
 #include "LowpEngine.h"

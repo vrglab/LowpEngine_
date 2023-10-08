@@ -51,6 +51,8 @@ void Window::Open()
 	init_.resolution = info->resolution;
 	bool initiated = init(init_);
 
+	std::cout << getRendererName(getCaps()->rendererType) << std::endl;
+
 	PlatformData platformData;
 	bx::memSet(&platformData, 0, sizeof(platformData));
 	platformData.nwh = (void*)SDL_GetWindowID(sdl_window);

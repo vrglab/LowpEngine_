@@ -4,7 +4,7 @@
 Application::Application(GameInfo* name)
 {
 	WindowInfo* info = new WindowInfo();
-	info->name = (string)name->name;
+	info->name = (std::string)name->name;
 	info->flags = SDL_WINDOW_RESIZABLE;
 	info->resolution.width = name->resWidth;
 	info->resolution.height = name->resHeight;
@@ -18,6 +18,7 @@ void Application::Run(Update update)
 	{
 		window->ProcessEvents();
 		update();
+		frame();
 	}
 }
 

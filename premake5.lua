@@ -21,13 +21,25 @@ project "Engine"
 		pchheader "lppch.h"
 		libdirs
 		{
-			"Packages/c++/libs"
+			"Packages/c++/libs/windows"
+		}
+		links
+		{
+			"SDL2",
+			"vulkan-1",
+			"assimp-vc143-mt"
 		}
 	elseif os.target() == "linux" then
 		pchheader "%{prj.name}/lppch.h"
 		libdirs
 		{
-			"../Packages/c++/libs"
+			"/Packages/c++/libs/linux"
+		}
+		links
+		{
+			"SDL2-2.0.so.0",
+			"vulkan",
+			"assimp"
 		}
 	end
 
@@ -48,17 +60,13 @@ project "Engine"
 	
 	links
 	{
-		"SDL2",
 		"HLSL",
 		"OpenAL32",
 		"shaderc",
 		"SPIRV",
-		"vulkan-1",
 		"fmod",
-		"fmodstudio",
-		"assimp-vc143-mt"
+		"fmodstudio"
 	}
-	
 
 	vpaths {
 		["Headers"] = { "**.h", "**.hpp" },
@@ -76,7 +84,7 @@ project "Engine"
 		links
 		{
 			"bgfxDebug",
-			"libs/bimgDebug",
+			"bimgDebug",
 			"bxDebug"
 		}
 
