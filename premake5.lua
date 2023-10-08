@@ -100,7 +100,7 @@ project "AssetsSystem"
 		location "AssetsSystem"
 		kind "SharedLib"
 		language "C#"
-		csversion ("9.0")
+		csversion ("11")
 	
 		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 		objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -124,6 +124,7 @@ project "LowpEngine"
 	location "LowpEngine"
 	kind "SharedLib"
 	language "C#"
+	csversion ("11")
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -151,6 +152,7 @@ project "Editor"
 	location "Editor"
 	kind "ConsoleApp"
 	language "C#"
+	csversion ("11")
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -176,6 +178,7 @@ project "ConsoleAppEngine"
 		location "ConsoleAppEngine"
 		kind "SharedLib"
 		language "C#"
+		csversion ("11")
 	
 		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 		objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -195,6 +198,7 @@ project "AssetsTool"
 		location "AssetsTool"
 		kind "ConsoleApp"
 		language "C#"
+		csversion ("11")
 	
 		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 		objdir ("bin-int/" .. outputdir .. "/%{prj.name}")

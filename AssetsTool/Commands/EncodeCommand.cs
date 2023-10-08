@@ -22,11 +22,11 @@ namespace AssetsTool.Commands
 
             if (Compress)
             {
-                Console.WriteLine($"Successfully created and compressed \"{args[0]}\" to \"{assetFile}\"");
+                Console.WriteLine($"Successfully created and compressed \"{args[0]}\" in to \"{assetFile}\"");
             }
             else
             {
-                Console.WriteLine($"Successfully created \"{args[0]}\" to \"{assetFile}\"");
+                Console.WriteLine($"Successfully put \"{args[0]}\" in to \"{assetFile}\"");
             }
         }
     }

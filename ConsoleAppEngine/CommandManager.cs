@@ -72,10 +72,16 @@ namespace ConsoleAppEngine
                 }
             }
 
-            if (foundCommand == false)
+            if (foundCommand == false && args.Length > 0)
             {
                 HelpCommand helpCommand = new HelpCommand();
                 Console.Error.WriteLine($"{args[0]} is not a valid command");
+                helpCommand.Execute(new string[] { }, new KeyValuePair<string, string>[] { });
+            }
+            else
+            {
+                HelpCommand helpCommand = new HelpCommand();
+                Console.Error.WriteLine("No command provided");
                 helpCommand.Execute(new string[] { }, new KeyValuePair<string, string>[] { });
             }
         }
