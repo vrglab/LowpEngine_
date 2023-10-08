@@ -96,7 +96,30 @@ project "Engine"
 			"bimgRelease",
 			"bxRelease"
 		}
-		
+project "AssetsSystem"
+		location "AssetsSystem"
+		kind "SharedLib"
+		language "C#"
+		csversion ("9.0")
+	
+		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+		objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	
+		files 
+		{
+			"%{prj.name}/**.cs",
+			"%{prj.name}/**/**.cs"
+		}
+		links
+		{
+
+		}
+	
+		filter "configurations:Debug"
+			symbols "On"
+	
+		filter "configurations:Release"
+			optimize "On"		
 project "LowpEngine"
 	location "LowpEngine"
 	kind "SharedLib"
@@ -114,6 +137,7 @@ project "LowpEngine"
 	links
 	{
 		"Engine",
+		"AssetsSystem",
 		"Packages/c#/log4net/net20/log4net.dll"
 	}
 
@@ -184,7 +208,8 @@ project "AssetsTool"
 		links
 		{
 			"LowpEngine",
-			"ConsoleAppEngine"
+			"ConsoleAppEngine",
+			"AssetsSystem"
 		}
 	
 		filter "configurations:Debug"
