@@ -1,4 +1,5 @@
-﻿using LowpEngine;
+﻿using ConsoleAppEngine;
+using LowpEngine;
 using LowpEngine.Debug;
 using System;
 
@@ -8,7 +9,7 @@ namespace Editor
     {
         public static void Main(string[] args)
         {
-
+            CommandManager.ProcessCommands(args);
         }
     }
 }

@@ -148,6 +148,30 @@ project "Editor"
 
 	filter "configurations:Release"
 		optimize "On"
+project "ConsoleAppEngine"
+		location "ConsoleAppEngine"
+		kind "SharedLib"
+		language "C#"
+	
+		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+		objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	
+		files 
+		{
+			"%{prj.name}/**.cs",
+			"%{prj.name}/**/**.cs"
+		}
+	
+		links
+		{
+			"Packages/c#/log4net/net20/log4net.dll"
+		}
+	
+		filter "configurations:Debug"
+			symbols "On"
+	
+		filter "configurations:Release"
+			optimize "On"
 project "AssetsTool"
 		location "AssetsTool"
 		kind "ConsoleApp"
@@ -165,6 +189,7 @@ project "AssetsTool"
 		links
 		{
 			"LowpEngine",
+			"ConsoleAppEngine",
 			"Packages/c#/log4net/net20/log4net.dll"
 		}
 	
