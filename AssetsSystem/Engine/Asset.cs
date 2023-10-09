@@ -1,10 +1,11 @@
-﻿using System;
+﻿using LowpEngine.AssetSystem;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AssetsSystem
+namespace LowpEngine.AssetsSystem
 {
     public class Asset
     {
@@ -24,7 +25,7 @@ namespace AssetsSystem
 
         public Asset(DiskResource resource, Type loaderType, Dictionary<string, object> properties) : this(resource, loaderType, properties, Guid.NewGuid())
         {
-            
+
         }
     }
 }

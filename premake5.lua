@@ -112,7 +112,7 @@ project "AssetsSystem"
 		}
 		links
 		{
-
+			"GlobalUtilities"
 		}
 	
 		filter "configurations:Debug"
@@ -139,6 +139,7 @@ project "LowpEngine"
 	{
 		"Engine",
 		"AssetsSystem",
+		"GlobalUtilities",
 		"Packages/c#/log4net/net20/log4net.dll"
 	}
 
@@ -166,7 +167,7 @@ project "Editor"
 	links
 	{
 		"LowpEngine",
-		"Packages/c#/log4net/net20/log4net.dll"
+		"GlobalUtilities"
 	}
 
 	filter "configurations:Debug"
@@ -187,6 +188,10 @@ project "ConsoleAppEngine"
 		{
 			"%{prj.name}/**.cs",
 			"%{prj.name}/**/**.cs"
+		}
+		links
+		{
+			"GlobalUtilities"
 		}
 	
 		filter "configurations:Debug"
@@ -213,7 +218,33 @@ project "AssetsTool"
 		{
 			"LowpEngine",
 			"ConsoleAppEngine",
-			"AssetsSystem"
+			"AssetsSystem",
+			"GlobalUtilities"
+		}
+	
+		filter "configurations:Debug"
+			symbols "On"
+	
+		filter "configurations:Release"
+			optimize "On"
+project "GlobalUtilities"
+		location "GlobalUtilities"
+		kind "SharedLib"
+		language "C#"
+		csversion ("11")
+	
+		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+		objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	
+		files 
+		{
+			"%{prj.name}/**.cs",
+			"%{prj.name}/**/**.cs"
+		}
+	
+		links
+		{
+
 		}
 	
 		filter "configurations:Debug"

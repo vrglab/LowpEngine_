@@ -1,4 +1,4 @@
-﻿using AssetsSystem.Bundle;
+﻿using LowpEngine.AssetsSystem.Bundle;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AssetsSystem
+namespace LowpEngine.AssetsSystem
 {
     public static class Extensions
     {
@@ -43,22 +43,25 @@ namespace AssetsSystem
             string[] parts = path.Split('/');
             string fileName = parts[parts.Length - 1]; // Last part is the file name
 
+            string pathToFolder = string.Join("/", parts.Take(parts.Length - 1));
+
+
             // Get the folder that contains the file
-            Folder containingFolder = GetFolder(folder, string.Join("/", parts.Take(parts.Length - 1)));
+            Folder containingFolder = GetFolder(folder, pathToFolder);
 
             if (containingFolder != null && containingFolder.DiskResources != null)
             {
                 // Check if the file exists in the folder
-                if (containingFolder.DiskResources.Contains(fileName))
+                if (containingFolder.DiskResources.Contains(Path.GetFileNameWithoutExtension(fileName)))
                 {
-                    return containingFolder.DiskResources.GetDiskResource(fileName);
+                    return containingFolder.DiskResources.GetDiskResource(Path.GetFileNameWithoutExtension(fileName));
                 }
                 else
                 {
                     // If the file with the given name does not exist in the folder, search for files without extensions
                     foreach (var file in containingFolder.DiskResources)
                     {
-                        if (Path.GetFileNameWithoutExtension(file.Name) == fileName)
+                        if (Path.GetFileNameWithoutExtension(file.Name) == Path.GetFileNameWithoutExtension(fileName))
                         {
                             return file;
                         }

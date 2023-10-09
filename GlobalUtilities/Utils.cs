@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleAppEngine
+namespace LowpEngine.Utility
 {
     public static class Utils
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AssetsSystem.Bundle
+namespace LowpEngine.AssetsSystem.Bundle
 {
     public class Folder
     {
@@ -13,8 +13,5 @@ namespace AssetsSystem.Bundle
         public Folder Parent { get; set; }
         public Dictionary<string, Folder> Children { get; set;} = new Dictionary<string, Folder>();
         public List<DiskResource> DiskResources { get; set;} = new List<DiskResource>();
-
-
-        
     }
 }

@@ -1,5 +1,5 @@
-﻿using AssetsSystem;
-using AssetsSystem.Bundle;
+﻿using LowpEngine.AssetsSystem;
+using LowpEngine.AssetsSystem.Bundle;
 using ConsoleAppEngine;
 using System;
 using System.Collections.Generic;
@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LowpEngine.Utility;
 
 namespace AssetsTool.Commands
 {
