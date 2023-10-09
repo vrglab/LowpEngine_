@@ -148,7 +148,6 @@ project "LowpEngine"
 
 	filter "configurations:Release"
 		optimize "On"	
-
 project "Editor"
 	location "Editor"
 	kind "ConsoleApp"
@@ -167,7 +166,8 @@ project "Editor"
 	links
 	{
 		"LowpEngine",
-		"GlobalUtilities"
+		"GlobalUtilities",
+		"AssetsTool"
 	}
 
 	filter "configurations:Debug"

@@ -35,7 +35,7 @@ namespace LowpEngine.AssetSystem
                 foreach (var item in Utils.GetTypesMarkedWithAttrib(typeof(ImporterAttribute)))
                 {
                     ImporterAttribute atrib = item.GetCustomAttribute<ImporterAttribute>();
-                    if (atrib.FileExtension.Contains(asset.Resource.Extension))
+                    if (atrib.FileExtension.Contains(asset.Resource.Extension) || atrib.FileExtension.Contains("*"))
                     {
                         importerType = item;
                     }

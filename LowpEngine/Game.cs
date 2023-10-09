@@ -1,4 +1,5 @@
 ﻿using LowpEngine.AssetSystem;
+using LowpEngine.Debug;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,7 +25,7 @@ namespace LowpEngine
         public Game(GameInfo gameInfo)
         {
             AssetsDatabase.LoadAssetBundle("C:\\Users\\a.bozorgmehr\\Documents\\LowpProjects");
-            AssetsDatabase.ImportAsset("LowpProjects/project/project.sln");
+            Debug.Debug.Log(AssetsDatabase.ImportAsset("LowpProjects/project/project.sln").ToString());
             engineLib = LoadLibrary(Path.Combine(Environment.CurrentDirectory, "Engine.dll"));
             this.gameInfo = gameInfo;
             app = new Application(gameInfo);
