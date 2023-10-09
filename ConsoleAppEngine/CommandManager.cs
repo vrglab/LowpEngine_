@@ -57,7 +57,6 @@ namespace ConsoleAppEngine
                                         {
                                             commandOptions.Add(new KeyValuePair<string, string>(optionName, ""));
                                         }
-                                        
                                     }
                                     else
                                     {
@@ -67,6 +66,7 @@ namespace ConsoleAppEngine
                                 }
                             }
                             object_Created.Execute(commandArgs.ToArray(), commandOptions.ToArray());
+                            return;
                         }
                     }
                 }

@@ -33,7 +33,7 @@ namespace AssetsTool.Commands
                 
                 Folder convertedFolder = AssetsBundle.GetFolder(args[0]);
                 AssetsBundle ab = new AssetsBundle(convertedFolder);
-
+                Folder project = (Folder)ab["LowpProjects/test"];
                 Console.WriteLine($"Successfully put \"{args[0]}\" in to \"{assetFile}\"");
             }
         }

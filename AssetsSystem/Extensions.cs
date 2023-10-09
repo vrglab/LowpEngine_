@@ -14,14 +14,18 @@ namespace AssetsSystem
         {
             string[] splitPath = path.Split('/');
 
+            if(splitPath.Length == 1)
+            {
+                splitPath = path.Split('\\');
+            }
+
             Folder currentFolder = folder;
 
             foreach (string folderName in splitPath)
             {
-                if (currentFolder.Children != null && currentFolder.Children.ContainsKey(folderName))
+                if (currentFolder.Children != null && currentFolder.Children.Contains(folderName))
                 {
-
-                    currentFolder = currentFolder.Children[folderName];
+                    currentFolder = currentFolder.Children.GetFolder(folderName);
                 }
                 else
                 {
@@ -146,6 +150,30 @@ namespace AssetsSystem
             foreach (DiskResource resource in fileList)
             {
                 if (resource.Name == name)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static Folder GetFolder(this Dictionary<string, Folder> folders, string name)
+        {
+            foreach (var resource in folders)
+            {
+                if (resource.Value.Name == name)
+                {
+                    return resource.Value;
+                }
+            }
+            return null;
+        }
+
+        public static bool Contains(this Dictionary<string, Folder> folders, string name)
+        {
+            foreach (var resource in folders)
+            {
+                if (resource.Value.Name == name)
                 {
                     return true;
                 }
