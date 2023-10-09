@@ -45,14 +45,14 @@ namespace AssetsSystem
             if (containingFolder != null && containingFolder.DiskResources != null)
             {
                 // Check if the file exists in the folder
-                if (containingFolder.DiskResources.ContainsKey(fileName))
+                if (containingFolder.DiskResources.Contains(fileName))
                 {
-                    return containingFolder.DiskResources[fileName];
+                    return containingFolder.DiskResources.GetDiskResource(fileName);
                 }
                 else
                 {
                     // If the file with the given name does not exist in the folder, search for files without extensions
-                    foreach (var file in containingFolder.DiskResources.Values)
+                    foreach (var file in containingFolder.DiskResources)
                     {
                         if (Path.GetFileNameWithoutExtension(file.Name) == fileName)
                         {
@@ -126,8 +126,31 @@ namespace AssetsSystem
                 folder.SetFolderUsingPath(folderPath, containingFolder);
             }
 
-            containingFolder.DiskResources[fileName] = resourceValue;
+            containingFolder.DiskResources.Add(resourceValue);
         }
 
+        public static DiskResource GetDiskResource(this List<DiskResource> fileList, string name)
+        {
+            foreach (DiskResource resource in fileList)
+            {
+                if(resource.Name == name)
+                {
+                    return resource;
+                }
+            }
+            return null;
+        }
+
+        public static bool Contains(this List<DiskResource> fileList, string name)
+        {
+            foreach (DiskResource resource in fileList)
+            {
+                if (resource.Name == name)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

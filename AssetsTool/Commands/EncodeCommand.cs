@@ -1,6 +1,9 @@
-﻿using ConsoleAppEngine;
+﻿using AssetsSystem;
+using AssetsSystem.Bundle;
+using ConsoleAppEngine;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,10 +25,15 @@ namespace AssetsTool.Commands
 
             if (Compress)
             {
+                DiskResource diskResource = new DiskResource(null, "", "", true);
                 Console.WriteLine($"Successfully created and compressed \"{args[0]}\" in to \"{assetFile}\"");
             }
             else
             {
+                
+                Folder convertedFolder = AssetsBundle.GetFolder(args[0]);
+                AssetsBundle ab = new AssetsBundle(convertedFolder);
+
                 Console.WriteLine($"Successfully put \"{args[0]}\" in to \"{assetFile}\"");
             }
         }
