@@ -96,6 +96,66 @@ project "Engine"
 			"bimgRelease",
 			"bxRelease"
 		}
+
+project "Engine.UI"
+		location "Engine_UI"
+		kind "SharedLib"
+		language "C++"
+	
+		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+		objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	
+	
+		if os.target() == "windows" then
+			pchheader "lpuipch.h"
+			libdirs
+			{
+				"Packages/c++/libs/windows"
+			}
+		elseif os.target() == "linux" then
+			pchheader "%{prj.location}/lpuipch.h"
+			libdirs
+			{
+				"/Packages/c++/libs/linux"
+			}
+		end
+	
+		pchsource "%{prj.location}/lpuipch.cpp"
+	
+		files 
+		{
+			"%{prj.location}/**.h",
+			"%{prj.location}/**.cpp",
+			"%{prj.location}/**/**.h",
+			"%{prj.location}/**/**.cpp"
+		}
+	
+		includedirs
+		{
+			"Packages/c++/includes/"
+		}
+		
+		links
+		{
+			"Engine"
+		}
+	
+		vpaths {
+			["Headers"] = { "**.h", "**.hpp" },
+			["Sources/*"] = {"**.c", "**.cpp"}
+		}
+	
+	
+		filter "system:windows"
+			cppdialect "C++17"
+			staticruntime "On"
+			systemversion "latest"
+	
+		filter "configurations:Debug"
+			symbols "On"
+	
+		filter "configurations:Release"
+			optimize "On"
 project "AssetsSystem"
 		location "AssetsSystem"
 		kind "SharedLib"
