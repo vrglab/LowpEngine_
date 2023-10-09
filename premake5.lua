@@ -198,6 +198,7 @@ project "LowpEngine"
 	links
 	{
 		"Engine",
+		"Engine.UI",
 		"AssetsSystem",
 		"GlobalUtilities",
 		"Packages/c#/log4net/net20/log4net.dll"
