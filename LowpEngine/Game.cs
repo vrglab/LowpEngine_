@@ -24,8 +24,8 @@ namespace LowpEngine
 
         public Game(GameInfo gameInfo)
         {
-            AssetsDatabase.LoadAssetBundle("C:\\Users\\a.bozorgmehr\\Documents\\LowpProjects");
-            Debug.Debug.Log(AssetsDatabase.ImportAsset("LowpProjects/project/project.sln").ToString());
+            AssetsDatabase.LoadAssetBundle("C:\\Users\\arad8\\Documents\\LowpEngineProjects");
+            Debug.Debug.Log(AssetsDatabase.ImportAsset("LowpEngineProjects/fuckem/fuckem.sln").ToString());
             engineLib = LoadLibrary(Path.Combine(Environment.CurrentDirectory, "Engine.dll"));
             this.gameInfo = gameInfo;
             app = new Application(gameInfo);
