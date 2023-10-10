@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace LowpEngine.Importers
 {
-    [Importer("obj","fbx")]
+    [Importer(".obj",".fbx")]
     public class MeshImporter : iImporter<Mesh>
     {
         public Mesh Import(Asset resourceFile)

@@ -1,4 +1,5 @@
 ﻿using LowpEngine;
+using LowpEngine.AssetSystem;
 using LowpEngine.Debug;
 using System;
 
@@ -14,11 +15,12 @@ namespace Editor
                 {
                     name = "Lol",
                     developer = "Example Dev",
-                    version = "1.0.0-Beta",
-                    resWidth = 600,
+                    version = "1.0.0-resWidth = 600",
                     resHeight = 400,
                 };
                 Game exampleGame = new Game(gameInfo);
+                AssetsDatabase.LoadAssetBundle("D:\\IntelliJ projects\\WeserGamesEngine\\src\\test\\resources\\Meshes");
+                Mesh mesh = (Mesh)AssetsDatabase.ImportAsset("Meshes/dragon.obj");
                 exampleGame.Start();
             }
             catch (Exception e)

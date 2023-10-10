@@ -17,23 +17,18 @@ namespace LowpEngine.Loaders
 
         public static Mesh LoadMesh(Asset asset)
         {
-            string tempFile = $"{Path.GetTempPath()}\\{asset.Resource.Name}.{asset.Resource.Extension}";
-            Thread writerThread = new Thread(() =>
-            {
-                File.WriteAllBytes(tempFile, asset.Resource.Compressed ? null : asset.Resource.Data);
-            });
-            writerThread.Start();
+            string tempFile = $"{Path.GetTempPath()}{asset.Resource.Name}{asset.Resource.Extension}";
+            File.WriteAllBytes(tempFile, asset.Resource.Compressed ? null : asset.Resource.Data);
             IntPtr mesh = IntPtr.Zero;
-            if (writerThread.ThreadState != ThreadState.Running)
-            {
-                mesh = Assimp_LoadMesh(tempFile);
-            }
+            mesh = Assimp_LoadMesh(tempFile);
             Thread deletingThread = new Thread(() =>
             {
                 File.Delete(tempFile);
             });
             deletingThread.Start();
-            return Marshal.PtrToStructure<Mesh>(mesh);
+            Mesh translatedMesh = Marshal.PtrToStructure<Mesh>(mesh);
+            translatedMesh.nativeVariant = mesh;
+            return translatedMesh;
         }
     }
 }

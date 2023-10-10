@@ -229,7 +229,8 @@ project "Editor"
 	{
 		"LowpEngine",
 		"GlobalUtilities",
-		"AssetsTool"
+		"AssetsTool",
+		"AssetsSystem"
 	}
 
 	filter "configurations:Debug"

@@ -8,7 +8,7 @@ I should mention certain project's such as the ConsoleAppEngie and GlobalUtiliti
 1. AssetSystem: is Dependent only on number 7.
 2. AssetsTool: is Dependent on numbers 1, 3, 7.
 3. ConsoleAppEngine: is Dependent only on number 7.
-4. Editor: is Dependent on numbers 2, 7, 8.
+4. Editor: is Dependent on numbers 1, 2, 7, 8.
 5. Engine (C++ Core): No internal project Dependencies.
 6. Engine.UI (c++ Engine UI lib): is Dependent only on number 5.
 7. GlobalUtilities: No internal project Dependencies.
