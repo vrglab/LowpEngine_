@@ -24,4 +24,8 @@
 #include "Windowing/Window.h"
 #include "Windowing/Application.h"
 
+//meshing
+#include "Types/Mesh.h"
+#include "Loaders/Assimp.h"
+
 #endif // !_lpEngine_ 

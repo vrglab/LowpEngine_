@@ -4,6 +4,16 @@
 #include<vulkan/vulkan.h>
 #include<stb_image.h>
 
+#ifndef _lpEngine_assimp
+#define _lpEngine_assimp
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+#endif
+
+#include <glm/glm.hpp>
+#include <vector>
+
 #ifndef _lpEngine_bgfx
 #define _lpEngine_bgfx
 #include<bx/bx.h>
