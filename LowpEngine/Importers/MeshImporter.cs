@@ -1,6 +1,7 @@
 ﻿using LowpEngine.AssetManagement.Importer;
 using LowpEngine.AssetsSystem;
 using LowpEngine.AssetSystem.Importer;
+using LowpEngine.Loaders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace LowpEngine.Importers
 {
-    [Importer("*")]
-    public class DefaultImporter : iImporter<string>
+    [Importer("obj","fbx")]
+    public class MeshImporter : iImporter<Mesh>
     {
-        public string Import(Asset resourceFile)
+        public Mesh Import(Asset resourceFile)
         {
-            return Encoding.Default.GetString(resourceFile.Resource.Data);
+            return Assimp.LoadMesh(resourceFile);
         }
     }
 }

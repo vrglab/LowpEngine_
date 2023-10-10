@@ -9,7 +9,7 @@ namespace LowpEngine.AssetSystem.Importer
 {
     public interface iImporter<T> : iImporter
     {
-        T Import(DiskResource resourceFile);
+        T Import(Asset asset);
     }
 
     public interface iImporter

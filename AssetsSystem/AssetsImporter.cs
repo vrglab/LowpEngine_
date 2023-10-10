@@ -48,7 +48,7 @@ namespace LowpEngine.AssetSystem
                 if (importerType.GetInterface("iImporter") != null)
                 {
                     var importer = importerType.GetConstructor(new Type[] { }).Invoke(new object[] {});
-                    importedData = importerType.GetMethod("Import").Invoke(importer, new object[] { asset.Resource });
+                    importedData = importerType.GetMethod("Import").Invoke(importer, new object[] { asset });
                 }
                 _loaded_assets[asset.Id.ToString()] = importedData;
                 return importedData;
