@@ -14,12 +14,12 @@ Mesh* AssimpLoader::LoadMesh(const char* file)
     Mesh mesh = Mesh();
 
     // Process all the meshes in the scene and add them as submeshes to the main Mesh
-    processNode(scene->mRootNode, scene, mesh);
+    processNode(scene->mRootNode, scene, mesh, true);
 
     return &mesh;
 }
 
-void AssimpLoader::processNode(const aiNode* node, const aiScene* scene, Mesh& mesh)
+void AssimpLoader::processNode(const aiNode* node, const aiScene* scene, Mesh& mesh, bool root)
 {
     for (unsigned int i = 0; i < node->mNumMeshes; ++i) {
         aiMesh* aiMesh = scene->mMeshes[node->mMeshes[i]];
@@ -51,13 +51,18 @@ void AssimpLoader::processNode(const aiNode* node, const aiScene* scene, Mesh& m
         }
 
         // Create a submesh and add it to the main Mesh
-        Mesh subMesh(vertices, normals, textureCoords, indices);
-        mesh.AddSubMesh(subMesh);
+        if (root) {
+            mesh = Mesh(vertices, normals, textureCoords, indices);
+        }
+        else {
+            Mesh subMesh(vertices, normals, textureCoords, indices);
+            mesh.AddSubMesh(subMesh);
+        }
     }
 
     // Recursively process child nodes
     for (unsigned int i = 0; i < node->mNumChildren; ++i) {
-        processNode(node->mChildren[i], scene, mesh);
+        processNode(node->mChildren[i], scene, mesh, false);
     }
 }
 
