@@ -21,7 +21,7 @@
 #include <vulkan/vulkan.h>
 
 //Windowing
-#include "Window.h"
-#include "Application.h"
+#include "Windowing/Window.h"
+#include "Windowing/Application.h"
 
 #endif // !_lpEngine_ 

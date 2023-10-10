@@ -55,7 +55,8 @@ project "Engine"
 
 	includedirs
 	{
-		"Packages/c++/includes/"
+		"Packages/c++/includes/",
+		"%{prj.name}"
 	}
 	
 	links
@@ -69,7 +70,7 @@ project "Engine"
 	}
 
 	vpaths {
-		["Headers"] = { "**.h", "**.hpp" },
+		["Headers/*"] = { "**.h", "**.hpp" },
 		["Sources/*"] = {"**.c", "**.cpp"}
 	}
 
