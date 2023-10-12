@@ -95,5 +95,15 @@ namespace LowpEngine.AssetsSystem.Bundle
                 return null;
             }
         }
+
+        public static bool IsFolderPath(string path)
+        {
+            return !Path.HasExtension(path);
+        }
+
+        public static bool IsDiskResourcePath(string path)
+        {
+            return Path.HasExtension(path);
+        }
     }
 }

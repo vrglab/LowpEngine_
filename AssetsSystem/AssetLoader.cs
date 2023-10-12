@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LowpEngine.AssetSystem
+namespace LowpEngine.AssetsSystem
 {
     public class AssetLoader
     {

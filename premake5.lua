@@ -157,6 +157,7 @@ project "Engine.UI"
 	
 		filter "configurations:Release"
 			optimize "On"
+
 project "AssetsSystem"
 		location "AssetsSystem"
 		kind "SharedLib"
@@ -181,6 +182,7 @@ project "AssetsSystem"
 	
 		filter "configurations:Release"
 			optimize "On"		
+
 project "LowpEngine"
 	location "LowpEngine"
 	kind "SharedLib"
@@ -210,6 +212,7 @@ project "LowpEngine"
 
 	filter "configurations:Release"
 		optimize "On"	
+
 project "Editor"
 	location "Editor"
 	kind "ConsoleApp"
@@ -229,8 +232,7 @@ project "Editor"
 	{
 		"LowpEngine",
 		"GlobalUtilities",
-		"AssetsTool",
-		"AssetsSystem"
+		"AssetsTool"
 	}
 
 	filter "configurations:Debug"
@@ -238,6 +240,7 @@ project "Editor"
 
 	filter "configurations:Release"
 		optimize "On"
+
 project "ConsoleAppEngine"
 		location "ConsoleAppEngine"
 		kind "SharedLib"
@@ -262,6 +265,7 @@ project "ConsoleAppEngine"
 	
 		filter "configurations:Release"
 			optimize "On"
+
 project "AssetsTool"
 		location "AssetsTool"
 		kind "ConsoleApp"
@@ -290,6 +294,7 @@ project "AssetsTool"
 	
 		filter "configurations:Release"
 			optimize "On"
+
 project "GlobalUtilities"
 		location "GlobalUtilities"
 		kind "SharedLib"

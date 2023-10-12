@@ -75,12 +75,12 @@ namespace LowpEngine.AssetsSystem
 
         public static bool IsFolderPath(this Folder folder, string path)
         {
-            return !Path.HasExtension(path);
+            return AssetsBundle.IsFolderPath(path);
         }
 
         public static bool IsDiskResourcePath(this Folder folder, string path)
         {
-            return Path.HasExtension(path);
+            return AssetsBundle.IsDiskResourcePath(path);
         }
 
         public static bool IsFolderExists(this Folder folder, string path)

@@ -1,4 +1,5 @@
-﻿using LowpEngine.AssetSystem;
+﻿using LowpEngine.AssetsSystem;
+using LowpEngine.AssetSystem;
 using LowpEngine.Debug;
 using System;
 using System.Collections.Generic;
@@ -20,12 +21,15 @@ namespace LowpEngine
 
         public string PersistentDataPath { get => $"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\\{gameInfo.name}"; }
 
+        public AssetDatabase assetDatabase { get;}
+
         public event Update OnUpdate;
 
         public Game(GameInfo gameInfo)
         {
             engineLib = LoadLibrary(Path.Combine(Environment.CurrentDirectory, "Engine.dll"));
             this.gameInfo = gameInfo;
+            assetDatabase = new AssetDatabase(gameInfo.assetsLocation);
             app = new Application(gameInfo);
         }
 
@@ -81,5 +85,7 @@ namespace LowpEngine
         public string publisher;
 
         public int resWidth, resHeight;
+
+        public string assetsLocation;
     }
 }

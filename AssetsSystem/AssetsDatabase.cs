@@ -7,15 +7,15 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LowpEngine.AssetSystem
+namespace LowpEngine.AssetsSystem
 {
-    public static class AssetsDatabase
+    public class AssetsDatabase
     {
 
-        internal static AssetLoader assetsLoader { get => GetAssetsLoader(); set { assetsloader = value; } }
-        private static AssetLoader assetsloader;
+        internal AssetLoader assetsLoader { get => GetAssetsLoader(); set { assetsloader = value; } }
+        private AssetLoader assetsloader;
 
-        private static AssetLoader GetAssetsLoader()
+        private AssetLoader GetAssetsLoader()
         {
             if (assetsloader == null)
             {
@@ -25,10 +25,10 @@ namespace LowpEngine.AssetSystem
         }
 
 
-        internal static AssetsImporter assetsImporter { get => GetAssetsImporter(); private set { assetsimporter = value; } }
-        private static AssetsImporter assetsimporter;
+        internal AssetsImporter assetsImporter { get => GetAssetsImporter(); private set { assetsimporter = value; } }
+        private AssetsImporter assetsimporter;
 
-        private static AssetsImporter GetAssetsImporter()
+        private AssetsImporter GetAssetsImporter()
         {
             if (assetsimporter == null)
             {
@@ -38,15 +38,22 @@ namespace LowpEngine.AssetSystem
         }
 
 
-        public static object ImportAsset(string path)
+        public object ImportAsset(string path)
         {
             return assetsImporter[assetsLoader[path]];
         }
 
-        public static void LoadAssetBundle(string path)
+        public void LoadAssetBundle(string path)
         {
-            Folder convertedFolder = AssetsBundle.GetFolder(path);
-            assetsLoader._asset_bundle_file = new AssetsBundle(convertedFolder);
+            if (AssetsBundle.IsDiskResourcePath(path))
+            {
+                
+            }
+            else if(AssetsBundle.IsFolderPath(path))
+            {
+                Folder convertedFolder = AssetsBundle.GetFolder(path);
+                assetsLoader._asset_bundle_file = new AssetsBundle(convertedFolder);
+            }
         }
     }
 }
