@@ -26,7 +26,8 @@ namespace LowpEngine.Loaders
                 File.Delete(tempFile);
             });
             deletingThread.Start();
-            Mesh translatedMesh = Marshal.PtrToStructure<Mesh>(mesh);
+            MeshCreationInformation info = Marshal.PtrToStructure<MeshCreationInformation>(mesh);
+            Mesh translatedMesh = new Mesh(info.vertices, info.normals, info.textureCoords, info.indices, mesh);
             translatedMesh.nativeVariant = mesh;
             return translatedMesh;
         }

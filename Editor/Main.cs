@@ -20,7 +20,7 @@ namespace Editor
                     assetsLocation = "D:\\IntelliJ projects\\WeserGamesEngine\\src\\test\\resources\\Meshes"
                 };
                 Game exampleGame = new Game(gameInfo);
-                //Mesh mesh = (Mesh)exampleGame.assetDatabase["Meshes/dragon.obj"];
+                Mesh mesh = (Mesh)exampleGame.assetDatabase["Meshes/dragon.obj"];
                 exampleGame.Start();
             }
             catch (Exception e)

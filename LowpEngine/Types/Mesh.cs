@@ -1,6 +1,7 @@
 ﻿using LowpEngine.Types.Mathmatics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -47,5 +48,20 @@ namespace LowpEngine
         {
             submeshes.Add(subMesh);
         }
+    }
+
+    [StructLayout(LayoutKind.Explicit)]
+    public struct MeshCreationInformation
+    {
+        [FieldOffset(0)]
+        public List<Vector3> vertices;
+        [FieldOffset(1)]
+        public List<Vector3> normals;
+        [FieldOffset(2)]
+        public List<Vector2> textureCoords;
+        [FieldOffset(3)]
+        public List<int> indices;
+        [FieldOffset(4)]
+        public List<Mesh> submeshes;
     }
 }
