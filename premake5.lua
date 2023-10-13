@@ -6,6 +6,7 @@ workspace "LowpEngine"
 		"Debug",
 		"Release"
 	}
+	platforms { "x86", "x64", "ARM", "ARM64" }
 	outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 project "Engine"
@@ -313,6 +314,60 @@ project "GlobalUtilities"
 		links
 		{
 
+		}
+	
+		filter "configurations:Debug"
+			symbols "On"
+	
+		filter "configurations:Release"
+			optimize "On"
+
+project "Launcher"
+		location "Launchers/Launcher"
+		kind "SharedLib"
+		language "C#"
+		csversion ("11")
+	
+		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+		objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	
+		files 
+		{
+			"%{prj.name}/**.cs",
+			"%{prj.name}/**/**.cs"
+		}
+	
+		links
+		{
+			"LowpEngine",
+			"GlobalUtilities"
+		}
+	
+		filter "configurations:Debug"
+			symbols "On"
+	
+		filter "configurations:Release"
+			optimize "On"
+
+project "WindowsLauncher"
+		location "Launchers/WindowsLauncher"
+		kind "ConsoleApp"
+		language "C#"
+		csversion ("11")
+	
+		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+		objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	
+		files 
+		{
+			"%{prj.name}/**.cs",
+			"%{prj.name}/**/**.cs"
+		}
+	
+		links
+		{
+			"LowpEngine",
+			"Launcher"
 		}
 	
 		filter "configurations:Debug"
