@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LowpEngine.AssetsSystem
+namespace LowpEngine.AssetSystem
 {
     public class AssetsImporter
     {
