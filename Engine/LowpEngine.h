@@ -20,12 +20,24 @@
 #include <gl/GL.h>
 #include <vulkan/vulkan.h>
 
+#ifdef __APPLE__ 
+#include <metal/Foundation/Foundation.hpp>
+#include <metal/Metal/Metal.hpp>
+#include <metal/MetalFX/MetalFX.hpp>
+#include <metal/QuartzCore/QuartzCore.hpp>
+#endif
+
 //Windowing
 #include "Windowing/Window.h"
-#include "Windowing/Application.h"
 
-//meshing
+//Meshing
 #include "Types/Mesh.h"
 #include "Loaders/Assimp.h"
+
+//Rendering
+#include "Rendering/Renderer.h"
+
+//Application Handling
+#include "Application Handling/Application.h"
 
 #endif // !_lpEngine_ 

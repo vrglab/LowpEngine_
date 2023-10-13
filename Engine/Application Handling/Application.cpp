@@ -18,6 +18,8 @@ void Application::Run(Update update)
 	{
 		window->ProcessEvents();
 		update();
+		Encoder* encoder = begin();
+		end(encoder);
 		frame();
 	}
 }
