@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LowpEngine.AssetSystem
+namespace LowpEngine.AssetsSystem
 {
     public class AssetsDatabase
     {
