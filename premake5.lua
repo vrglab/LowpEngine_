@@ -232,6 +232,7 @@ project "Editor"
 	links
 	{
 		"LowpEngine",
+		"Launcher",
 		"GlobalUtilities",
 		"AssetsTool"
 	}
@@ -323,7 +324,7 @@ project "GlobalUtilities"
 			optimize "On"
 
 project "Launcher"
-		location "Launchers/Launcher"
+		location "Launcher"
 		kind "SharedLib"
 		language "C#"
 		csversion ("11")
@@ -349,8 +350,10 @@ project "Launcher"
 		filter "configurations:Release"
 			optimize "On"
 
-project "WindowsLauncher"
-		location "Launchers/WindowsLauncher"
+
+			
+project "TestGame"
+		location "TestGame"
 		kind "ConsoleApp"
 		language "C#"
 		csversion ("11")
@@ -366,8 +369,7 @@ project "WindowsLauncher"
 	
 		links
 		{
-			"LowpEngine",
-			"Launcher"
+			"LowpEngine"
 		}
 	
 		filter "configurations:Debug"
