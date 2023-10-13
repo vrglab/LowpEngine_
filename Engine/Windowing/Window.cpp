@@ -47,7 +47,6 @@ void Window::Open()
 
 	Init init_;
 
-	init_.type = getRendererType();
 	init_.resolution = info->resolution;
 	bool initiated = init(init_);
 
