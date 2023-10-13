@@ -43,6 +43,7 @@ project "Engine"
 
 	if os.target() == "windows" then
 		pchheader "lppch.h"
+		cppdialect "C++latest"
 	elseif os.target() == "linux" then
 		pchheader "%{prj.name}/lppch.h"
 	end
@@ -123,6 +124,7 @@ project "Engine.UI"
 	
 		if os.target() == "windows" then
 			pchheader "lpuipch.h"
+			cppdialect "C++latest"
 		elseif os.target() == "linux" then
 			pchheader "%{prj.location}/lpuipch.h"
 		end
@@ -195,6 +197,7 @@ project "SoundSystem"
 
 	if os.target() == "windows" then
 		pchheader "lppch.h"
+		cppdialect "C++latest"
 	elseif os.target() == "linux" then
 		pchheader "%{prj.name}/lppch.h"
 	end
