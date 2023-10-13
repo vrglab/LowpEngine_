@@ -13,6 +13,9 @@ I should mention certain project's such as the ConsoleAppEngine and GlobalUtilit
 6. Engine.UI (c++ Engine UI lib): is Dependent only on number 5.
 7. GlobalUtilities: No internal project Dependencies.
 8. LowpEngine (C# bindings/implementation of Core Engine and Engine UI): is Dependent on numbers: 1, 5, 6, 7.
+9. Launcher: is Dependent on numbers: 7 and 8.
+1. TestGame: is Dependent only on number 8.
+
 
 # Building/IDE Envoirment Generation
 Clone the project using `git clone git@github.com:vrglab/LowpEngine.git` and Run the `Generate` this should generate the default IDE envoirment after that you need to run the `InstallPackages` file for your os
