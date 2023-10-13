@@ -1,3 +1,25 @@
+function determine_os()
+    if os.ishost("windows") then
+        return "Windows"
+    elseif os.ishost("linux") then
+        return "Linux"
+    elseif os.ishost("macosx") then
+        return "macOS"
+    else
+        return "Unknown"
+    end
+end
+
+-- Function to determine the current architecture
+function determine_architecture()
+    if os.is64bit() then
+        return "x86_64"
+    else
+        return "x86"
+    end
+end
+
+
 workspace "LowpEngine"
 	architecture "x64"
 
@@ -8,6 +30,7 @@ workspace "LowpEngine"
 	}
 	platforms { "x86", "x64", "ARM", "ARM64" }
 	outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+	vcpkg_arg_dir = determine_architecture().."-"..determine_os();
 
 project "Engine"
 	location "Engine"
@@ -20,28 +43,8 @@ project "Engine"
 
 	if os.target() == "windows" then
 		pchheader "lppch.h"
-		libdirs
-		{
-			"Packages/c++/libs/windows"
-		}
-		links
-		{
-			"SDL2",
-			"vulkan-1",
-			"assimp-vc143-mt"
-		}
 	elseif os.target() == "linux" then
 		pchheader "%{prj.name}/lppch.h"
-		libdirs
-		{
-			"/Packages/c++/libs/linux"
-		}
-		links
-		{
-			"SDL2-2.0.so.0",
-			"vulkan",
-			"assimp"
-		}
 	end
 
 	pchsource "%{prj.name}/lppch.cpp"
@@ -54,18 +57,43 @@ project "Engine"
 		"%{prj.name}/**/**.cpp"
 	}
 
+	libdirs
+	{
+		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/lib"
+	}
+
 	includedirs
 	{
-		"Packages/c++/includes/",
+		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
 		"%{prj.name}"
 	}
 	
 	links
 	{
-		"HLSL",
+		"assimp-vc143-mt",
+		"bgfx",
+		"bimg",
+		"bimg_decode",
+		"bimg_encode",
+		"bx",
+		"CompilerSpirV",
+		"draco",
+		"GlU32",
+		"kubazip",
+		"miniz",
+		"minizip",
 		"OpenAL32",
-		"shaderc",
-		"SPIRV",
+		"OpenGL32",
+		"poly2tri",
+		"polyclipping",
+		"pugixml",
+		"SDL2",
+		"ShaderAST",
+		"ShaderWriter",
+		"squish",
+		"tinyexr",
+		"volk",
+		"zlib",
 		"fmod",
 		"fmodstudio"
 	}
@@ -83,21 +111,9 @@ project "Engine"
 
 	filter "configurations:Debug"
 		symbols "On"
-		links
-		{
-			"bgfxDebug",
-			"bimgDebug",
-			"bxDebug"
-		}
 
 	filter "configurations:Release"
 		optimize "On"
-		links
-		{
-			"bgfxRelease",
-			"bimgRelease",
-			"bxRelease"
-		}
 
 project "Engine.UI"
 		location "Engine_UI"
@@ -110,40 +126,55 @@ project "Engine.UI"
 	
 		if os.target() == "windows" then
 			pchheader "lpuipch.h"
-			libdirs
-			{
-				"Packages/c++/libs/windows"
-			}
 		elseif os.target() == "linux" then
 			pchheader "%{prj.location}/lpuipch.h"
-			libdirs
-			{
-				"/Packages/c++/libs/linux"
-			}
 		end
 	
 		pchsource "%{prj.location}/lpuipch.cpp"
 	
-		files 
+		libdirs
 		{
-			"%{prj.location}/**.h",
-			"%{prj.location}/**.cpp",
-			"%{prj.location}/**/**.h",
-			"%{prj.location}/**/**.cpp"
+			"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/lib"
 		}
 	
 		includedirs
 		{
-			"Packages/c++/includes/"
+			"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
+			"%{prj.name}"
 		}
 		
 		links
 		{
-			"Engine"
+			"assimp-vc143-mt",
+			"bgfx",
+			"bimg",
+			"bimg_decode",
+			"bimg_encode",
+			"bx",
+			"CompilerSpirV",
+			"draco",
+			"GlU32",
+			"kubazip",
+			"miniz",
+			"minizip",
+			"OpenAL32",
+			"OpenGL32",
+			"poly2tri",
+			"polyclipping",
+			"pugixml",
+			"SDL2",
+			"ShaderAST",
+			"ShaderWriter",
+			"squish",
+			"tinyexr",
+			"volk",
+			"zlib",
+			"fmod",
+			"fmodstudio"
 		}
 	
 		vpaths {
-			["Headers"] = { "**.h", "**.hpp" },
+			["Headers/*"] = { "**.h", "**.hpp" },
 			["Sources/*"] = {"**.c", "**.cpp"}
 		}
 	
