@@ -14,9 +14,6 @@ namespace GlobalUtilities.IO
         string Path;
         string EXE = Assembly.GetExecutingAssembly().GetName().Name;
 
-        public object this[string key] { get { return Read(key); } set { Write(key, value.ToString()); } }
-        public object this[string key, string section] { get { return Read(key, section); } set { Write(key, value.ToString(), section); } }
-
         [DllImport("kernel32", CharSet = CharSet.Unicode)]
         static extern long WritePrivateProfileString(string Section, string Key, string Value, string FilePath);
 
@@ -31,8 +28,8 @@ namespace GlobalUtilities.IO
 
         public string Read(string Key, string Section = null)
         {
-            var RetVal = new StringBuilder();
-            GetPrivateProfileString(Section ?? EXE, Key, "", RetVal, RetVal.Capacity, Path);
+            var RetVal = new StringBuilder(255);
+            GetPrivateProfileString(Section ?? EXE, Key, "", RetVal, 255, Path);
             return RetVal.ToString();
         }
 
@@ -58,14 +55,14 @@ namespace GlobalUtilities.IO
 
         public Dictionary<string, string> ReadSection(string Section = null)
         {
-            Dictionary<string, string> sectionData = new Dictionary<string, string>();
-            StringBuilder keysBuffer = new StringBuilder();
+            var sectionData = new Dictionary<string, string>();
+            var keysBuffer = new StringBuilder(2048); // Adjust the buffer size as needed
 
             int bytesRead = GetPrivateProfileString(Section ?? EXE, null, "", keysBuffer, keysBuffer.Capacity, Path);
 
             if (bytesRead > 0)
             {
-                string[] keys = keysBuffer.ToString().Split('\0');
+                var keys = keysBuffer.ToString().Split('\0');
 
                 foreach (var key in keys)
                 {
