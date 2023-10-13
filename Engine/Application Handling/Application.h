@@ -1,5 +1,4 @@
 #pragma once
-#include "LowpEngine.h"
 typedef void(*Update)();
 
 struct GameInfo

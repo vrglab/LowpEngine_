@@ -15,7 +15,7 @@ I should mention certain project's such as the ConsoleAppEngine and GlobalUtilit
 8. LowpEngine (C# bindings/implementation of Core Engine and Engine UI): is Dependent on numbers: 1, 5, 6, 7.
 
 # Building/IDE Envoirment Generation
-Clone the project using `git clone git@github.com:vrglab/LowpEngine.git` and Run the `Generate` this should generate the default IDE envoirment
+Clone the project using `git clone git@github.com:vrglab/LowpEngine.git` and Run the `Generate` this should generate the default IDE envoirment after that you need to run the `InstallPackages` file for your os
 
 ### Windows
 On windows running the `Generate.bat` file should by default create `Visual Studio Comunity 2022` project files and using Viisual Studio you should be able to just build the project.

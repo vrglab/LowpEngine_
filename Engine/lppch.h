@@ -16,7 +16,7 @@
 
 #ifndef _lpEngine_bgfx
 #define _lpEngine_bgfx
-#include<bx/bx.h>
+#define _ITERATOR_DEBUG_LEVEL 2
 #include<bimg/bimg.h>
 #include<bgfx/bgfx.h>
 #include<bgfx/platform.h>

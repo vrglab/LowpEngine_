@@ -13,7 +13,7 @@ end
 -- Function to determine the current architecture
 function determine_architecture()
     if os.is64bit() then
-        return "x86_64"
+        return "x64"
     else
         return "x86"
     end
@@ -82,8 +82,6 @@ project "Engine"
 		"kubazip",
 		"miniz",
 		"minizip",
-		"OpenAL32",
-		"OpenGL32",
 		"poly2tri",
 		"polyclipping",
 		"pugixml",
@@ -94,8 +92,7 @@ project "Engine"
 		"tinyexr",
 		"volk",
 		"zlib",
-		"fmod",
-		"fmodstudio"
+		"SoundSystem"
 	}
 
 	vpaths {
@@ -157,7 +154,6 @@ project "Engine.UI"
 			"kubazip",
 			"miniz",
 			"minizip",
-			"OpenAL32",
 			"OpenGL32",
 			"poly2tri",
 			"polyclipping",
@@ -168,9 +164,7 @@ project "Engine.UI"
 			"squish",
 			"tinyexr",
 			"volk",
-			"zlib",
-			"fmod",
-			"fmodstudio"
+			"zlib"
 		}
 	
 		vpaths {
@@ -189,6 +183,66 @@ project "Engine.UI"
 	
 		filter "configurations:Release"
 			optimize "On"
+
+project "SoundSystem"
+	location "SoundSystem"
+	kind "SharedLib"
+	language "C++"
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+
+	if os.target() == "windows" then
+		pchheader "lppch.h"
+	elseif os.target() == "linux" then
+		pchheader "%{prj.name}/lppch.h"
+	end
+
+	pchsource "%{prj.name}/lppch.cpp"
+
+	files 
+	{
+		"%{prj.name}/**.h",
+		"%{prj.name}/**.cpp",
+		"%{prj.name}/**/**.h",
+		"%{prj.name}/**/**.cpp"
+	}
+
+	libdirs
+	{
+		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/lib"
+	}
+
+	includedirs
+	{
+		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
+		"%{prj.name}"
+	}
+	
+	links
+	{
+		"OpenAL32",
+		"fmod",
+		"fmodstudio"
+	}
+
+	vpaths {
+		["Headers/*"] = { "**.h", "**.hpp" },
+		["Sources/*"] = {"**.c", "**.cpp"}
+	}
+
+
+	filter "system:windows"
+		cppdialect "C++17"
+		staticruntime "On"
+		systemversion "latest"
+
+	filter "configurations:Debug"
+		symbols "On"
+
+	filter "configurations:Release"
+		optimize "On"
 
 project "AssetsSystem"
 		location "AssetsSystem"
