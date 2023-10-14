@@ -53,7 +53,7 @@ void Window::Open()
 		return;
 	}
 
-	std::cout << GetRendereTypeName( GetRendererType()) << std::endl;
+	std::cout << GetRendereTypeName(GetRendererType()) << std::endl;
 }
 
 void Window::Close()
