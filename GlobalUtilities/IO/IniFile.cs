@@ -11,6 +11,20 @@ namespace GlobalUtilities.IO
 {
     public class IniFile
     {
+
+        public object this[string key]
+        {
+            get { return Read(key); }
+            set { Write(key, value.ToString()); }
+        }
+
+        public object this[string key, string section]
+        {
+            get { return Read(key, section); }
+            set { Write(key, value.ToString(), section); }
+        }
+
+
         string Path;
         string EXE = Assembly.GetExecutingAssembly().GetName().Name;
 
@@ -28,8 +42,8 @@ namespace GlobalUtilities.IO
 
         public string Read(string Key, string Section = null)
         {
-            var RetVal = new StringBuilder(255);
-            GetPrivateProfileString(Section ?? EXE, Key, "", RetVal, 255, Path);
+            StringBuilder RetVal = new StringBuilder();
+            GetPrivateProfileString(Section ?? EXE, Key, "", RetVal, RetVal.Capacity, Path);
             return RetVal.ToString();
         }
 
@@ -55,14 +69,14 @@ namespace GlobalUtilities.IO
 
         public Dictionary<string, string> ReadSection(string Section = null)
         {
-            var sectionData = new Dictionary<string, string>();
-            var keysBuffer = new StringBuilder(2048); // Adjust the buffer size as needed
+            Dictionary<string, string> sectionData = new Dictionary<string, string>();
+            StringBuilder keysBuffer = new StringBuilder(); // Adjust the buffer size as needed
 
             int bytesRead = GetPrivateProfileString(Section ?? EXE, null, "", keysBuffer, keysBuffer.Capacity, Path);
 
             if (bytesRead > 0)
             {
-                var keys = keysBuffer.ToString().Split('\0');
+                string[] keys = keysBuffer.ToString().Split('\0');
 
                 foreach (var key in keys)
                 {
