@@ -36,13 +36,13 @@ void Window::Open()
 		return;
 	}
 
-	sdl_window = SDL_CreateWindow(info->name.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, info->resolution.width, info->resolution.height, info->flags);
-
-	if (!sdl_window) {
+	if (!SDL_CreateWindowAndRenderer(info->resolution.width, info->resolution.height, info->flags, &sdl_window, &sdl_renderer)) {
 		// Handle window creation error
 		SDL_Quit();
 		return;
 	}
+
+	SDL_SetWindowTitle(sdl_window, info->name.c_str());
 }
 
 void Window::Close()

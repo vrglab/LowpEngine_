@@ -73,7 +73,8 @@ project "Engine"
 		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
 		"%{prj.name}",
 		"SoundSystem",
-		"PhysicsEngine"
+		"PhysicsEngine",
+		"RenderingEngine"
 	}
 	
 	links
@@ -96,7 +97,8 @@ project "Engine"
 		"volk",
 		"zlib",
 		"SoundSystem",
-		"PhysicsEngine"
+		"PhysicsEngine",
+		"RenderingEngine"
 	}
 
 	vpaths {
@@ -203,7 +205,7 @@ project "Engine.UI"
 
 project "SoundSystem"
 	location "SoundSystem"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
 	toolset "v143"
 	buildoptions
@@ -275,7 +277,7 @@ project "SoundSystem"
 
 project "PhysicsEngine"
 	location "PhysicsEngine"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
 	toolset "v143"
 	buildoptions
@@ -340,6 +342,88 @@ project "PhysicsEngine"
 		"zlib",
 		"ode_double",
 		"box2d"
+	}
+
+	vpaths {
+		["Headers/*"] = { "**.h", "**.hpp" },
+		["Sources/*"] = {"**.c", "**.cpp"}
+	}
+
+
+	filter "system:windows"
+		cppdialect "C++17"
+		staticruntime "On"
+		systemversion "latest"
+
+	filter "configurations:Debug"
+		symbols "On"
+		defines {"DEBUG"}
+
+	filter "configurations:Release"
+		optimize "On"
+		defines {"RELEASE"}
+
+project "RenderingEngine"
+	location "RenderingEngine"
+	kind "StaticLib"
+	language "C++"
+	toolset "v143"
+	buildoptions
+	{
+		"/Zc:__cplusplus"
+	}
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+
+	if os.target() == "windows" then
+		pchheader "lprdpch.h"
+		cppdialect "C++latest"
+	elseif os.target() == "linux" then
+		pchheader "%{prj.name}/lprdpch.h"
+	end
+
+	pchsource "%{prj.name}/lprdpch.cpp"
+
+	files 
+	{
+		"%{prj.name}/**.h",
+		"%{prj.name}/**.cpp",
+		"%{prj.name}/**/**.h",
+		"%{prj.name}/**/**.cpp"
+	}
+
+	libdirs
+	{
+		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/lib"
+	}
+
+	includedirs
+	{
+		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
+		"%{prj.name}"
+	}
+	
+	links
+	{
+		"assimp-vc143-mt",
+		"CompilerSpirV",
+		"draco",
+		"GlU32",
+		"kubazip",
+		"miniz",
+		"minizip",
+		"poly2tri",
+		"polyclipping",
+		"pugixml",
+		"SDL2",
+		"ShaderAST",
+		"ShaderWriter",
+		"squish",
+		"tinyexr",
+		"volk",
+		"zlib"
 	}
 
 	vpaths {

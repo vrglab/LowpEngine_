@@ -16,6 +16,7 @@ class Window
 {
 	private:
 		SDL_Window* sdl_window;
+		SDL_Renderer* sdl_renderer;
 		WindowInfo* info;
 		bool shouldClose = false;
 
