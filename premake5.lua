@@ -527,7 +527,7 @@ project "Editor"
 	links
 	{
 		"LowpEngine",
-		"Launcher",
+		"LowpLauncher",
 		"GlobalUtilities",
 		"AssetsTool"
 	}
@@ -627,7 +627,81 @@ project "GlobalUtilities"
 			optimize "On"
 
 project "Launcher"
-		location "Launcher"
+	location "Launcher"
+	kind "StaticLib"
+	language "C++"
+	toolset "v143"
+	buildoptions
+	{
+		"/Zc:__cplusplus"
+	}
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+
+	if os.target() == "windows" then
+		pchheader "lplupch.h"
+		cppdialect "C++latest"
+		libdirs
+		{
+			"Packages/c++/libs/windows"
+		}
+	elseif os.target() == "linux" then
+		pchheader "%{prj.name}/lplupch.h"
+	end
+
+	pchsource "%{prj.name}/lplupch.cpp"
+
+	files 
+	{
+		"%{prj.name}/**.h",
+		"%{prj.name}/**.cpp",
+		"%{prj.name}/**/**.h",
+		"%{prj.name}/**/**.cpp"
+	}
+
+	libdirs
+	{
+		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/lib"
+	}
+
+	includedirs
+	{
+		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
+		"%{prj.name}",
+		"Engine"
+	}
+	
+	links
+	{
+		"OpenAL32",
+		"fmod",
+		"fmodstudio",
+		"Engine"
+	}
+
+	vpaths {
+		["Headers/*"] = { "**.h", "**.hpp" },
+		["Sources/*"] = {"**.c", "**.cpp"}
+	}
+
+
+	filter "system:windows"
+		cppdialect "C++17"
+		staticruntime "On"
+		systemversion "latest"
+
+	filter "configurations:Debug"
+		symbols "On"
+		defines { "DEBUG"}
+
+	filter "configurations:Release"
+		optimize "On"
+		defines {"RELEASE"}
+
+project "LowpLauncher"
+		location "LowpLauncher"
 		kind "SharedLib"
 		language "C#"
 		csversion ("11")
