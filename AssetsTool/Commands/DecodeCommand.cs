@@ -29,6 +29,10 @@ namespace AssetsTool.Commands
             byte[] bytes = Utils.Decompress(File.ReadAllBytes(args[0]));
 
             AssetsBundle assetBundle = MessagePackSerializer.Deserialize<AssetsBundle>(bytes, ContractlessStandardResolver.Options);
+
+            assetBundle.ConvertBundleToDirectory(folderDir);
+
+            Console.WriteLine($"Successfully created and decompressed \"{args[0]}\" in to \"{folderDir}\"");
         }
     }
 }
