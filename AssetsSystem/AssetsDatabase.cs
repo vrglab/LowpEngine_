@@ -1,11 +1,11 @@
-﻿using LowpEngine.AssetsSystem.Bundle;
+﻿using LowpEngine.AssetsSystem;
+using LowpEngine.AssetsSystem.Bundle;
+using LowpEngine.Utility;
+using MessagePack;
+using MessagePack.Resolvers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace LowpEngine.AssetsSystem
 {
@@ -47,7 +47,11 @@ namespace LowpEngine.AssetsSystem
         {
             if (AssetsBundle.IsDiskResourcePath(path))
             {
-                
+                byte[] bytes = Utils.Decompress(File.ReadAllBytes(path));
+                AssetsBundle ab =
+                    MessagePackSerializer.Deserialize<AssetsBundle>(bytes, ContractlessStandardResolver.Options);
+
+                assetsLoader._asset_bundle_file = ab;
             }
             else if(AssetsBundle.IsFolderPath(path))
             {

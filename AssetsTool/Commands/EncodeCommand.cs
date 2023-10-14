@@ -13,7 +13,7 @@ namespace AssetsTool.Commands
 {
     [Command("encode", 2,  "fn")]
     [HelpCommandData("Encodes the given folder into a .asset file", 
-        new string[]{"Folder To Convert", "Where to save the .asset file"}, 
+        new string[]{"Folder To Convert", "Where to save the .asb file"}, 
         validOptionNames = new string[] {"fn"}, 
         validOptionValue = new string[] { "File name" })]
     public class EncodeCommand : ICommand
@@ -21,7 +21,7 @@ namespace AssetsTool.Commands
         public void Execute(string[] args, KeyValuePair<string, string>[] options)
         {
             string assetFileName = options.Contains("fn") ? options.GetOptionValue("fn") : "Asset";
-            string assetFile = $"{args[1]}/{assetFileName}.asset";
+            string assetFile = $"{args[1]}/{assetFileName}.asb";
 
             var loadedFolder = new AssetsBundle(AssetsBundle.GetFolder(args[0], true));
             byte[] serialized = MessagePackSerializer.Serialize(loadedFolder, ContractlessStandardResolver.Options);
