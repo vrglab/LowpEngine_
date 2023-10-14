@@ -24,5 +24,10 @@ namespace LowpEngine.AssetsSystem
             this.database = new LowpEngine.AssetsSystem.AssetsDatabase();
             database.LoadAssetBundle(assetsBundle);
         }
+
+        public AssetDatabase()
+        {
+            this.database = new LowpEngine.AssetsSystem.AssetsDatabase();
+        }
     }
 }

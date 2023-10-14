@@ -29,7 +29,15 @@ namespace LowpEngine
         {
             engineLib = LoadLibrary(Path.Combine(Environment.CurrentDirectory, "Engine.dll"));
             this.gameInfo = gameInfo;
-            assetDatabase = new AssetDatabase(gameInfo.assetsLocation);
+            try
+            {
+                assetDatabase = new AssetDatabase(gameInfo.assetsLocation);
+            }
+            catch (Exception e)
+            {
+                assetDatabase = new AssetDatabase();
+            }
+            
             app = new Application(gameInfo);
         }
 

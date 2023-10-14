@@ -7,8 +7,18 @@
 // Windows-specific headers and entry point
 #include <Windows.h>
 
-int WINAPI main(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-    std::cout << "Running on Windows!" << std::endl;
+int WINAPI main(int argc, char* argv[]) {
+    GameInfo* info = new GameInfo();
+    info->resHeight = 400;
+    info->resWidth = 600;
+
+    Application* app = new Application(info);
+
+    app->Initialize();
+
+    app->Run({
+    });
+
     return 0;
 }
 

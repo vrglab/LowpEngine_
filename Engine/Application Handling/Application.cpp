@@ -5,6 +5,10 @@ Application::Application(GameInfo* name)
 {
 	WindowInfo* info = new WindowInfo();
 	info->name = (std::string)name->name;
+	if(info->name == "")
+	{
+		info->name = "Fall back name";
+	}
 	info->flags = SDL_WINDOW_RESIZABLE;
 	info->resolution.width = name->resWidth;
 	info->resolution.height = name->resHeight;

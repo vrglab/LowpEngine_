@@ -1,18 +1,18 @@
 #pragma once
 
-struct Resolution
+struct LP_Export Resolution
 {
 	int width, height;
 };
 
-struct WindowInfo
+struct LP_Export WindowInfo
 {
 		std::string name;
 		Resolution resolution;
 		int flags = 0;
 };
 
-class Window
+class LP_Export Window
 {
 	private:
 		SDL_Window* sdl_window;

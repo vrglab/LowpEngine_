@@ -22,27 +22,36 @@ void Window::ProcessEvents()
 			Close();
 		}
 	}
+
+	SDL_RenderClear(sdl_renderer);
+
+	SDL_RenderPresent(sdl_renderer);
 }
 
 void Window::Open()
 {
+
 	if (SDL_Init(0) != 0)
 	{
 		return;
 	}
 
-	if(info == nullptr)
-	{
-		return;
-	}
+	sdl_window = SDL_CreateWindow(info->name.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, info->resolution.width, info->resolution.height, SDL_WINDOW_SHOWN);
 
-	if (!SDL_CreateWindowAndRenderer(info->resolution.width, info->resolution.height, info->flags, &sdl_window, &sdl_renderer)) {
+	if (!sdl_window) {
 		// Handle window creation error
+		std::cout << SDL_GetError() << std::endl;
 		SDL_Quit();
 		return;
 	}
 
-	SDL_SetWindowTitle(sdl_window, info->name.c_str());
+	sdl_renderer = SDL_CreateRenderer(sdl_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	if (!sdl_renderer) {
+		// Handle renderer creation error
+		SDL_DestroyWindow(sdl_window);
+		SDL_Quit();
+		return;
+	}
 }
 
 void Window::Close()

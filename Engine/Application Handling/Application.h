@@ -11,7 +11,7 @@ struct GameInfo
 	int resHeight;
 };
 
-class Application
+class LP_Export Application
 {
 	private:
 		Window* window;
