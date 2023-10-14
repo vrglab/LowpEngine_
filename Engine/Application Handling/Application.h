@@ -9,6 +9,7 @@ struct GameInfo
 	char publisher[128];
 	int resWidth;
 	int resHeight;
+	int flags;
 };
 
 class LP_Export Application

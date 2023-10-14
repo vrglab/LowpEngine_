@@ -36,7 +36,7 @@ void Window::Open()
 		return;
 	}
 
-	sdl_window = SDL_CreateWindow(info->name.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, info->resolution.width, info->resolution.height, SDL_WINDOW_SHOWN);
+	sdl_window = SDL_CreateWindow(info->name.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, info->resolution.width, info->resolution.height, info->flags);
 
 	if (!sdl_window) {
 		// Handle window creation error

@@ -1,17 +1,17 @@
 #include "lppch.h"
 #include "Application.h"
 
-Application::Application(GameInfo* name)
+Application::Application(GameInfo* G_info)
 {
 	WindowInfo* info = new WindowInfo();
-	info->name = (std::string)name->name;
+	info->name = (std::string)G_info->name;
 	if(info->name == "")
 	{
 		info->name = "Fall back name";
 	}
-	info->flags = SDL_WINDOW_RESIZABLE;
-	info->resolution.width = name->resWidth;
-	info->resolution.height = name->resHeight;
+	info->flags = G_info->flags;
+	info->resolution.width = G_info->resWidth;
+	info->resolution.height = G_info->resHeight;
 
 	window = new Window(info);
 }

@@ -14,7 +14,8 @@ internal class main
             version = "1.0.0-beta",
             resHeight = 400,
             resWidth = 600,
-            assetsLocation = "D:\\Reusable Unity assets\\3D spesific assets\\Assets.asb"
+            assetsLocation = "D:\\Reusable Unity assets\\3D spesific assets\\Assets.asb",
+            flags = 0
         };
         Game game = new Game(gameInfo);
         game.Start();

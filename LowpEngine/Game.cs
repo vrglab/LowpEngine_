@@ -92,7 +92,7 @@ namespace LowpEngine
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
         public string publisher;
 
-        public int resWidth, resHeight;
+        public int resWidth, resHeight, flags;
 
         public string assetsLocation;
     }

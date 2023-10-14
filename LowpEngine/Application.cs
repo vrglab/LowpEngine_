@@ -10,7 +10,7 @@ namespace LowpEngine
 {
     public class Application
     {
-        [DllImport("Engine.dll")]
+        [DllImport("Engine")]
         private static extern IntPtr Application_create(GameInfo gameinfo);
         [DllImport("Engine")]
         private static extern void  Application_destroy(IntPtr app);
