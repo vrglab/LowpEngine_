@@ -5,7 +5,7 @@
 #define _lpEngine_
 #include "Macros.h"
 #include "PhysicsEngineCore.h"
-#include "lprdpch.h"
+#include "RenderingEngine.h"
 
 #ifndef _lpEngine_Physics
 #error  Physics engine not initialized

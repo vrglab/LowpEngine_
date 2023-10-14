@@ -52,6 +52,8 @@ void Window::Open()
 		SDL_Quit();
 		return;
 	}
+
+	std::cout << GetRendererType() << std::endl;
 }
 
 void Window::Close()

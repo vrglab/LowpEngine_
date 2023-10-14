@@ -1,7 +1,6 @@
 #pragma once
 
 #include<SDL2/SDL.h>
-#include<vulkan/vulkan.h>
 #include<stb_image.h>
 
 #ifndef _lpEngine_assimp
