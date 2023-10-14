@@ -106,7 +106,7 @@ namespace LowpEngine.AssetsSystem
                 if (!currentFolder.Children.ContainsKey(folderName))
                 {
                     // Create a new folder if it doesn't exist
-                    Folder newFolder = new Folder { Name = folderName, Parent = currentFolder };
+                    Folder newFolder = new Folder { Name = folderName, PathToParent = currentFolder.PathFromRoot };
                     currentFolder.Children[folderName] = newFolder;
                 }
 
@@ -116,7 +116,7 @@ namespace LowpEngine.AssetsSystem
             string finalFolderName = splitPath.Last();
             currentFolder.Children[finalFolderName] = folderValue;
             folderValue.Name = finalFolderName;
-            folderValue.Parent = currentFolder;
+            folderValue.PathToParent = currentFolder.PathFromRoot;
         }
 
         public static void SetDiskResourceUsingPath(this Folder folder, string path, DiskResource resourceValue)
@@ -129,7 +129,7 @@ namespace LowpEngine.AssetsSystem
             Folder containingFolder = folder.GetFolder(folderPath);
             if (containingFolder == null)
             {
-                containingFolder = new Folder { Name = folderPath, Parent = folder };
+                containingFolder = new Folder { Name = folderPath, PathToParent = folder.PathFromRoot };
                 folder.SetFolderUsingPath(folderPath, containingFolder);
             }
 

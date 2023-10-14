@@ -10,23 +10,23 @@ namespace LowpEngine.AssetsSystem.Bundle
     [MessagePackObject]
     public class Folder
     {
-        [Key(0)]
-        public string Name { get; set; }
         [Key(1)]
-        public string PathFromRoot { get; set; }
+        public string Name { get; set; }
         [Key(2)]
-        public Folder Parent { get; set; }
+        public string PathFromRoot { get; set; }
         [Key(3)]
-        public Dictionary<string, Folder> Children { get; set;} = new Dictionary<string, Folder>();
+        public string PathToParent { get; set; }
         [Key(4)]
+        public Dictionary<string, Folder> Children { get; set;} = new Dictionary<string, Folder>();
+        [Key(5)]
         public List<DiskResource> DiskResources { get; set;} = new List<DiskResource>();
 
         [SerializationConstructor]
-        public Folder(string name, string pathFromRoot, Folder parent, Dictionary<string, Folder> children, List<DiskResource> diskResources)
+        public Folder(string name, string pathFromRoot, string parent, Dictionary<string, Folder> children, List<DiskResource> diskResources)
         {
             Name = name;
             PathFromRoot = pathFromRoot;
-            Parent = parent;
+            PathToParent = parent;
             Children = children;
             DiskResources = diskResources;
         }

@@ -10,13 +10,13 @@ namespace LowpEngine.AssetsSystem
     [MessagePackObject]
     public class DiskResource
     {
-        [Key(0)]
-        public byte[] Data { get; }
         [Key(1)]
-        public string Name { get; }
+        public byte[] Data { get; }
         [Key(2)]
-        public string Extension { get; }
+        public string Name { get; }
         [Key(3)]
+        public string Extension { get; }
+        [Key(4)]
         public bool Compressed { get; }
 
         [SerializationConstructor]

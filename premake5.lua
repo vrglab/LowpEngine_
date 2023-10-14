@@ -467,7 +467,9 @@ project "AssetsSystem"
 			"Packages/c#/System.Buffers.4.5.1/lib/netstandard2.0/System.Buffers.dll",
 			"Packages/c#/System.Memory.4.5.5/lib/netstandard2.0/System.Memory.dll",
 			"Packages/c#/System.Numerics.Vectors.4.5.0/lib/netstandard2.0/System.Numerics.Vectors.dll",
-			"Packages/c#/System.Runtime.CompilerServices.Unsafe.6.0.0/lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll"
+			"Packages/c#/System.Runtime.CompilerServices.Unsafe.6.0.0/lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
+			"Packages/c#/Microsoft.NET.StringTools.17.6.3/lib/netstandard2.0/Microsoft.NET.StringTools.dll",
+			"Packages/c#/System.Collections.Immutable.7.0.0/lib/netstandard2.0/System.Collections.Immutable.dll"
 		}
 	
 		filter "configurations:Debug"
@@ -587,7 +589,9 @@ project "AssetsTool"
 			"Packages/c#/System.Buffers.4.5.1/lib/netstandard2.0/System.Buffers.dll",
 			"Packages/c#/System.Memory.4.5.5/lib/netstandard2.0/System.Memory.dll",
 			"Packages/c#/System.Numerics.Vectors.4.5.0/lib/netstandard2.0/System.Numerics.Vectors.dll",
-			"Packages/c#/System.Runtime.CompilerServices.Unsafe.6.0.0/lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll"
+			"Packages/c#/System.Runtime.CompilerServices.Unsafe.6.0.0/lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
+			"Packages/c#/Microsoft.NET.StringTools.17.6.3/lib/netstandard2.0/Microsoft.NET.StringTools.dll",
+			"Packages/c#/System.Collections.Immutable.7.0.0/lib/netstandard2.0/System.Collections.Immutable.dll"
 		}
 	
 		filter "configurations:Debug"

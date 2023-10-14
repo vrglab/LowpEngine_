@@ -1,4 +1,5 @@
-﻿using MessagePack;
+﻿using LowpEngine.Utility;
+using MessagePack;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,26 +13,36 @@ namespace LowpEngine.AssetsSystem.Bundle
     [MessagePackObject]
     public class AssetsBundle
     {
-        [Key(0)]
-        private Folder root = new Folder()
+        [Key(1)]
+        public Folder root { get; private set; } = new Folder()
         {
             Name = "Root",
             PathFromRoot = "Root"
         };
 
+        [IgnoreMember]  
         public object this[string path] { get { return GetBasedOnPath(path); }
             set { SetBasedOnPath(path, value); }
+        }
+
+        [SerializationConstructor]
+        public AssetsBundle(Folder addToroot)
+        {
+            if (addToroot.Name == "Root")
+            {
+                root = addToroot;
+            }
+            else
+            {
+                addToroot.PathToParent = root.PathFromRoot;
+                root.Children[addToroot.PathFromRoot] = addToroot;
+            }
+            
         }
 
         public AssetsBundle()
         {
 
-        }
-
-        public AssetsBundle(Folder addToroot)
-        {
-            addToroot.Parent = root;
-            root.Children[addToroot.PathFromRoot] = addToroot;
         }
 
         private void SetBasedOnPath(string path, object value)
@@ -70,7 +81,7 @@ namespace LowpEngine.AssetsSystem.Bundle
                 Folder folder = new Folder();
                 folder.PathFromRoot = $"{pathFromRoot}\\{directoryInfo.Name}";
                 folder.Name = directoryInfo.Name;
-                folder.Parent = parent;
+                folder.PathToParent = (parent == null ) ? string.Empty : parent.PathFromRoot;
 
                 foreach (FileInfo file in directoryInfo.GetFiles())
                 {
@@ -90,7 +101,7 @@ namespace LowpEngine.AssetsSystem.Bundle
         {
             if (File.Exists(path))
             {
-                return new DiskResource(File.ReadAllBytes(path), Path.GetFileNameWithoutExtension(path), Path.GetExtension(path), compressed);
+                return new DiskResource(compressed ? Utils.Compress(File.ReadAllBytes(path)) : File.ReadAllBytes(path), Path.GetFileNameWithoutExtension(path), Path.GetExtension(path), compressed);
             }
             else
             {
