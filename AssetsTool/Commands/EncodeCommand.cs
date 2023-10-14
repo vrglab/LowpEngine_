@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LowpEngine.Utility;
+using MessagePack;
 
 namespace AssetsTool.Commands
 {
@@ -26,7 +27,7 @@ namespace AssetsTool.Commands
 
             if (Compress)
             {
-                DiskResource diskResource = new DiskResource(null, "", "", true);
+                
                 Console.WriteLine($"Successfully created and compressed \"{args[0]}\" in to \"{assetFile}\"");
             }
             else
@@ -34,7 +35,8 @@ namespace AssetsTool.Commands
                 
                 Folder convertedFolder = AssetsBundle.GetFolder(args[0]);
                 AssetsBundle ab = new AssetsBundle(convertedFolder);
-                Folder project = (Folder)ab["LowpProjects/test"];
+                byte[] serialized = MessagePackSerializer.Serialize(ab, MessagePackSerializerOptions.Standard);
+                File.WriteAllBytes(assetFile, serialized);
                 Console.WriteLine($"Successfully put \"{args[0]}\" in to \"{assetFile}\"");
             }
         }

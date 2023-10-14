@@ -1,3 +1,5 @@
+Programs\Windows\nuget\nuget.exe install log4net -OutputDirectory "Packages\c#"
+Programs\Windows\nuget\nuget.exe install MessagePack -OutputDirectory "Packages\c#"
 Programs\vcpkg\vcpkg install sdl2
 Programs\vcpkg\vcpkg install openal-soft
 Programs\vcpkg\vcpkg install opengl

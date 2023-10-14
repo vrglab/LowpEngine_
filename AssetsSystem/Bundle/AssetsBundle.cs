@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MessagePack;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,8 +9,10 @@ using System.Threading.Tasks;
 
 namespace LowpEngine.AssetsSystem.Bundle
 {
+    [MessagePackObject]
     public class AssetsBundle
     {
+        [Key(0)]
         private Folder root = new Folder()
         {
             Name = "Root",

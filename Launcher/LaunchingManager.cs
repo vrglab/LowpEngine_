@@ -40,7 +40,7 @@ namespace Launcher
 
         private static void LaunchInit()
         {
-            string pathToAssetDataBase = $"{Environment.CurrentDirectory}\\Runtimes\\Assets.asset";
+            string pathToAssetDataBase = $"{Environment.CurrentDirectory}\\Runtimes\\Assets.abf";
             AssetDatabase assets = new AssetDatabase(pathToAssetDataBase);
             IniFile configs = (IniFile)assets["Configs.ini"];
 

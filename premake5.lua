@@ -461,7 +461,13 @@ project "AssetsSystem"
 		}
 		links
 		{
-			"GlobalUtilities"
+			"GlobalUtilities",
+			"Packages/c#/MessagePack.2.5.129/lib/netstandard2.0/MessagePack.dll",
+			"Packages/c#/MessagePack.Annotations.2.5.129/lib/netstandard2.0/MessagePack.Annotations.dll",
+			"Packages/c#/System.Buffers.4.5.1/lib/netstandard2.0/System.Buffers.dll",
+			"Packages/c#/System.Memory.4.5.5/lib/netstandard2.0/System.Memory.dll",
+			"Packages/c#/System.Numerics.Vectors.4.5.0/lib/netstandard2.0/System.Numerics.Vectors.dll",
+			"Packages/c#/System.Runtime.CompilerServices.Unsafe.6.0.0/lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll"
 		}
 	
 		filter "configurations:Debug"
@@ -489,9 +495,10 @@ project "LowpEngine"
 	{
 		"Engine",
 		"Engine.UI",
+		"Engine.UI",
 		"AssetsSystem",
 		"GlobalUtilities",
-		"Packages/c#/log4net/net20/log4net.dll"
+		"Packages/c#/log4net.2.0.15/netstandard2.0/log4net.dll"
 	}
 
 	filter "configurations:Debug"
@@ -574,7 +581,13 @@ project "AssetsTool"
 			"LowpEngine",
 			"ConsoleAppEngine",
 			"AssetsSystem",
-			"GlobalUtilities"
+			"GlobalUtilities",
+			"Packages/c#/MessagePack.2.5.129/lib/netstandard2.0/MessagePack.dll",
+			"Packages/c#/MessagePack.Annotations.2.5.129/lib/netstandard2.0/MessagePack.Annotations.dll",
+			"Packages/c#/System.Buffers.4.5.1/lib/netstandard2.0/System.Buffers.dll",
+			"Packages/c#/System.Memory.4.5.5/lib/netstandard2.0/System.Memory.dll",
+			"Packages/c#/System.Numerics.Vectors.4.5.0/lib/netstandard2.0/System.Numerics.Vectors.dll",
+			"Packages/c#/System.Runtime.CompilerServices.Unsafe.6.0.0/lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll"
 		}
 	
 		filter "configurations:Debug"
@@ -635,8 +648,6 @@ project "Launcher"
 	
 		filter "configurations:Release"
 			optimize "On"
-
-
 			
 project "TestGame"
 		location "TestGame"
