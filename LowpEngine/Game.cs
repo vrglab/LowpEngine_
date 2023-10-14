@@ -92,8 +92,17 @@ namespace LowpEngine
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
         public string publisher;
 
-        public int resWidth, resHeight, flags;
+        public int resWidth, resHeight;
+        public WindowFlags flags;
 
         public string assetsLocation;
+    }
+
+    public enum WindowFlags
+    {
+        Fullscreen = 1,
+        Resizable = 32,
+        fullscreen_desktop = 4096,
+        Hidden = 9, Borderless = 16, Minimized = 64, Maximized = 128
     }
 }

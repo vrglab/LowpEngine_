@@ -12,10 +12,10 @@ internal class main
             name = "Lol",
             developer = "Example Dev",
             version = "1.0.0-beta",
-            resHeight = 400,
+            resHeight = 1000,
             resWidth = 600,
             assetsLocation = "D:\\Reusable Unity assets\\3D spesific assets\\Assets.asb",
-            flags = 0
+            flags = WindowFlags.Resizable | WindowFlags.Borderless
         };
         Game game = new Game(gameInfo);
         game.Start();
