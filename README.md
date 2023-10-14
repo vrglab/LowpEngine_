@@ -15,6 +15,10 @@ I should mention certain project's such as the ConsoleAppEngine and GlobalUtilit
 8. LowpEngine (C# bindings/implementation of Core Engine and Engine UI): is Dependent on numbers: 1, 5, 6, 7.
 9. Launcher: is Dependent on numbers: 7 and 8.
 1. TestGame: is Dependent only on number 8.
+1. PhysicsEngine (C++): No internal project Dependencies.
+1. RenderingEngine (C++): No internal project Dependencies.
+1. SoundSystem (C++): No internal project Dependencies.
+
 
 
 # Building/IDE Envoirment Generation
