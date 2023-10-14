@@ -617,7 +617,7 @@ project "GlobalUtilities"
 	
 		links
 		{
-
+			"System"
 		}
 	
 		filter "configurations:Debug"
@@ -628,7 +628,7 @@ project "GlobalUtilities"
 
 project "Launcher"
 	location "Launcher"
-	kind "StaticLib"
+	kind "ConsoleApp"
 	language "C++"
 	toolset "v143"
 	buildoptions
@@ -638,6 +638,7 @@ project "Launcher"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
 
 
 	if os.target() == "windows" then
@@ -670,15 +671,38 @@ project "Launcher"
 	{
 		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
 		"%{prj.name}",
-		"Engine"
+		"Engine",
+		"SoundSystem",
+		"PhysicsEngine",
+		"RenderingEngine"
 	}
 	
 	links
 	{
+		"assimp-vc143-mt",
+		"CompilerSpirV",
+		"draco",
+		"GlU32",
+		"kubazip",
+		"miniz",
+		"minizip",
+		"poly2tri",
+		"polyclipping",
+		"pugixml",
+		"SDL2",
+		"ShaderAST",
+		"ShaderWriter",
+		"squish",
+		"tinyexr",
+		"volk",
+		"zlib",
 		"OpenAL32",
 		"fmod",
 		"fmodstudio",
-		"Engine"
+		"Engine",
+		"SoundSystem",
+		"PhysicsEngine",
+		"RenderingEngine"
 	}
 
 	vpaths {
