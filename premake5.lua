@@ -500,7 +500,7 @@ project "LowpEngine"
 		"Engine.UI",
 		"AssetsSystem",
 		"GlobalUtilities",
-		"Packages/c#/log4net.2.0.15/netstandard2.0/log4net.dll"
+		"Packages/c#/log4net.2.0.15/lib/netstandard2.0/log4net.dll"
 	}
 
 	filter "configurations:Debug"
