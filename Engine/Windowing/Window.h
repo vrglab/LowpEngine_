@@ -1,5 +1,10 @@
 #pragma once
 
+struct Resolution
+{
+	int width, height;
+};
+
 struct WindowInfo
 {
 		std::string name;

@@ -8,7 +8,6 @@ Window::Window(WindowInfo* info)
 
 Window::~Window()
 {
-	shutdown();
 	SDL_DestroyWindow(sdl_window);
 	SDL_Quit();
 	free(sdl_window);
@@ -44,23 +43,6 @@ void Window::Open()
 		SDL_Quit();
 		return;
 	}
-
-	Init init_;
-
-	init_.resolution = info->resolution;
-	bool initiated = init(init_);
-
-	PlatformData platformData;
-	bx::memSet(&platformData, 0, sizeof(platformData));
-	platformData.nwh = (void*)SDL_GetWindowID(sdl_window);
-	platformData.ndt = nullptr;
-	platformData.context = nullptr;
-	platformData.backBuffer = nullptr;
-	platformData.backBufferDS = nullptr;
-	setPlatformData(platformData);
-
-	setViewRect(0, 0, 0, info->resolution.width, info->resolution.height);
-	setViewClear(0, BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH, 0x303030ff, 1.0f, 0);
 }
 
 void Window::Close()

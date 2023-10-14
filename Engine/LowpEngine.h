@@ -4,6 +4,11 @@
 #ifndef _lpEngine_ 
 #define _lpEngine_
 #include "Macros.h"
+#include "Core.h"
+
+#ifndef _lpEngine_Physics
+#error  Physics engine not initialized
+#endif
 
 #ifdef _WIN32
 #include <Windows.h>

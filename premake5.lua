@@ -36,6 +36,11 @@ project "Engine"
 	location "Engine"
 	kind "SharedLib"
 	language "C++"
+	toolset "v143"
+	buildoptions
+	{
+		"/Zc:__cplusplus"
+	}
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -66,17 +71,14 @@ project "Engine"
 	includedirs
 	{
 		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
-		"%{prj.name}"
+		"%{prj.name}",
+		"SoundSystem",
+		"PhysicsEngine"
 	}
 	
 	links
 	{
 		"assimp-vc143-mt",
-		"bgfx",
-		"bimg",
-		"bimg_decode",
-		"bimg_encode",
-		"bx",
 		"CompilerSpirV",
 		"draco",
 		"GlU32",
@@ -93,7 +95,8 @@ project "Engine"
 		"tinyexr",
 		"volk",
 		"zlib",
-		"SoundSystem"
+		"SoundSystem",
+		"PhysicsEngine"
 	}
 
 	vpaths {
@@ -109,14 +112,21 @@ project "Engine"
 
 	filter "configurations:Debug"
 		symbols "On"
+		defines {"DEBUG"}
 
 	filter "configurations:Release"
 		optimize "On"
+		defines {"RELEASE"}
 
 project "Engine.UI"
 		location "Engine_UI"
 		kind "SharedLib"
 		language "C++"
+		toolset "v143"
+		buildoptions
+		{
+			"/Zc:__cplusplus"
+		}
 	
 		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 		objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -139,17 +149,12 @@ project "Engine.UI"
 		includedirs
 		{
 			"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
-			"%{prj.name}"
+			"%{prj.location}"
 		}
 		
 		links
 		{
 			"assimp-vc143-mt",
-			"bgfx",
-			"bimg",
-			"bimg_decode",
-			"bimg_encode",
-			"bx",
 			"CompilerSpirV",
 			"draco",
 			"GlU32",
@@ -168,6 +173,14 @@ project "Engine.UI"
 			"volk",
 			"zlib"
 		}
+
+		files 
+		{
+			"%{prj.location}/**.h",
+			"%{prj.location}/**.cpp",
+			"%{prj.location}/**/**.h",
+			"%{prj.location}/**/**.cpp"
+		}
 	
 		vpaths {
 			["Headers/*"] = { "**.h", "**.hpp" },
@@ -182,27 +195,38 @@ project "Engine.UI"
 	
 		filter "configurations:Debug"
 			symbols "On"
-	
-		filter "configurations:Release"
+			defines {"DEBUG"}
+
+	    filter "configurations:Release"
 			optimize "On"
+			defines {"RELEASE"}
 
 project "SoundSystem"
 	location "SoundSystem"
 	kind "SharedLib"
 	language "C++"
+	toolset "v143"
+	buildoptions
+	{
+		"/Zc:__cplusplus"
+	}
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
 
 	if os.target() == "windows" then
-		pchheader "lppch.h"
+		pchheader "lpsspch.h"
 		cppdialect "C++latest"
+		libdirs
+		{
+			"Packages/c++/libs/windows"
+		}
 	elseif os.target() == "linux" then
-		pchheader "%{prj.name}/lppch.h"
+		pchheader "%{prj.name}/lpsspch.h"
 	end
 
-	pchsource "%{prj.name}/lppch.cpp"
+	pchsource "%{prj.name}/lpsspch.cpp"
 
 	files 
 	{
@@ -243,9 +267,99 @@ project "SoundSystem"
 
 	filter "configurations:Debug"
 		symbols "On"
+		defines { "DEBUG"}
 
 	filter "configurations:Release"
 		optimize "On"
+		defines {"RELEASE"}
+
+project "PhysicsEngine"
+	location "PhysicsEngine"
+	kind "SharedLib"
+	language "C++"
+	toolset "v143"
+	buildoptions
+	{
+		"/Zc:__cplusplus"
+	}
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+
+	if os.target() == "windows" then
+		pchheader "lpphpch.h"
+		cppdialect "C++latest"
+	elseif os.target() == "linux" then
+		pchheader "%{prj.name}/lpphpch.h"
+	end
+
+	pchsource "%{prj.name}/lpphpch.cpp"
+
+	files 
+	{
+		"%{prj.name}/**.h",
+		"%{prj.name}/**.cpp",
+		"%{prj.name}/**/**.h",
+		"%{prj.name}/**/**.cpp"
+	}
+
+	libdirs
+	{
+		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/lib"
+	}
+
+	includedirs
+	{
+		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
+		"%{prj.name}"
+	}
+	
+	links
+	{
+		"assimp-vc143-mt",
+		"bimg",
+		"bimg_decode",
+		"bimg_encode",
+		"bx",
+		"CompilerSpirV",
+		"draco",
+		"GlU32",
+		"kubazip",
+		"miniz",
+		"minizip",
+		"poly2tri",
+		"polyclipping",
+		"pugixml",
+		"SDL2",
+		"ShaderAST",
+		"ShaderWriter",
+		"squish",
+		"tinyexr",
+		"volk",
+		"zlib",
+		"ode_double",
+		"box2d"
+	}
+
+	vpaths {
+		["Headers/*"] = { "**.h", "**.hpp" },
+		["Sources/*"] = {"**.c", "**.cpp"}
+	}
+
+
+	filter "system:windows"
+		cppdialect "C++17"
+		staticruntime "On"
+		systemversion "latest"
+
+	filter "configurations:Debug"
+		symbols "On"
+		defines {"DEBUG"}
+
+	filter "configurations:Release"
+		optimize "On"
+		defines {"RELEASE"}
 
 project "AssetsSystem"
 		location "AssetsSystem"
