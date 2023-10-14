@@ -527,7 +527,6 @@ project "Editor"
 	links
 	{
 		"LowpEngine",
-		"LowpLauncher",
 		"GlobalUtilities",
 		"AssetsTool"
 	}
@@ -723,33 +722,6 @@ project "Launcher"
 	filter "configurations:Release"
 		optimize "On"
 		defines {"RELEASE"}
-
-project "LowpLauncher"
-		location "LowpLauncher"
-		kind "SharedLib"
-		language "C#"
-		csversion ("11")
-	
-		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-		objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-	
-		files 
-		{
-			"%{prj.name}/**.cs",
-			"%{prj.name}/**/**.cs"
-		}
-	
-		links
-		{
-			"LowpEngine",
-			"GlobalUtilities"
-		}
-	
-		filter "configurations:Debug"
-			symbols "On"
-	
-		filter "configurations:Release"
-			optimize "On"
 			
 project "TestGame"
 		location "TestGame"
