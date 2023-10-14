@@ -1,6 +1,8 @@
 #include "lplupch.h"
 #include <iostream>
 
+#undef main
+
 #ifdef _WIN32
 // Windows-specific headers and entry point
 #include <Windows.h>
