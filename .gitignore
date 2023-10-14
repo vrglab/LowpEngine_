@@ -306,3 +306,4 @@ Makefile
 *.dll
 *.so
 *.dylib
+Packages/c#

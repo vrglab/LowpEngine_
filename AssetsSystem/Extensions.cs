@@ -1,4 +1,5 @@
 ﻿using LowpEngine.AssetsSystem.Bundle;
+using LowpEngine.Utility;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -106,7 +107,7 @@ namespace LowpEngine.AssetsSystem
                 if (!currentFolder.Children.ContainsKey(folderName))
                 {
                     // Create a new folder if it doesn't exist
-                    Folder newFolder = new Folder { Name = folderName, Parent = currentFolder };
+                    Folder newFolder = new Folder { Name = folderName, PathToParent = currentFolder.PathFromRoot };
                     currentFolder.Children[folderName] = newFolder;
                 }
 
@@ -116,7 +117,7 @@ namespace LowpEngine.AssetsSystem
             string finalFolderName = splitPath.Last();
             currentFolder.Children[finalFolderName] = folderValue;
             folderValue.Name = finalFolderName;
-            folderValue.Parent = currentFolder;
+            folderValue.PathToParent = currentFolder.PathFromRoot;
         }
 
         public static void SetDiskResourceUsingPath(this Folder folder, string path, DiskResource resourceValue)
@@ -129,7 +130,7 @@ namespace LowpEngine.AssetsSystem
             Folder containingFolder = folder.GetFolder(folderPath);
             if (containingFolder == null)
             {
-                containingFolder = new Folder { Name = folderPath, Parent = folder };
+                containingFolder = new Folder { Name = folderPath, PathToParent = folder.PathFromRoot };
                 folder.SetFolderUsingPath(folderPath, containingFolder);
             }
 
@@ -182,6 +183,57 @@ namespace LowpEngine.AssetsSystem
                 }
             }
             return false;
+        }
+
+        public static void ConvertBundleToDirectory(this AssetsBundle bundle, string outputPath)
+        {
+            if (bundle == null)
+            {
+                throw new ArgumentNullException("bundle");
+            }
+
+            if (outputPath == null)
+            {
+                throw new ArgumentNullException("outputPath");
+            }
+
+            if (!Directory.Exists(outputPath))
+            {
+                Directory.CreateDirectory(outputPath);
+            }
+
+            ConvertFolder(bundle.root, outputPath);
+        }
+
+        private static void ConvertFolder(Folder folder, string outputPath)
+        {
+            string folderPath = Path.Combine(outputPath, folder.PathFromRoot);
+
+            // Create the directory for the current folder
+            Directory.CreateDirectory(folderPath);
+
+            // Convert and save disk resources
+            foreach (var resource in folder.DiskResources)
+            {
+                string filePath = Path.Combine(folderPath, resource.Name + resource.Extension);
+
+                if (resource.Compressed)
+                {
+                    // Decompress and save the compressed resource
+                    File.WriteAllBytes(filePath, Utils.Decompress(resource.Data));
+                }
+                else
+                {
+                    // Save the uncompressed resource
+                    File.WriteAllBytes(filePath, resource.Data);
+                }
+            }
+
+            // Recursively convert child folders
+            foreach (var childFolder in folder.Children.Values)
+            {
+                ConvertFolder(childFolder, outputPath);
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using LowpEngine.AssetsSystem;
+using LowpEngine.Utility;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,7 +19,7 @@ namespace LowpEngine.Loaders
         public static Mesh LoadMesh(Asset asset)
         {
             string tempFile = $"{Path.GetTempPath()}{asset.Resource.Name}{asset.Resource.Extension}";
-            File.WriteAllBytes(tempFile, asset.Resource.Compressed ? null : asset.Resource.Data);
+            File.WriteAllBytes(tempFile, asset.Resource.Compressed ? Utils.Decompress(asset.Resource.Data) : asset.Resource.Data);
             IntPtr mesh = IntPtr.Zero;
             mesh = Assimp_LoadMesh(tempFile);
             Thread deletingThread = new Thread(() =>
