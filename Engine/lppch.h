@@ -14,17 +14,6 @@
 #include <glm/glm.hpp>
 #include <vector>
 
-#ifndef _lpEngine_bgfx
-#define _lpEngine_bgfx
-#include<bx/bx.h>
-#include<bimg/bimg.h>
-#include<bgfx/bgfx.h>
-#include<bgfx/platform.h>
-#include<bgfx/defines.h>
-#include<bgfx/embedded_shader.h>
-#include<bgfx/c99/bgfx.h>
-using namespace bgfx;
-#endif _lpEngine_bgfx
 #include <sstream>
 #include <iostream>
 #include <memory>

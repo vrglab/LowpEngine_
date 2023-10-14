@@ -1,5 +1,10 @@
 #pragma once
 
+struct Resolution
+{
+	int width, height;
+};
+
 struct WindowInfo
 {
 		std::string name;
@@ -11,6 +16,7 @@ class Window
 {
 	private:
 		SDL_Window* sdl_window;
+		SDL_Renderer* sdl_renderer;
 		WindowInfo* info;
 		bool shouldClose = false;
 

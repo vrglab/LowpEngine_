@@ -302,3 +302,7 @@ build/
 /.vs/
 /bin-int/
 Makefile
+
+*.dll
+*.so
+*.dylib
