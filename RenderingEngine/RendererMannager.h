@@ -10,3 +10,5 @@ enum LP_Export RendererType
 };
 
 int LP_Export GetRendererType();
+
+std::string LP_Export GetRendereTypeName(int renderer);

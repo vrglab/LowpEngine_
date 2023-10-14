@@ -13,3 +13,18 @@ int LP_Export GetRendererType()
 	return RendererType::Vulkan;
 #endif
 }
+
+std::string LP_Export GetRendereTypeName(int renderer)
+{
+	switch (renderer)
+	{
+	case 0:
+		return "OpenGL";
+	case 1:
+		return "DirectX12";
+	case 2:
+		return "Vulkan";
+	case 3:
+		return "Metal";
+	}
+}
