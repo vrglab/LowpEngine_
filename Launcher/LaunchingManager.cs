@@ -51,7 +51,7 @@ namespace Launcher
                 resHeight = int.Parse(configs["Resolution.y", "Game"].ToString()),
                 resWidth = int.Parse(configs["Resolution.y", "Game"].ToString()),
                 version = configs["Version", "Game"].ToString(),
-                developer = configs["Develper", "Info"].ToString(),
+                developer = configs["Developer", "Info"].ToString(),
                 publisher = configs["Publisher", "Info"].ToString(),
             };
             game = new Game(gameInfo);
