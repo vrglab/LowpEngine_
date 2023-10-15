@@ -49,6 +49,11 @@ project "Engine"
 	if os.target() == "windows" then
 		pchheader "lppch.h"
 		cppdialect "C++latest"
+		links 
+		{
+			"d3d12",
+			"dxgi"
+		}
 	elseif os.target() == "linux" then
 		pchheader "%{prj.name}/lppch.h"
 	end
@@ -377,6 +382,11 @@ project "RenderingEngine"
 	if os.target() == "windows" then
 		pchheader "lprdpch.h"
 		cppdialect "C++latest"
+		links 
+		{
+			"d3d12",
+			"dxgi"
+		}
 	elseif os.target() == "linux" then
 		pchheader "%{prj.name}/lprdpch.h"
 	end
@@ -492,7 +502,6 @@ project "LowpEngine"
 	links
 	{
 		"Engine",
-		"Engine.UI",
 		"Engine.UI",
 		"AssetsSystem",
 		"GlobalUtilities",

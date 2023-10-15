@@ -52,8 +52,11 @@ void Window::Open()
 		SDL_Quit();
 		return;
 	}
+	RenderingEngineCreateInfo* createInfo = {};
+	createInfo->rendererType = GetRendererType();
+	createInfo->window = sdl_window;
 
-	std::cout << GetRendereTypeName(GetRendererType()) << std::endl;
+	RenderingFramework* framework = InitializeRendering(createInfo);
 }
 
 void Window::Close()
