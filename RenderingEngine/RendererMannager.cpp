@@ -31,16 +31,23 @@ std::string LP_Export GetRendereTypeName(int renderer)
 
 LP_Export RenderingFramework* InitializeRendering(RenderingEngineCreateInfo* createInfo)
 {
-	RenderingFramework* framwork = new RenderingFramework();
+	RenderingFramework* framework = new RenderingFramework();
+
+#ifdef __d3d12_h__
+	DXGI_SWAP_CHAIN_DESC1 swapChainDesc = {};
+	ID3D12Device* device = nullptr;
+	D3D12_COMMAND_QUEUE_DESC queueDesc = {};
+#endif
+
+
 	switch (createInfo->rendererType)
 	{
 		case RendererType::DirectX12:
 #ifdef __d3d12_h__
 				CoInitialize(nullptr);
-				D3D12CreateDevice(nullptr, D3D_FEATURE_LEVEL_11_0, __uuidof(ID3D12Device), &framwork->device);
-				CreateDXGIFactory1(__uuidof(IDXGIFactory4), &framwork->factory);
+				D3D12CreateDevice(nullptr, D3D_FEATURE_LEVEL_11_0, __uuidof(ID3D12Device), &framework->device);
+				CreateDXGIFactory1(__uuidof(IDXGIFactory4), &framework->factory);
 
-				DXGI_SWAP_CHAIN_DESC1 swapChainDesc = {};
 				swapChainDesc.BufferCount = 2;
 
 				IDXGISwapChain1* swapChain;
@@ -54,15 +61,14 @@ LP_Export RenderingFramework* InitializeRendering(RenderingEngineCreateInfo* cre
 					return nullptr;
 				}
 
-				((IDXGIFactory4*)framwork->factory)->CreateSwapChainForHwnd((IUnknown*)framwork->device, wmInfo.info.win.window, &swapChainDesc, nullptr, nullptr, &swapChain);
-				framwork->main_swapchain = swapChain;
+				((IDXGIFactory4*)framework->factory)->CreateSwapChainForHwnd((IUnknown*)framework->device, wmInfo.info.win.window, &swapChainDesc, nullptr, nullptr, &swapChain);
+				framework->main_swapchain = swapChain;
 
-				ID3D12Device* device = (ID3D12Device*)framwork->device;
-				D3D12_COMMAND_QUEUE_DESC queueDesc = {};
-				device->CreateCommandQueue(&queueDesc, __uuidof(ID3D12CommandQueue), &framwork->command_queue);
-				device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, __uuidof(ID3D12CommandAllocator), &framwork->command_allocator);
+				device = (ID3D12Device*)framework->device;
+				device->CreateCommandQueue(&queueDesc, __uuidof(ID3D12CommandQueue), &framework->command_queue);
+				device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, __uuidof(ID3D12CommandAllocator), &framework->command_allocator);
 
-				device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, (ID3D12CommandAllocator*)framwork->command_allocator, nullptr, __uuidof(ID3D12GraphicsCommandList), &framwork->command_list);
+				device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, (ID3D12CommandAllocator*)framework->command_allocator, nullptr, __uuidof(ID3D12GraphicsCommandList), &framework->command_list);
 
 				D3D12_ROOT_PARAMETER rootParameters[1];
 				rootParameters[0].ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV;
@@ -81,11 +87,21 @@ LP_Export RenderingFramework* InitializeRendering(RenderingEngineCreateInfo* cre
 				ID3DBlob* signature;
 				ID3DBlob* error;
 				D3D12SerializeRootSignature(&rootSignatureDesc, D3D_ROOT_SIGNATURE_VERSION_1, &signature, &error);
-				device->CreateRootSignature(0, signature->GetBufferPointer(), signature->GetBufferSize(), __uuidof(ID3D12RootSignature), &framwork->root_signature);
+				device->CreateRootSignature(0, signature->GetBufferPointer(), signature->GetBufferSize(), __uuidof(ID3D12RootSignature), &framework->root_signature);
 
 				signature->Release();
 #endif
 			break;
+		case RendererType::OpenGL:
+			if (!glewInit())
+			{
+				return nullptr;
+			}
+			SDL_GLContext context = SDL_GL_CreateContext(createInfo->window);
+			SDL_GL_MakeCurrent(createInfo->window, context);
+			framework->device = context;
+			framework->factory = new OpenGLResourceFactory();
+			break;
 	}
-	return framwork;
+	return framework;
 }

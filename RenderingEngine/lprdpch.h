@@ -25,7 +25,8 @@
 #undef min
 #endif
 
-#include <gl/GL.h>
+#include <gl/glew.h>
+#include <glm/fwd.hpp>
 #include <vulkan/vulkan.h>
 
 #ifdef __APPLE__ 
