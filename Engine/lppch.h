@@ -10,6 +10,7 @@
 #include <assimp/postprocess.h>
 #endif
 
+#include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <vector>
 

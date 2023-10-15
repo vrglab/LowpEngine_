@@ -6,5 +6,6 @@
 #include "Macros.h"
 #include "Types/RenderingEngineCreateInfo.h"
 #include "RenderingFramework.h"
+#include "ResourceFactories/OpenGLResourceFactory.h"
 #include "RendererMannager.h"
 #endif

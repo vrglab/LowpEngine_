@@ -1,8 +1,8 @@
 function determine_os()
     if os.ishost("windows") then
-        return "Windows"
+        return "windows"
     elseif os.ishost("linux") then
-        return "Linux"
+        return "linux"
     elseif os.ishost("macosx") then
         return "macOS"
     else
@@ -101,6 +101,7 @@ project "Engine"
 		"tinyexr",
 		"volk",
 		"zlib",
+		"glew32",
 		"SoundSystem",
 		"PhysicsEngine",
 		"RenderingEngine"
@@ -433,7 +434,8 @@ project "RenderingEngine"
 		"squish",
 		"tinyexr",
 		"volk",
-		"zlib"
+		"zlib",
+		"glew32"
 	}
 
 	vpaths {

@@ -53,7 +53,7 @@ void Window::Open()
 		return;
 	}
 	RenderingEngineCreateInfo* createInfo = {};
-	createInfo->rendererType = GetRendererType();
+	createInfo->rendererType = RendererType::OpenGL;
 	createInfo->window = sdl_window;
 
 	RenderingFramework* framework = InitializeRendering(createInfo);
