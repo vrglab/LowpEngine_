@@ -76,6 +76,7 @@ project "Engine"
 	includedirs
 	{
 		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
+		"Packages/c++/includes",
 		"%{prj.name}",
 		"SoundSystem",
 		"PhysicsEngine",
@@ -157,6 +158,7 @@ project "Engine.UI"
 		includedirs
 		{
 			"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
+			"Packages/c++/includes",
 			"%{prj.location}"
 		}
 		
@@ -252,6 +254,7 @@ project "SoundSystem"
 	includedirs
 	{
 		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
+		"Packages/c++/includes",
 		"%{prj.name}"
 	}
 	
@@ -320,6 +323,7 @@ project "PhysicsEngine"
 	includedirs
 	{
 		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
+		"Packages/c++/includes",
 		"%{prj.name}"
 	}
 	
@@ -413,6 +417,7 @@ project "RenderingEngine"
 	includedirs
 	{
 		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
+		"Packages/c++/includes",
 		"%{prj.name}"
 	}
 	
@@ -680,6 +685,7 @@ project "Launcher"
 	includedirs
 	{
 		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
+		"Packages/c++/includes",
 		"%{prj.name}",
 		"Engine",
 		"SoundSystem",
