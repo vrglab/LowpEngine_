@@ -14,7 +14,10 @@ enum ResourceType
 	Buffer = 2,
 	Shader = 3,
 	FrameBuffer = 4,
-	RenderBuffer = 5
+	RenderBuffer = 5,
+	VertexArray = 6,
+	VertexBuffer = 7,
+	IndexBuffer = 8
 };
 
 
@@ -29,6 +32,7 @@ class OpenGLResourceFactory
 	    GLuint CreateTexture(const char* imagePath);
 	    GLuint CreateShaderProgram(const char* vertexShaderSource, const char* fragmentShaderSource);
 	    GLuint CreateFrameBuffer();
+		GLuint CreateBuffer();
 	    GLuint CreateRenderBuffer(int width, int height);
 	    void SetUniformMat4(GLuint program, const char* name, const glm::mat4& matrix);
 	    void BindVertexArray(GLuint vao);
