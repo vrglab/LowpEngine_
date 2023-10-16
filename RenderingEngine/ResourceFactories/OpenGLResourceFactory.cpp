@@ -41,7 +41,13 @@ GLuint OpenGLResourceFactory::CreateIndexBuffer()
 
 GLuint OpenGLResourceFactory::CreateVertexArray()
 {
-	return GLuint();
+	GLuint buffer;
+	glCreateVertexArrays(1, &buffer);
+	CreatedGlResource resource = {};
+	resource.glHandle = buffer;
+	resource.Type = ResourceType::VertexArray;
+	createdResources.push_back(resource);
+	return buffer;
 }
 
 GLuint OpenGLResourceFactory::CreateTexture(const char* imagePath)
