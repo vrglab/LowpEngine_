@@ -37,6 +37,11 @@ LP_Export RenderingFramework* InitializeRendering(RenderingEngineCreateInfo* cre
 	DXGI_SWAP_CHAIN_DESC1 swapChainDesc = {};
 	ID3D12Device* device = nullptr;
 	D3D12_COMMAND_QUEUE_DESC queueDesc = {};
+	SDL_GLContext context = NULL;
+#endif
+
+#ifdef __APPLE__
+	id<MTLDevice> device = NULL;
 #endif
 
 
@@ -97,10 +102,22 @@ LP_Export RenderingFramework* InitializeRendering(RenderingEngineCreateInfo* cre
 			{
 				return nullptr;
 			}
-			SDL_GLContext context = SDL_GL_CreateContext(createInfo->window);
+			context = SDL_GL_CreateContext(createInfo->window);
 			SDL_GL_MakeCurrent(createInfo->window, context);
 			framework->device = context;
 			framework->factory = new OpenGLResourceFactory();
+			break;
+		case RendererType::Vulkan:
+			break;
+		case RendererType::Metal:
+#ifdef __APPLE__ 
+			device = MTLCreateSystemDefaultDevice();
+			if (!device) {
+				// Handle the case where Metal is not supported on this device.
+				return;
+			}
+			framework->device = (void*)&device
+#endif
 			break;
 	}
 	return framework;

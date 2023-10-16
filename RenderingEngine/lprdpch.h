@@ -30,9 +30,7 @@
 #include <vulkan/vulkan.h>
 
 #ifdef __APPLE__ 
-#include <metal/Foundation/Foundation.hpp>
 #include <metal/Metal/Metal.hpp>
-#include <metal/MetalFX/MetalFX.hpp>
 #include <metal/QuartzCore/QuartzCore.hpp>
 #endif
 
