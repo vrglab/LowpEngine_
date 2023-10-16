@@ -59,6 +59,17 @@ GLuint OpenGLResourceFactory::CreateFrameBuffer()
 	return GLuint();
 }
 
+GLuint OpenGLResourceFactory::CreateBuffer()
+{
+	GLuint buffer;
+	glCreateBuffers(1, &buffer);
+	CreatedGlResource resource = {};
+	resource.glHandle = buffer;
+	resource.Type = ResourceType::Buffer;
+	createdResources.push_back(resource);
+	return buffer;
+}
+
 GLuint OpenGLResourceFactory::CreateRenderBuffer(int width, int height)
 {
 	return GLuint();
