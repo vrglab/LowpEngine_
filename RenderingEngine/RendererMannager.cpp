@@ -113,8 +113,7 @@ LP_Export RenderingFramework* InitializeRendering(RenderingEngineCreateInfo* cre
 #ifdef __APPLE__ 
 			device = MTLCreateSystemDefaultDevice();
 			if (!device) {
-				// Handle the case where Metal is not supported on this device.
-				return;
+				return nullptr;
 			}
 			framework->device = (void*)&device
 #endif
