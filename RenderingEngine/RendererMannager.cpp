@@ -108,11 +108,13 @@ LP_Export RenderingFramework* InitializeRendering(RenderingEngineCreateInfo* cre
 		uint32_t presentQueueFamilyIndex = UINT32_MAX;
 		uint32_t queueFamilyCount = 0;
 
-		createInfo->vulkan_app_info.pEngineName = "LowpEngine";
-		createInfo->vulkan_app_info.engineVersion = 1.0;
+
+		VkApplicationInfo vulkan_app_info = {};
+		vulkan_app_info.pEngineName = "LowpEngine";
+		vulkan_app_info.engineVersion = 1.0;
 
 		vk_createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
-		vk_createInfo.pApplicationInfo = &createInfo->vulkan_app_info;
+		vk_createInfo.pApplicationInfo = &vulkan_app_info;
 
 		if (vkCreateInstance(&vk_createInfo, nullptr, &instance) != VK_SUCCESS) {
 			// Handle instance creation failure
