@@ -3,7 +3,7 @@
 
 OpenGLResourceFactory::~OpenGLResourceFactory()
 {
-	for each (CreatedGlResource resource in createdResources)
+	for (CreatedGlResource resource : createdResources)
 	{
 		switch (resource.Type)
 		{
