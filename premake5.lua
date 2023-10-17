@@ -74,7 +74,8 @@ project "Engine"
 		"%{prj.name}",
 		"SoundSystem",
 		"PhysicsEngine",
-		"RenderingEngine"
+		"RenderingEngine",
+		"EngineCommons"
 	}
 	
 	links
@@ -97,7 +98,8 @@ project "Engine"
 		"zlib",
 		"SoundSystem",
 		"PhysicsEngine",
-		"RenderingEngine"
+		"RenderingEngine",
+		"EngineCommons"
 	}
 
 	vpaths {
@@ -150,7 +152,8 @@ project "Engine.UI"
 		includedirs
 		{
 			"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
-			"%{prj.location}"
+			"%{prj.location}",
+			"EngineCommons"
 		}
 		
 		links
@@ -171,7 +174,8 @@ project "Engine.UI"
 			"ShaderWriter",
 			"tinyexr",
 			"volk",
-			"zlib"
+			"zlib",
+			"EngineCommons"
 		}
 
 		files 
@@ -244,14 +248,17 @@ project "SoundSystem"
 	includedirs
 	{
 		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
-		"%{prj.name}"
+		"%{prj.name}",
+		"EngineCommons",
+		"Packages/c++/includes"
 	}
 	
 	links
 	{
 		"OpenAL32",
 		"fmod",
-		"fmodstudio"
+		"fmodstudio",
+		"EngineCommons"
 	}
 
 	vpaths {
@@ -312,7 +319,8 @@ project "PhysicsEngine"
 	includedirs
 	{
 		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
-		"%{prj.name}"
+		"%{prj.name}",
+		"EngineCommons"
 	}
 	
 	links
@@ -338,7 +346,8 @@ project "PhysicsEngine"
 		"volk",
 		"zlib",
 		"ode_double",
-		"box2d"
+		"box2d",
+		"EngineCommons"
 	}
 
 	vpaths {
@@ -382,6 +391,89 @@ project "RenderingEngine"
 	end
 
 	pchsource "%{prj.name}/lprdpch.cpp"
+
+	files 
+	{
+		"%{prj.name}/**.h",
+		"%{prj.name}/**.cpp",
+		"%{prj.name}/**/**.h",
+		"%{prj.name}/**/**.cpp"
+	}
+
+	libdirs
+	{
+		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/lib"
+	}
+
+	includedirs
+	{
+		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
+		"%{prj.name}",
+		"EngineCommons"
+	}
+	
+	links
+	{
+		"assimp-vc143-mt",
+		"CompilerSpirV",
+		"draco",
+		"GlU32",
+		"kubazip",
+		"miniz",
+		"minizip",
+		"poly2tri",
+		"polyclipping",
+		"pugixml",
+		"SDL2",
+		"ShaderAST",
+		"ShaderWriter",
+		"tinyexr",
+		"volk",
+		"zlib",
+		"EngineCommons"
+	}
+
+	vpaths {
+		["Headers/*"] = { "**.h", "**.hpp" },
+		["Sources/*"] = {"**.c", "**.cpp"}
+	}
+
+
+	filter "system:windows"
+		cppdialect "C++20"
+		staticruntime "On"
+		systemversion "latest"
+
+	filter "configurations:Debug"
+		symbols "On"
+		defines {"DEBUG"}
+
+	filter "configurations:Release"
+		optimize "On"
+		defines {"RELEASE"}
+
+project "EngineCommons"
+	location "EngineCommons"
+	kind "StaticLib"
+	language "C++"
+	toolset "v143"
+	buildoptions
+	{
+		"/Zc:__cplusplus"
+	}
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+
+	if os.target() == "windows" then
+		pchheader "lpcopch.h"
+		cppdialect "C++latest"
+	elseif os.target() == "linux" then
+		pchheader "%{prj.name}/lpcopch.h"
+	end
+
+	pchsource "%{prj.name}/lpcopch.cpp"
 
 	files 
 	{
@@ -669,7 +761,8 @@ project "Launcher"
 		"Engine",
 		"SoundSystem",
 		"PhysicsEngine",
-		"RenderingEngine"
+		"RenderingEngine",
+		"EngineCommons"
 	}
 	
 	links
@@ -696,7 +789,8 @@ project "Launcher"
 		"Engine",
 		"SoundSystem",
 		"PhysicsEngine",
-		"RenderingEngine"
+		"RenderingEngine",
+		"EngineCommons"
 	}
 
 	vpaths {
