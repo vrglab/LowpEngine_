@@ -129,6 +129,7 @@ LP_Export RenderingFramework* InitializeRendering(RenderingEngineCreateInfo* cre
 
 		vkCreateDevice(devices[0], &deviceInfo, nullptr, &vkdevice);
 		deviceInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
+		framework->device = vkdevice;
 
 		vkGetPhysicalDeviceQueueFamilyProperties(devices[0], &queueFamilyCount, nullptr);
 		std::vector<VkQueueFamilyProperties> queueFamilies(queueFamilyCount);
@@ -160,6 +161,8 @@ LP_Export RenderingFramework* InitializeRendering(RenderingEngineCreateInfo* cre
 		vkGetDeviceQueue(vkdevice, graphicsQueueFamilyIndex, 0, &graphicsQueue);
 		VkQueue presentQueue;
 		vkGetDeviceQueue(vkdevice, presentQueueFamilyIndex, 0, &presentQueue);
+		framework->command_list = graphicsQueue;
+		framework->command_queue = presentQueue;
 	}
 
 	if (createInfo->rendererType == RendererType::Metal) {
