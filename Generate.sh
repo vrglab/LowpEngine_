@@ -1,3 +1,3 @@
-chmod +x "Programs/Linux/premake/premake5"
-"Programs/Linux/premake/premake5" gmake2
+sh GenerateProjectFiles.sh
 sh Programs\vcpkg.sh
+sh InstallPackages.sh

@@ -1,4 +1,4 @@
-Programs\Windows\premake\premake5.exe vs2022
+GenerateProjectFiles.bat
 Programs\vcpkg.bat
 InstallPackages.bat
 pause
