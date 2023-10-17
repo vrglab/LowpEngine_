@@ -11,3 +11,8 @@
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
+
+#include <fmod_common.h>
+#include <fmod.hpp>
+
+#include <AL/al.h>
