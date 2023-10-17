@@ -107,7 +107,7 @@ project "Engine"
 
 
 	filter "system:windows"
-		cppdialect "C++17"
+		cppdialect "C++20"
 		staticruntime "On"
 		systemversion "latest"
 
@@ -189,7 +189,7 @@ project "Engine.UI"
 	
 	
 		filter "system:windows"
-			cppdialect "C++17"
+			cppdialect "C++20"
 			staticruntime "On"
 			systemversion "latest"
 	
@@ -261,7 +261,7 @@ project "SoundSystem"
 
 
 	filter "system:windows"
-		cppdialect "C++17"
+		cppdialect "C++20"
 		staticruntime "On"
 		systemversion "latest"
 
@@ -348,7 +348,7 @@ project "PhysicsEngine"
 
 
 	filter "system:windows"
-		cppdialect "C++17"
+		cppdialect "C++20"
 		staticruntime "On"
 		systemversion "latest"
 
@@ -429,7 +429,7 @@ project "RenderingEngine"
 
 
 	filter "system:windows"
-		cppdialect "C++17"
+		cppdialect "C++20"
 		staticruntime "On"
 		systemversion "latest"
 
@@ -706,7 +706,7 @@ project "Launcher"
 
 
 	filter "system:windows"
-		cppdialect "C++17"
+		cppdialect "C++20"
 		staticruntime "On"
 		systemversion "latest"
 
