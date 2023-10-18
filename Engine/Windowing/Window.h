@@ -27,6 +27,7 @@ class LP_Export Window
 		void Open();
 		void Close();
 		bool ShouldClose();
+		RenderingFramework* framework;
 
 };
 

@@ -22,10 +22,6 @@ void Window::ProcessEvents()
 			Close();
 		}
 	}
-
-	SDL_RenderClear(sdl_renderer);
-
-	SDL_RenderPresent(sdl_renderer);
 }
 
 void Window::Open()
@@ -55,8 +51,7 @@ void Window::Open()
 	RenderingEngineCreateInfo* createInfo = new RenderingEngineCreateInfo();
 	createInfo->rendererType = RendererType::OpenGL;
 	createInfo->window = sdl_window;
-
-	RenderingFramework* framework = InitializeRendering(createInfo);
+	framework = InitializeRendering(createInfo);
 }
 
 void Window::Close()

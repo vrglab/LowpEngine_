@@ -32,7 +32,8 @@ std::string LP_Export GetRendereTypeName(int renderer)
 LP_Export RenderingFramework* InitializeRendering(RenderingEngineCreateInfo* createInfo)
 {
 	RenderingFramework* framework = new RenderingFramework();
-
+	framework->rendererType = createInfo->rendererType;
+	framework->sdl_window = createInfo->window;
 	if (createInfo->rendererType == RendererType::DirectX12) {
 #ifdef __d3d12_h__
 		DXGI_SWAP_CHAIN_DESC1 swapChainDesc = {};
@@ -178,4 +179,24 @@ LP_Export RenderingFramework* InitializeRendering(RenderingEngineCreateInfo* cre
 #endif
 	}
 	return framework;
+}
+
+LP_Export int SwapBuffers(RenderingFramework* renderer)
+{
+	if (renderer->rendererType == RendererType::OpenGL)
+	{
+		SDL_GL_SwapWindow(renderer->sdl_window);
+	}
+	return LowpResultCodes::Success;
+}
+
+LP_Export int ClearScreen(RenderingFramework* renderer)
+{
+	if(renderer->rendererType == RendererType::OpenGL)
+	{
+		glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+	}
+
+	return LowpResultCodes::Success;
 }

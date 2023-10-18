@@ -17,7 +17,7 @@
 #include <glm/glm.hpp>
 
 //The rendering engine headers
-#include "Macros.h"
+#include "LowpCommons.h"
 #include "Types/RenderingEngineCreateInfo.h"
 #include "RenderingFramework.h"
 #include "ResourceFactories/OpenGLResourceFactory.h"
