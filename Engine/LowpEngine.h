@@ -21,6 +21,8 @@
 //Rendering
 #include "Rendering/Renderer.h"
 
+#include "LpSoundSystem.h"
+
 //Application Handling
 #include "Application Handling/Application.h"
 

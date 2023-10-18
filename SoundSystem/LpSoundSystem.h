@@ -6,8 +6,15 @@
 #define lpEngine_SoundSystem
 #include "Macros.h"
 
-LP_Export int InitSoundSystem()
-{
-	
-}
+enum SoundSystemBackendType {
+	Fmod = 0,
+	OpenAL = 1
+};
+
+LP_Export struct SoundSystemInitInfo {
+public:
+	int be_Type;
+};
+
+LP_Export int InitSoundSystem(SoundSystemInitInfo initInfo);
 #endif

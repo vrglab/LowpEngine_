@@ -326,10 +326,6 @@ project "PhysicsEngine"
 	links
 	{
 		"assimp-vc143-mt",
-		"bimg",
-		"bimg_decode",
-		"bimg_encode",
-		"bx",
 		"CompilerSpirV",
 		"draco",
 		"GlU32",
