@@ -8,7 +8,7 @@
 #include <Windows.h>
 
 int WINAPI main(int argc, char* argv[]) {
-    GameInfo* info = new GameInfo();
+    AppInfo* info = new AppInfo();
     info->resHeight = 400;
     info->resWidth = 600;
 
@@ -16,15 +16,22 @@ int WINAPI main(int argc, char* argv[]) {
 
     app->Initialize();
 
-    app->Run({
-    });
+    app->Run();
 
     return 0;
 }
 
 #elif defined(__linux__) || defined(__unix__) || defined(__APPLE__)
 int main(int argc, char* argv[]) {
-    std::cout << "Running on a non-Windows platform!" << std::endl;
+    AppInfo* info = new AppInfo();
+    info->resHeight = 400;
+    info->resWidth = 600;
+
+    Application* app = new Application(info);
+
+    app->Initialize();
+
+    app->Run();
     return 0;
 }
 

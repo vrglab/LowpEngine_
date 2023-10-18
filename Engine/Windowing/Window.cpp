@@ -1,7 +1,7 @@
 #include "lppch.h"
 #include "Window.h"
 
-Window::Window(WindowInfo* info)
+Window::Window(AppInfo* info)
 {
 	this->info = info;
 }
@@ -36,7 +36,7 @@ void Window::Open()
 		return;
 	}
 
-	sdl_window = SDL_CreateWindow(info->name.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, info->resolution.width, info->resolution.height, info->flags);
+	sdl_window = SDL_CreateWindow(info->name.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, info->resWidth, info->resHeight, info->flags);
 
 	if (!sdl_window) {
 		// Handle window creation error
@@ -52,7 +52,7 @@ void Window::Open()
 		SDL_Quit();
 		return;
 	}
-	RenderingEngineCreateInfo* createInfo = {};
+	RenderingEngineCreateInfo* createInfo = new RenderingEngineCreateInfo();
 	createInfo->rendererType = RendererType::OpenGL;
 	createInfo->window = sdl_window;
 
