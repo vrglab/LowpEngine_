@@ -17,6 +17,7 @@ public:
 	void* command_list = nullptr;
 	void* root_signature = nullptr;
 	void* pipeline_stat = nullptr;
+	int rendererType;
+	SDL_Window* sdl_window;
 	~RenderingFramework();
 };
-

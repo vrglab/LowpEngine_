@@ -6,7 +6,7 @@
 /* Authors: Arad Bozorgmehr(Vrglab)                                                         */
 /* ======================================================================================== */
 
-enum LP_Export RendererType
+enum RendererType
 {
 	OpenGL = 0,
 	DirectX12 = 1,
@@ -19,3 +19,7 @@ int LP_Export GetRendererType();
 std::string LP_Export GetRendereTypeName(int renderer);
 
 LP_Export RenderingFramework* InitializeRendering(RenderingEngineCreateInfo* createInfo);
+
+LP_Export int SwapBuffers(RenderingFramework* renderer);
+
+LP_Export int ClearScreen(RenderingFramework* renderer);
