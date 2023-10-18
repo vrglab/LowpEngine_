@@ -4,7 +4,9 @@
 Application::Application(AppInfo* G_info)
 {
 	window = new Window(G_info);
-	InitSoundSystem(G_info->soundSystem);
+
+	soundSystem = new SoundSystem();
+	InitSoundSystem(G_info->soundSystem, soundSystem);
 }
 
 void Application::Run()
@@ -12,7 +14,13 @@ void Application::Run()
 	while(!window->ShouldClose())
 	{
 		window->ProcessEvents();
+
+
+
+		UpdateSoundSystem(soundSystem);
 	}
+
+	CloseSoundSystem(soundSystem);
 }
 
 void Application::Stop()

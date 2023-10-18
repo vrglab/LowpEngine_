@@ -3,8 +3,8 @@
 
 LP_Export int InitSoundSystem(SoundSystemInitInfo initInfo, SoundSystem* ssystem)
 {
-	ssystem = new SoundSystem();
-	if (initInfo.be_Type == SoundSystemBackendType::Fmod) {
+	ssystem->type = initInfo.be_Type;
+	if (ssystem->type == SoundSystemBackendType::Fmod) {
 
 		FMOD::System* fmod_system;
 		FMOD_RESULT fmod_result;
@@ -21,35 +21,35 @@ LP_Export int InitSoundSystem(SoundSystemInitInfo initInfo, SoundSystem* ssystem
 		return LowpResultCodes::Success;
 	}
 
-	if (initInfo.be_Type == SoundSystemBackendType::OpenAL) {
+	if (ssystem->type == SoundSystemBackendType::OpenAL) {
 		return LowpResultCodes::Success;
 	}
 	return LowpResultCodes::UnknowError;
 }
 
-LP_Export int UpdateSoundSystem(SoundSystemInitInfo initInfo, SoundSystem* ssystem)
+LP_Export int UpdateSoundSystem(SoundSystem* ssystem)
 {
-	if (initInfo.be_Type == SoundSystemBackendType::Fmod) {
+	if (ssystem->type == SoundSystemBackendType::Fmod) {
 
 		return LowpResultCodes::Success;
 	}
 
-	if (initInfo.be_Type == SoundSystemBackendType::OpenAL) {
+	if (ssystem->type == SoundSystemBackendType::OpenAL) {
 		return LowpResultCodes::Success;
 	}
 	return LowpResultCodes::UnknowError;
 }
 
-LP_Export int CloseSoundSystem(SoundSystemInitInfo initInfo, SoundSystem* ssystem)
+LP_Export int CloseSoundSystem(SoundSystem* ssystem)
 {
-	if (initInfo.be_Type == SoundSystemBackendType::Fmod) {
+	if (ssystem->type == SoundSystemBackendType::Fmod) {
 
 		((FMOD::System*)ssystem->system)->release();
 		delete(ssystem);
 		return LowpResultCodes::Success;
 	}
 
-	if (initInfo.be_Type == SoundSystemBackendType::OpenAL) {
+	if (ssystem->type == SoundSystemBackendType::OpenAL) {
 		return LowpResultCodes::Success;
 	}
 	return LowpResultCodes::UnknowError;

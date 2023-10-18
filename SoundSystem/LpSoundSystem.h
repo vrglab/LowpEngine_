@@ -23,9 +23,10 @@ public:
 LP_Export struct SoundSystem {
 public:
 	void* system;
+	int type;
 };
 
 LP_Export int InitSoundSystem(SoundSystemInitInfo initInfo, SoundSystem* system);
-LP_Export int UpdateSoundSystem(SoundSystemInitInfo initInfo, SoundSystem* system);
-LP_Export int CloseSoundSystem(SoundSystemInitInfo initInfo, SoundSystem* system);
+LP_Export int UpdateSoundSystem(SoundSystem* system);
+LP_Export int CloseSoundSystem(SoundSystem* system);
 #endif
