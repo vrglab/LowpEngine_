@@ -1,8 +1,8 @@
 function determine_os()
     if os.ishost("windows") then
-        return "Windows"
+        return "windows"
     elseif os.ishost("linux") then
-        return "Linux"
+        return "linux"
     elseif os.ishost("macosx") then
         return "macOS"
     else
@@ -49,6 +49,11 @@ project "Engine"
 	if os.target() == "windows" then
 		pchheader "lppch.h"
 		cppdialect "C++latest"
+		links 
+		{
+			"d3d12",
+			"dxgi"
+		}
 	elseif os.target() == "linux" then
 		pchheader "%{prj.name}/lppch.h"
 	end
@@ -71,6 +76,7 @@ project "Engine"
 	includedirs
 	{
 		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
+		"Packages/c++/includes",
 		"%{prj.name}",
 		"SoundSystem",
 		"PhysicsEngine",
@@ -96,6 +102,7 @@ project "Engine"
 		"tinyexr",
 		"volk",
 		"zlib",
+		"glew32",
 		"SoundSystem",
 		"PhysicsEngine",
 		"RenderingEngine",
@@ -153,7 +160,8 @@ project "Engine.UI"
 		{
 			"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
 			"%{prj.location}",
-			"EngineCommons"
+			"EngineCommons",
+			"Packages/c++/includes"
 		}
 		
 		links
@@ -320,7 +328,8 @@ project "PhysicsEngine"
 	{
 		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
 		"%{prj.name}",
-		"EngineCommons"
+		"EngineCommons",
+		"Packages/c++/includes"
 	}
 	
 	links
@@ -382,6 +391,11 @@ project "RenderingEngine"
 	if os.target() == "windows" then
 		pchheader "lprdpch.h"
 		cppdialect "C++latest"
+		links 
+		{
+			"d3d12",
+			"dxgi"
+		}
 	elseif os.target() == "linux" then
 		pchheader "%{prj.name}/lprdpch.h"
 	end
@@ -487,6 +501,7 @@ project "EngineCommons"
 	includedirs
 	{
 		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
+		"Packages/c++/includes",
 		"%{prj.name}"
 	}
 	
@@ -507,7 +522,8 @@ project "EngineCommons"
 		"ShaderWriter",
 		"tinyexr",
 		"volk",
-		"zlib"
+		"zlib",
+		"glew32"
 	}
 
 	vpaths {
@@ -580,7 +596,6 @@ project "LowpEngine"
 	links
 	{
 		"Engine",
-		"Engine.UI",
 		"Engine.UI",
 		"AssetsSystem",
 		"GlobalUtilities",
@@ -753,6 +768,7 @@ project "Launcher"
 	includedirs
 	{
 		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
+		"Packages/c++/includes",
 		"%{prj.name}",
 		"Engine",
 		"SoundSystem",
