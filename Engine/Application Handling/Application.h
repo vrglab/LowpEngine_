@@ -11,6 +11,7 @@ class LP_Export Application
 {
 	private:
 		Window* window;
+		SoundSystem* soundSystem;
 
 	public:
 		Application(AppInfo* name);
