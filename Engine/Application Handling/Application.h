@@ -10,6 +10,7 @@ struct GameInfo
 	int resWidth;
 	int resHeight;
 	int flags;
+	SoundSystemInitInfo soundSystem;
 };
 
 class LP_Export Application

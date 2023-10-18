@@ -1,21 +1,13 @@
 /* ======================================================================================== */
 /* LowpEngine - C/C++ header file.                                                          */
 /* ======================================================================================== */
-#pragma once
 
-#include <sstream>
-#include <iostream>
-#include <memory>
-#include <utility>
-#include <algorithm>
-#include <functional>
+//LP_EXPORT
+#ifdef _WIN32
+  #define LP_Export __declspec(dllexport)
+#else
+  #define LP_Export __attribute__((visibility("default")))
+#endif
 
-#include <string>
-#include <vector>
-#include <unordered_map>
-#include <unordered_set>
-
-#include <fmod_common.h>
-#include <fmod.hpp>
-
-#include <AL/al.h>
+//LP_EXTERN
+#define LP_Extern extern "C"
