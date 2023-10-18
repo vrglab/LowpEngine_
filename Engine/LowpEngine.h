@@ -9,6 +9,19 @@
 
 #ifndef _lpEngine_ 
 #define _lpEngine_
+
+#ifndef _lpEngine_assimp
+#define _lpEngine_assimp
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+#endif
+
+#include <mono/jit/jit.h>
+#include <mono/metadata/environment.h>
+#include <mono/metadata/assembly.h>
+#include <mono/metadata/debug-helpers.h>
+
 #include "Macros.h"
 #include "PhysicsEngineCore.h"
 #include "RenderingEngine.h"
@@ -17,6 +30,17 @@
 #ifndef _lpEngine_Physics
 #error  Physics engine not initialized
 #endif
+struct AppInfo
+{
+	std::string name;
+	std::string version;
+	std::string developer;
+	std::string publisher;
+	int resWidth;
+	int resHeight;
+	int flags;
+	SoundSystemInitInfo soundSystem;
+};
 
 //Windowing
 #include "Windowing/Window.h"
