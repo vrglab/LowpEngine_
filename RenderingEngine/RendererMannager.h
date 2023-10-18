@@ -1,6 +1,3 @@
-#pragma once
-
-
 enum LP_Export RendererType
 {
 	OpenGL = 0,
