@@ -14,7 +14,8 @@ Application::Application(GameInfo* G_info)
 	info->resolution.height = G_info->resHeight;
 
 	window = new Window(info);
-	InitSoundSystem(G_info->soundSystem);
+	SoundSystem* soundSystem = nullptr;
+	InitSoundSystem(G_info->soundSystem, soundSystem);
 }
 
 void Application::Run(Update update)

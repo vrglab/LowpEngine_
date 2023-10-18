@@ -4,7 +4,7 @@
 
 #ifndef lpEngine_SoundSystem
 #define lpEngine_SoundSystem
-#include "Macros.h"
+#include "LowpCommons.h"
 
 enum SoundSystemBackendType {
 	Fmod = 0,
@@ -16,5 +16,12 @@ public:
 	int be_Type;
 };
 
-LP_Export int InitSoundSystem(SoundSystemInitInfo initInfo);
+LP_Export struct SoundSystem {
+public:
+	void* system;
+};
+
+LP_Export int InitSoundSystem(SoundSystemInitInfo initInfo, SoundSystem* system);
+LP_Export int UpdateSoundSystem(SoundSystemInitInfo initInfo, SoundSystem* system);
+LP_Export int CloseSoundSystem(SoundSystemInitInfo initInfo, SoundSystem* system);
 #endif
