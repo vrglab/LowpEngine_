@@ -6,6 +6,7 @@
 #include "Macros.h"
 #include "PhysicsEngineCore.h"
 #include "RenderingEngine.h"
+#include "LpSoundSystem.h"
 
 #ifndef _lpEngine_Physics
 #error  Physics engine not initialized
@@ -20,8 +21,6 @@
 
 //Rendering
 #include "Rendering/Renderer.h"
-
-#include "LpSoundSystem.h"
 
 //Application Handling
 #include "Application Handling/Application.h"
