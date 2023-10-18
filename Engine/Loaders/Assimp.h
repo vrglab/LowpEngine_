@@ -9,6 +9,11 @@
 class AssimpLoader
 {
 	public:
+		/// <summary>
+		/// Loads a Mesh from the given file
+		/// </summary>
+		/// <param name="file">The path to the file</param>
+		/// <returns>The loaded mesh</returns>
 		static Mesh* LoadMesh(const char* file);
 	private:
 		static void processNode(const aiNode* node, const aiScene* scene, Mesh& mesh, bool root);

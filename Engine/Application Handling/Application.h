@@ -27,8 +27,18 @@ class LP_Export Application
 
 	public:
 		Application(GameInfo* name);
+		/// <summary>
+		/// Starts the application main loop
+		/// </summary>
+		/// <param name="update">The update function</param>
 		void Run(Update update);
+		/// <summary>
+		/// Stops the loop so that we can exit the application
+		/// </summary>
 		void Stop();
+		/// <summary>
+		/// Initializes all of the required things for a application
+		/// </summary>
 		void Initialize();
 		~Application();
 };
