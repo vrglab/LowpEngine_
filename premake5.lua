@@ -54,6 +54,10 @@ project "Engine"
 			"d3d12",
 			"dxgi"
 		}
+		libdirs
+		{
+			"Packages/c++/libs/windows"
+		}
 	elseif os.target() == "linux" then
 		pchheader "%{prj.name}/lppch.h"
 	end
@@ -106,7 +110,8 @@ project "Engine"
 		"SoundSystem",
 		"PhysicsEngine",
 		"RenderingEngine",
-		"EngineCommons"
+		"EngineCommons",
+		"mono-2.0-sgen"
 	}
 
 	vpaths {
