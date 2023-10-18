@@ -1,9 +1,9 @@
 #include "lpsspch.h"
 #include "LpSoundSystem.h"
 
-LP_Export int InitSoundSystem(SoundSystemInitInfo initInfo, SoundSystem* system)
+LP_Export int InitSoundSystem(SoundSystemInitInfo initInfo, SoundSystem* ssystem)
 {
-	system = new SoundSystem();
+	ssystem = new SoundSystem();
 	if (initInfo.be_Type == SoundSystemBackendType::Fmod) {
 
 		FMOD::System* fmod_system;
@@ -17,7 +17,7 @@ LP_Export int InitSoundSystem(SoundSystemInitInfo initInfo, SoundSystem* system)
 		if (fmod_result != FMOD_OK) {
 			return LowpResultCodes::SystemFailure;
 		}
-		system->system = fmod_system;
+		ssystem->system = fmod_system;
 		return LowpResultCodes::Success;
 	}
 
@@ -27,7 +27,7 @@ LP_Export int InitSoundSystem(SoundSystemInitInfo initInfo, SoundSystem* system)
 	return LowpResultCodes::UnknowError;
 }
 
-LP_Export int UpdateSoundSystem(SoundSystemInitInfo initInfo, SoundSystem* system)
+LP_Export int UpdateSoundSystem(SoundSystemInitInfo initInfo, SoundSystem* ssystem)
 {
 	if (initInfo.be_Type == SoundSystemBackendType::Fmod) {
 
@@ -40,10 +40,12 @@ LP_Export int UpdateSoundSystem(SoundSystemInitInfo initInfo, SoundSystem* syste
 	return LowpResultCodes::UnknowError;
 }
 
-LP_Export int CloseSoundSystem(SoundSystemInitInfo initInfo, SoundSystem* system)
+LP_Export int CloseSoundSystem(SoundSystemInitInfo initInfo, SoundSystem* ssystem)
 {
 	if (initInfo.be_Type == SoundSystemBackendType::Fmod) {
 
+		((FMOD::System*)ssystem->system)->release();
+		delete(ssystem);
 		return LowpResultCodes::Success;
 	}
 
