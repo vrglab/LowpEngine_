@@ -22,6 +22,7 @@ int WINAPI main(int argc, char* argv[]) {
     InitGame(info, game);
     StartGame(game);
     CleanupGame(game);
+    return 0;
 }
 
 #elif defined(__linux__) || defined(__unix__) || defined(__APPLE__)
