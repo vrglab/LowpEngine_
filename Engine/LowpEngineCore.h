@@ -49,6 +49,55 @@ private:
     static void processNode(const aiNode* node, const aiScene* scene, Mesh& mesh, bool root);
 };
 
+struct LP_Export Resolution
+{
+    int width, height;
+};
+
+LP_Export struct GameInfo
+{
+    std::string name;
+    std::string developer;
+    std::string version;
+    int flags;
+    SoundSystemInitInfo soundSystemInfo;
+    Resolution* resolution;
+};
+
+class LP_Export Windowing
+{
+private:
+    SDL_Renderer* sdl_renderer;
+    GameInfo* info;
+    bool shouldClose = false;
+
+public:
+    Windowing(GameInfo*);
+    ~Windowing();
+    void ProcessEvents();
+    void Open();
+    void Close();
+    bool ShouldClose();
+    RenderingFramework* framework;
+    SDL_Window* sdl_window;
+};
+
+
+LP_Export struct Game
+{
+    Windowing* createdWindow;
+    GameInfo* info;
+    SoundSystem* soundSystem;
+    RenderingFramework* renderingFramework;
+};
+
+
+LP_Export int InitGame(GameInfo* initInfo, Game* game);
+
+LP_Export int StartGame(Game* game);
+
+LP_Export int CleanupGame(Game* game);
+
 LP_Extern{
     LP_Export Mesh * Assimp_LoadMesh(const char* file);
 }
