@@ -631,31 +631,6 @@ project "Scripting"
 		optimize "On"
 		defines {"RELEASE"}
 
-project "SharpScripting"
-		location "SharpScripting"
-		kind "SharedLib"
-		language "C#"
-		csversion ("11")
-	
-		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-		objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-	
-		files 
-		{
-			"%{prj.name}/**.cs",
-			"%{prj.name}/**/**.cs"
-		}
-		links
-		{
-			"GlobalUtilities"
-		}
-	
-		filter "configurations:Debug"
-			symbols "On"
-	
-		filter "configurations:Release"
-			optimize "On"		
-
 project "AssetsSystem"
 		location "AssetsSystem"
 		kind "SharedLib"
@@ -960,3 +935,29 @@ project "TestGame"
 	
 		filter "configurations:Release"
 			optimize "On"
+
+
+project "SharpScripting"
+		location "SharpScripting"
+		kind "SharedLib"
+		language "C#"
+		csversion ("11")
+	
+		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+		objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	
+		files 
+		{
+			"%{prj.name}/**.cs",
+			"%{prj.name}/**/**.cs"
+		}
+		links
+		{
+			"GlobalUtilities"
+		}
+	
+		filter "configurations:Debug"
+			symbols "On"
+	
+		filter "configurations:Release"
+			optimize "On"		
