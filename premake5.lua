@@ -534,7 +534,7 @@ project "Launcher"
 
 project "Scripting"
 	location "Scripting"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
 	toolset "v143"
 	buildoptions
