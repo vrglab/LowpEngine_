@@ -865,31 +865,6 @@ project "RenderingEngine"
 		optimize "On"
 		defines {"RELEASE"}
 
-project "SharpScripting"
-		location "SharpScripting"
-		kind "SharedLib"
-		language "C#"
-		csversion ("11")
-	
-		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-		objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-	
-		files 
-		{
-			"%{prj.name}/**.cs",
-			"%{prj.name}/**/**.cs"
-		}
-		links
-		{
-			"GlobalUtilities"
-		}
-	
-		filter "configurations:Debug"
-			symbols "On"
-	
-		filter "configurations:Release"
-			optimize "On"		
-
 project "AssetsSystem"
 		location "AssetsSystem"
 		kind "SharedLib"
@@ -1124,6 +1099,58 @@ project "GlobalUtilities"
 			symbols "On"
 			defines {"DEBUG"}
 
-	    filter "configurations:Release"
+	filter "configurations:Release"
+		optimize "On"
+		defines {"RELEASE"}
+			
+project "TestGame"
+		location "TestGame"
+		kind "ConsoleApp"
+		language "C#"
+		csversion ("11")
+	
+		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+		objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	
+		files 
+		{
+			"%{prj.name}/**.cs",
+			"%{prj.name}/**/**.cs"
+		}
+	
+		links
+		{
+			"LowpEngine"
+		}
+	
+		filter "configurations:Debug"
+			symbols "On"
+	
+		filter "configurations:Release"
 			optimize "On"
-			defines {"RELEASE"}
+
+
+project "SharpScripting"
+		location "SharpScripting"
+		kind "SharedLib"
+		language "C#"
+		csversion ("11")
+	
+		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+		objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	
+		files 
+		{
+			"%{prj.name}/**.cs",
+			"%{prj.name}/**/**.cs"
+		}
+		links
+		{
+			"GlobalUtilities"
+		}
+	
+		filter "configurations:Debug"
+			symbols "On"
+	
+		filter "configurations:Release"
+			optimize "On"		
