@@ -21,6 +21,7 @@
 #include "PhysicsEngineCore.h"
 #include "RenderingEngine.h"
 #include "LpSoundSystem.h"
+#include "lpCsharpScripting.h"
 
 #ifndef _lpEngine_Physics
 #error  Physics engine not initialized

@@ -11,6 +11,8 @@ Application::Application(AppInfo* G_info)
 
 void Application::Run()
 {
+	Assembly* assembly = LoadAssembly();
+	InitializeAssembly(assembly);
 	while(!window->ShouldClose())
 	{
 		window->ProcessEvents();
@@ -20,7 +22,7 @@ void Application::Run()
 		UpdateSoundSystem(soundSystem);
 		SwapBuffers(window->framework);
 	}
-
+	CleanAssembly(assembly);
 	CloseSoundSystem(soundSystem);
 }
 

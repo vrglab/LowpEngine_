@@ -326,7 +326,8 @@ project "Engine"
 		"SoundSystem",
 		"PhysicsEngine",
 		"RenderingEngine",
-		"EngineCommons"
+		"EngineCommons",
+		"Scripting"
 	}
 	
 	links
@@ -352,7 +353,8 @@ project "Engine"
 		"PhysicsEngine",
 		"RenderingEngine",
 		"EngineCommons",
-		"mono-2.0-sgen"
+		"mono-2.0-sgen",
+		"Scripting"
 	}
 
 	vpaths {
