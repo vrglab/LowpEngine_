@@ -126,7 +126,7 @@ project "GlobalUtilities"
 			
 project "TestGame"
 		location "TestGame"
-		kind "ConsoleApp"
+		kind "SharedLib"
 		language "C#"
 		csversion ("11")
 	
@@ -149,31 +149,6 @@ project "TestGame"
 	
 		filter "configurations:Release"
 			optimize "On"
-
-project "SharpScripting"
-		location "SharpScripting"
-		kind "SharedLib"
-		language "C#"
-		csversion ("11")
-	
-		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-		objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-	
-		files 
-		{
-			"%{prj.name}/**.cs",
-			"%{prj.name}/**/**.cs"
-		}
-		links
-		{
-			"GlobalUtilities"
-		}
-	
-		filter "configurations:Debug"
-			symbols "On"
-	
-		filter "configurations:Release"
-			optimize "On"		
 
 -- Engines Console based tools
 group "C#/Console Apps"
@@ -509,7 +484,8 @@ project "Launcher"
 		"SoundSystem",
 		"PhysicsEngine",
 		"RenderingEngine",
-		"EngineCommons"
+		"EngineCommons",
+		"Scripting"
 	}
 	
 	links

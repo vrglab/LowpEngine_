@@ -8,12 +8,6 @@ namespace LowpEngine.Scripting
 {
     public class MonoBehaviour
     {
-
-        private MonoBehaviour()
-        {
-            BehaviourRegistery.RegisteredBehaviours.Add(this);
-        }
-
         public virtual void OnEnable() { }
         public virtual void OnDisable() { }
         public virtual void Awake() { }

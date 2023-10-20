@@ -8,17 +8,7 @@
 #include <Windows.h>
 
 int WINAPI main(int argc, char* argv[]) {
-    AppInfo* info = new AppInfo();
-    info->resHeight = 400;
-    info->resWidth = 600;
-
-    Application* app = new Application(info);
-
-    app->Initialize();
-
-    app->Run();
-
-    return 0;
+ 
 }
 
 #elif defined(__linux__) || defined(__unix__) || defined(__APPLE__)

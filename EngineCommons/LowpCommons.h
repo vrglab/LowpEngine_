@@ -14,3 +14,5 @@ enum LowpResultCodes {
 	UnknowError = 1,
 	SystemFailure = 2
 };
+
+LP_Export char* ReadBytes(const std::string& filepath, uint32_t* outSize);
