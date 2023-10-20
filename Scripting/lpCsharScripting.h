@@ -14,24 +14,39 @@
 #include <mono/metadata/environment.h>
 #include <mono/metadata/assembly.h>
 #include <mono/metadata/debug-helpers.h>
-#include <Macros.h>
+#include <LowpCommons.h>
+#include "CSharpMonoBehaviour.h"
+
+struct LoadedMonoBehaviours {
+	std::list<CSharpMonoBehaviour*> behaviours;
+	~LoadedMonoBehaviours()
+	{
+		for (CSharpMonoBehaviour* behaviour : behaviours) {
+			delete behaviour;
+		}
+		behaviours.clear();
+	}
+};
 
 struct Assembly
 {
 	MonoAssembly* assembly;
 	MonoDomain* domain;
 	MonoImage* image;
+	MonoClass* BehaviourRegistery;
+	LoadedMonoBehaviours* behaviours;
 	~Assembly()
 	{
 		mono_jit_cleanup(domain);
 		delete assembly;
 		delete domain;
 		delete image;
+		delete BehaviourRegistery;
 	}
 };
 
 LP_Export Assembly* LoadAssembly();
-LP_Export void InitializeAssembly(Assembly* assembly);
+LP_Export int InitializeAssembly(Assembly* assembly);
 LP_Export void CleanAssembly(Assembly* assembly);
 
 #endif
