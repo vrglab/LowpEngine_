@@ -8,7 +8,10 @@
 
 #ifndef lpEngine_SoundSystem
 #define lpEngine_SoundSystem
-#include "LowpCommons.h"
+
+#ifndef lpEngine_Commons
+#include <LowpCommons.h>
+#endif
 
 enum SoundSystemBackendType {
 	Fmod = 0,

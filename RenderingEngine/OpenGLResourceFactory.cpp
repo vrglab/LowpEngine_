@@ -1,5 +1,5 @@
 #include "lprdpch.h"
-#include "OpenGLResourceFactory.h"
+#include "lpRenderingEngine.h"
 
 OpenGLResourceFactory::~OpenGLResourceFactory()
 {

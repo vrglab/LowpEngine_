@@ -1,4 +1,5 @@
 #include "lprdpch.h"
+#include "lpRenderingEngine.h"
 
 int LP_Export GetRendererType()
 {

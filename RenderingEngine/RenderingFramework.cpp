@@ -1,5 +1,5 @@
 #include "lprdpch.h"
-#include "RenderingFramework.h"
+#include "lpRenderingEngine.h"
 
 RenderingFramework::~RenderingFramework()
 {

@@ -1,5 +1,5 @@
 #include "lppch.h"
-#include "Assimp.h"
+#include "LowpEngineCore.h"
 
 Mesh* AssimpLoader::LoadMesh(const char* file)
 {

@@ -7,6 +7,8 @@
 /* ======================================================================================== */
 #pragma once
 
+#ifndef lpEngine_Commons
+#define lpEngine_Commons
 #include "Macros.h"
 
 enum LowpResultCodes {
@@ -16,3 +18,4 @@ enum LowpResultCodes {
 };
 
 LP_Export char* ReadBytes(const std::string& filepath, uint32_t* outSize);
+#endif
