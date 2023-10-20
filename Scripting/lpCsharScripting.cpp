@@ -10,6 +10,7 @@ LP_Export Assembly* LoadAssembly()
         assembly->image = mono_assembly_get_image(assembly->assembly);
         mono_jit_exec(assembly->domain, assembly->assembly, 0, NULL);
     }
+    return assembly;
 }
 
 LP_Export void InitializeAssembly(Assembly* assembly)
