@@ -14,4 +14,3 @@ enum LowpResultCodes {
 	UnknowError = 1,
 	SystemFailure = 2
 };
-s
