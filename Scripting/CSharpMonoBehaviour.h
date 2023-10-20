@@ -10,7 +10,21 @@
 class CSharpMonoBehaviour
 {
 public:
-    virtual void Awake() {}
-    virtual void Start() {}
-    virtual void Update() {}
+	MonoObject* LoadedClass;
+	MonoMethod* Update;
+	MonoMethod* Start;
+	MonoMethod* Awake;
+	MonoMethod* OnDestroy;
+	MonoMethod* OnEnable;
+	MonoMethod* OnDisable;
+	~CSharpMonoBehaviour()
+	{
+		delete LoadedClass;
+		delete Update;
+		delete Start;
+		delete Awake;
+		delete OnDestroy;
+		delete OnEnable;
+		delete OnDisable;
+	}
 };
