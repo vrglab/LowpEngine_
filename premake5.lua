@@ -32,6 +32,222 @@ workspace "LowpEngine"
 	outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 	vcpkg_arg_dir = determine_architecture().."-"..determine_os();
 
+
+-- C# projects related to the engine
+group "C#/Engine related"
+project "AssetsSystem"
+		location "AssetsSystem"
+		kind "SharedLib"
+		language "C#"
+		csversion ("11")
+	
+		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+		objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	
+		files 
+		{
+			"%{prj.name}/**.cs",
+			"%{prj.name}/**/**.cs"
+		}
+		links
+		{
+			"GlobalUtilities",
+			"Packages/c#/MessagePack.2.5.129/lib/netstandard2.0/MessagePack.dll",
+			"Packages/c#/MessagePack.Annotations.2.5.129/lib/netstandard2.0/MessagePack.Annotations.dll",
+			"Packages/c#/System.Buffers.4.5.1/lib/netstandard2.0/System.Buffers.dll",
+			"Packages/c#/System.Memory.4.5.5/lib/netstandard2.0/System.Memory.dll",
+			"Packages/c#/System.Numerics.Vectors.4.5.0/lib/netstandard2.0/System.Numerics.Vectors.dll",
+			"Packages/c#/System.Runtime.CompilerServices.Unsafe.6.0.0/lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
+			"Packages/c#/Microsoft.NET.StringTools.17.6.3/lib/netstandard2.0/Microsoft.NET.StringTools.dll",
+			"Packages/c#/System.Collections.Immutable.7.0.0/lib/netstandard2.0/System.Collections.Immutable.dll"
+		}
+	
+		filter "configurations:Debug"
+			symbols "On"
+	
+		filter "configurations:Release"
+			optimize "On"		
+
+project "LowpEngine"
+	location "LowpEngine"
+	kind "SharedLib"
+	language "C#"
+	csversion ("11")
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	files 
+	{
+		"%{prj.name}/**.cs",
+		"%{prj.name}/**/**.cs"
+	}
+	
+	links
+	{
+		"Engine",
+		"Engine.UI",
+		"AssetsSystem",
+		"GlobalUtilities",
+		"Packages/c#/log4net.2.0.15/lib/netstandard2.0/log4net.dll"
+	}
+
+	filter "configurations:Debug"
+		symbols "On"
+
+	filter "configurations:Release"
+		optimize "On"	
+
+project "GlobalUtilities"
+		location "GlobalUtilities"
+		kind "SharedLib"
+		language "C#"
+		csversion ("11")
+	
+		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+		objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	
+		files 
+		{
+			"%{prj.name}/**.cs",
+			"%{prj.name}/**/**.cs"
+		}
+	
+		links
+		{
+			"System"
+		}
+	
+		filter "configurations:Debug"
+			symbols "On"
+	
+		filter "configurations:Release"
+			optimize "On"
+			
+project "TestGame"
+		location "TestGame"
+		kind "ConsoleApp"
+		language "C#"
+		csversion ("11")
+	
+		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+		objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	
+		files 
+		{
+			"%{prj.name}/**.cs",
+			"%{prj.name}/**/**.cs"
+		}
+	
+		links
+		{
+			"LowpEngine"
+		}
+	
+		filter "configurations:Debug"
+			symbols "On"
+	
+		filter "configurations:Release"
+			optimize "On"
+
+-- Engines Console based tools
+group "C#/Console Apps"
+project "ConsoleAppEngine"
+		location "ConsoleAppEngine"
+		kind "SharedLib"
+		language "C#"
+		csversion ("11")
+	
+		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+		objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	
+		files 
+		{
+			"%{prj.name}/**.cs",
+			"%{prj.name}/**/**.cs"
+		}
+		links
+		{
+			"GlobalUtilities"
+		}
+	
+		filter "configurations:Debug"
+			symbols "On"
+	
+		filter "configurations:Release"
+			optimize "On"
+
+project "AssetsTool"
+		location "AssetsTool"
+		kind "ConsoleApp"
+		language "C#"
+		csversion ("11")
+	
+		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+		objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	
+		files 
+		{
+			"%{prj.name}/**.cs",
+			"%{prj.name}/**/**.cs"
+		}
+	
+		links
+		{
+			"LowpEngine",
+			"ConsoleAppEngine",
+			"AssetsSystem",
+			"GlobalUtilities",
+			"Packages/c#/MessagePack.2.5.129/lib/netstandard2.0/MessagePack.dll",
+			"Packages/c#/MessagePack.Annotations.2.5.129/lib/netstandard2.0/MessagePack.Annotations.dll",
+			"Packages/c#/System.Buffers.4.5.1/lib/netstandard2.0/System.Buffers.dll",
+			"Packages/c#/System.Memory.4.5.5/lib/netstandard2.0/System.Memory.dll",
+			"Packages/c#/System.Numerics.Vectors.4.5.0/lib/netstandard2.0/System.Numerics.Vectors.dll",
+			"Packages/c#/System.Runtime.CompilerServices.Unsafe.6.0.0/lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
+			"Packages/c#/Microsoft.NET.StringTools.17.6.3/lib/netstandard2.0/Microsoft.NET.StringTools.dll",
+			"Packages/c#/System.Collections.Immutable.7.0.0/lib/netstandard2.0/System.Collections.Immutable.dll"
+		}
+	
+		filter "configurations:Debug"
+			symbols "On"
+	
+		filter "configurations:Release"
+			optimize "On"
+
+
+-- Editor related stuff
+group "C#/Editor"
+project "Editor"
+	location "Editor"
+	kind "ConsoleApp"
+	language "C#"
+	csversion ("11")
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	files 
+	{
+		"%{prj.name}/**.cs",
+		"%{prj.name}/**/**.cs"
+	}
+
+	links
+	{
+		"LowpEngine",
+		"GlobalUtilities",
+		"AssetsTool"
+	}
+
+	filter "configurations:Debug"
+		symbols "On"
+
+	filter "configurations:Release"
+		optimize "On"
+
+
+-- C++ core engine and its other helpers
+group "C++"
 project "Engine"
 	location "Engine"
 	kind "SharedLib"
@@ -133,91 +349,192 @@ project "Engine"
 		optimize "On"
 		defines {"RELEASE"}
 
-project "Engine.UI"
-		location "Engine_UI"
-		kind "SharedLib"
-		language "C++"
-		toolset "v143"
-		buildoptions
-		{
-			"/Zc:__cplusplus"
-		}
+project "EngineCommons"
+	location "EngineCommons"
+	kind "StaticLib"
+	language "C++"
+	toolset "v143"
+	buildoptions
+	{
+		"/Zc:__cplusplus"
+	}
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+
+	if os.target() == "windows" then
+		pchheader "lpcopch.h"
+		cppdialect "C++latest"
+	elseif os.target() == "linux" then
+		pchheader "%{prj.name}/lpcopch.h"
+	end
+
+	pchsource "%{prj.name}/lpcopch.cpp"
+
+	files 
+	{
+		"%{prj.name}/**.h",
+		"%{prj.name}/**.cpp",
+		"%{prj.name}/**/**.h",
+		"%{prj.name}/**/**.cpp"
+	}
+
+	libdirs
+	{
+		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/lib"
+	}
+
+	includedirs
+	{
+		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
+		"Packages/c++/includes",
+		"%{prj.name}"
+	}
 	
-		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-		objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-	
-	
-		if os.target() == "windows" then
-			pchheader "lpuipch.h"
-			cppdialect "C++latest"
-		elseif os.target() == "linux" then
-			pchheader "%{prj.location}/lpuipch.h"
-		end
-	
-		pchsource "%{prj.location}/lpuipch.cpp"
-	
+	links
+	{
+		"assimp-vc143-mt",
+		"CompilerSpirV",
+		"draco",
+		"GlU32",
+		"kubazip",
+		"miniz",
+		"minizip",
+		"poly2tri",
+		"polyclipping",
+		"pugixml",
+		"SDL2",
+		"ShaderAST",
+		"ShaderWriter",
+		"tinyexr",
+		"volk",
+		"zlib",
+		"glew32"
+	}
+
+	vpaths {
+		["Headers/*"] = { "**.h", "**.hpp" },
+		["Sources/*"] = {"**.c", "**.cpp"}
+	}
+
+
+	filter "system:windows"
+		cppdialect "C++20"
+		staticruntime "On"
+		systemversion "latest"
+
+	filter "configurations:Debug"
+		symbols "On"
+		defines {"DEBUG"}
+
+	filter "configurations:Release"
+		optimize "On"
+		defines {"RELEASE"}
+
+project "Launcher"
+	location "Launcher"
+	kind "ConsoleApp"
+	language "C++"
+	toolset "v143"
+	buildoptions
+	{
+		"/Zc:__cplusplus"
+	}
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+
+
+	if os.target() == "windows" then
+		pchheader "lplupch.h"
+		cppdialect "C++latest"
 		libdirs
 		{
-			"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/lib"
+			"Packages/c++/libs/windows"
 		}
-	
-		includedirs
-		{
-			"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
-			"%{prj.location}",
-			"EngineCommons",
-			"Packages/c++/includes"
-		}
-		
-		links
-		{
-			"assimp-vc143-mt",
-			"CompilerSpirV",
-			"draco",
-			"GlU32",
-			"kubazip",
-			"miniz",
-			"minizip",
-			"OpenGL32",
-			"poly2tri",
-			"polyclipping",
-			"pugixml",
-			"SDL2",
-			"ShaderAST",
-			"ShaderWriter",
-			"tinyexr",
-			"volk",
-			"zlib",
-			"EngineCommons"
-		}
+	elseif os.target() == "linux" then
+		pchheader "%{prj.name}/lplupch.h"
+	end
 
-		files 
-		{
-			"%{prj.location}/**.h",
-			"%{prj.location}/**.cpp",
-			"%{prj.location}/**/**.h",
-			"%{prj.location}/**/**.cpp"
-		}
-	
-		vpaths {
-			["Headers/*"] = { "**.h", "**.hpp" },
-			["Sources/*"] = {"**.c", "**.cpp"}
-		}
-	
-	
-		filter "system:windows"
-			cppdialect "C++20"
-			staticruntime "On"
-			systemversion "latest"
-	
-		filter "configurations:Debug"
-			symbols "On"
-			defines {"DEBUG"}
+	pchsource "%{prj.name}/lplupch.cpp"
 
-	    filter "configurations:Release"
-			optimize "On"
-			defines {"RELEASE"}
+	files 
+	{
+		"%{prj.name}/**.h",
+		"%{prj.name}/**.cpp",
+		"%{prj.name}/**/**.h",
+		"%{prj.name}/**/**.cpp"
+	}
 
+	libdirs
+	{
+		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/lib"
+	}
+
+	includedirs
+	{
+		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
+		"Packages/c++/includes",
+		"%{prj.name}",
+		"Engine",
+		"SoundSystem",
+		"PhysicsEngine",
+		"RenderingEngine",
+		"EngineCommons"
+	}
+	
+	links
+	{
+		"assimp-vc143-mt",
+		"CompilerSpirV",
+		"draco",
+		"GlU32",
+		"kubazip",
+		"miniz",
+		"minizip",
+		"poly2tri",
+		"polyclipping",
+		"pugixml",
+		"SDL2",
+		"ShaderAST",
+		"ShaderWriter",
+		"tinyexr",
+		"volk",
+		"zlib",
+		"OpenAL32",
+		"fmod",
+		"fmodstudio",
+		"Engine",
+		"SoundSystem",
+		"PhysicsEngine",
+		"RenderingEngine",
+		"EngineCommons"
+	}
+
+	vpaths {
+		["Headers/*"] = { "**.h", "**.hpp" },
+		["Sources/*"] = {"**.c", "**.cpp"}
+	}
+
+
+	filter "system:windows"
+		cppdialect "C++20"
+		staticruntime "On"
+		systemversion "latest"
+
+	filter "configurations:Debug"
+		symbols "On"
+		defines { "DEBUG"}
+
+	filter "configurations:Release"
+		optimize "On"
+		defines {"RELEASE"}
+
+
+-- C++ Subsystems that are used in the engine
+group "C++/Subsystem"
 project "SoundSystem"
 	location "SoundSystem"
 	kind "StaticLib"
@@ -467,390 +784,87 @@ project "RenderingEngine"
 		optimize "On"
 		defines {"RELEASE"}
 
-project "EngineCommons"
-	location "EngineCommons"
-	kind "StaticLib"
-	language "C++"
-	toolset "v143"
-	buildoptions
-	{
-		"/Zc:__cplusplus"
-	}
-
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-
-
-	if os.target() == "windows" then
-		pchheader "lpcopch.h"
-		cppdialect "C++latest"
-	elseif os.target() == "linux" then
-		pchheader "%{prj.name}/lpcopch.h"
-	end
-
-	pchsource "%{prj.name}/lpcopch.cpp"
-
-	files 
-	{
-		"%{prj.name}/**.h",
-		"%{prj.name}/**.cpp",
-		"%{prj.name}/**/**.h",
-		"%{prj.name}/**/**.cpp"
-	}
-
-	libdirs
-	{
-		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/lib"
-	}
-
-	includedirs
-	{
-		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
-		"Packages/c++/includes",
-		"%{prj.name}"
-	}
-	
-	links
-	{
-		"assimp-vc143-mt",
-		"CompilerSpirV",
-		"draco",
-		"GlU32",
-		"kubazip",
-		"miniz",
-		"minizip",
-		"poly2tri",
-		"polyclipping",
-		"pugixml",
-		"SDL2",
-		"ShaderAST",
-		"ShaderWriter",
-		"tinyexr",
-		"volk",
-		"zlib",
-		"glew32"
-	}
-
-	vpaths {
-		["Headers/*"] = { "**.h", "**.hpp" },
-		["Sources/*"] = {"**.c", "**.cpp"}
-	}
-
-
-	filter "system:windows"
-		cppdialect "C++20"
-		staticruntime "On"
-		systemversion "latest"
-
-	filter "configurations:Debug"
-		symbols "On"
-		defines {"DEBUG"}
-
-	filter "configurations:Release"
-		optimize "On"
-		defines {"RELEASE"}
-
-project "AssetsSystem"
-		location "AssetsSystem"
+project "Engine.UI"
+		location "Engine_UI"
 		kind "SharedLib"
-		language "C#"
-		csversion ("11")
+		language "C++"
+		toolset "v143"
+		buildoptions
+		{
+			"/Zc:__cplusplus"
+		}
 	
 		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 		objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 	
-		files 
-		{
-			"%{prj.name}/**.cs",
-			"%{prj.name}/**/**.cs"
-		}
-		links
-		{
-			"GlobalUtilities",
-			"Packages/c#/MessagePack.2.5.129/lib/netstandard2.0/MessagePack.dll",
-			"Packages/c#/MessagePack.Annotations.2.5.129/lib/netstandard2.0/MessagePack.Annotations.dll",
-			"Packages/c#/System.Buffers.4.5.1/lib/netstandard2.0/System.Buffers.dll",
-			"Packages/c#/System.Memory.4.5.5/lib/netstandard2.0/System.Memory.dll",
-			"Packages/c#/System.Numerics.Vectors.4.5.0/lib/netstandard2.0/System.Numerics.Vectors.dll",
-			"Packages/c#/System.Runtime.CompilerServices.Unsafe.6.0.0/lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
-			"Packages/c#/Microsoft.NET.StringTools.17.6.3/lib/netstandard2.0/Microsoft.NET.StringTools.dll",
-			"Packages/c#/System.Collections.Immutable.7.0.0/lib/netstandard2.0/System.Collections.Immutable.dll"
-		}
 	
-		filter "configurations:Debug"
-			symbols "On"
+		if os.target() == "windows" then
+			pchheader "lpuipch.h"
+			cppdialect "C++latest"
+		elseif os.target() == "linux" then
+			pchheader "%{prj.location}/lpuipch.h"
+		end
 	
-		filter "configurations:Release"
-			optimize "On"		
-
-project "LowpEngine"
-	location "LowpEngine"
-	kind "SharedLib"
-	language "C#"
-	csversion ("11")
-
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-
-	files 
-	{
-		"%{prj.name}/**.cs",
-		"%{prj.name}/**/**.cs"
-	}
+		pchsource "%{prj.location}/lpuipch.cpp"
 	
-	links
-	{
-		"Engine",
-		"Engine.UI",
-		"AssetsSystem",
-		"GlobalUtilities",
-		"Packages/c#/log4net.2.0.15/lib/netstandard2.0/log4net.dll"
-	}
-
-	filter "configurations:Debug"
-		symbols "On"
-
-	filter "configurations:Release"
-		optimize "On"	
-
-project "Editor"
-	location "Editor"
-	kind "ConsoleApp"
-	language "C#"
-	csversion ("11")
-
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-
-	files 
-	{
-		"%{prj.name}/**.cs",
-		"%{prj.name}/**/**.cs"
-	}
-
-	links
-	{
-		"LowpEngine",
-		"GlobalUtilities",
-		"AssetsTool"
-	}
-
-	filter "configurations:Debug"
-		symbols "On"
-
-	filter "configurations:Release"
-		optimize "On"
-
-project "ConsoleAppEngine"
-		location "ConsoleAppEngine"
-		kind "SharedLib"
-		language "C#"
-		csversion ("11")
-	
-		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-		objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-	
-		files 
-		{
-			"%{prj.name}/**.cs",
-			"%{prj.name}/**/**.cs"
-		}
-		links
-		{
-			"GlobalUtilities"
-		}
-	
-		filter "configurations:Debug"
-			symbols "On"
-	
-		filter "configurations:Release"
-			optimize "On"
-
-project "AssetsTool"
-		location "AssetsTool"
-		kind "ConsoleApp"
-		language "C#"
-		csversion ("11")
-	
-		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-		objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-	
-		files 
-		{
-			"%{prj.name}/**.cs",
-			"%{prj.name}/**/**.cs"
-		}
-	
-		links
-		{
-			"LowpEngine",
-			"ConsoleAppEngine",
-			"AssetsSystem",
-			"GlobalUtilities",
-			"Packages/c#/MessagePack.2.5.129/lib/netstandard2.0/MessagePack.dll",
-			"Packages/c#/MessagePack.Annotations.2.5.129/lib/netstandard2.0/MessagePack.Annotations.dll",
-			"Packages/c#/System.Buffers.4.5.1/lib/netstandard2.0/System.Buffers.dll",
-			"Packages/c#/System.Memory.4.5.5/lib/netstandard2.0/System.Memory.dll",
-			"Packages/c#/System.Numerics.Vectors.4.5.0/lib/netstandard2.0/System.Numerics.Vectors.dll",
-			"Packages/c#/System.Runtime.CompilerServices.Unsafe.6.0.0/lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
-			"Packages/c#/Microsoft.NET.StringTools.17.6.3/lib/netstandard2.0/Microsoft.NET.StringTools.dll",
-			"Packages/c#/System.Collections.Immutable.7.0.0/lib/netstandard2.0/System.Collections.Immutable.dll"
-		}
-	
-		filter "configurations:Debug"
-			symbols "On"
-	
-		filter "configurations:Release"
-			optimize "On"
-
-project "GlobalUtilities"
-		location "GlobalUtilities"
-		kind "SharedLib"
-		language "C#"
-		csversion ("11")
-	
-		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-		objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-	
-		files 
-		{
-			"%{prj.name}/**.cs",
-			"%{prj.name}/**/**.cs"
-		}
-	
-		links
-		{
-			"System"
-		}
-	
-		filter "configurations:Debug"
-			symbols "On"
-	
-		filter "configurations:Release"
-			optimize "On"
-
-project "Launcher"
-	location "Launcher"
-	kind "ConsoleApp"
-	language "C++"
-	toolset "v143"
-	buildoptions
-	{
-		"/Zc:__cplusplus"
-	}
-
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-
-
-
-	if os.target() == "windows" then
-		pchheader "lplupch.h"
-		cppdialect "C++latest"
 		libdirs
 		{
-			"Packages/c++/libs/windows"
+			"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/lib"
 		}
-	elseif os.target() == "linux" then
-		pchheader "%{prj.name}/lplupch.h"
-	end
-
-	pchsource "%{prj.name}/lplupch.cpp"
-
-	files 
-	{
-		"%{prj.name}/**.h",
-		"%{prj.name}/**.cpp",
-		"%{prj.name}/**/**.h",
-		"%{prj.name}/**/**.cpp"
-	}
-
-	libdirs
-	{
-		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/lib"
-	}
-
-	includedirs
-	{
-		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
-		"Packages/c++/includes",
-		"%{prj.name}",
-		"Engine",
-		"SoundSystem",
-		"PhysicsEngine",
-		"RenderingEngine",
-		"EngineCommons"
-	}
 	
-	links
-	{
-		"assimp-vc143-mt",
-		"CompilerSpirV",
-		"draco",
-		"GlU32",
-		"kubazip",
-		"miniz",
-		"minizip",
-		"poly2tri",
-		"polyclipping",
-		"pugixml",
-		"SDL2",
-		"ShaderAST",
-		"ShaderWriter",
-		"tinyexr",
-		"volk",
-		"zlib",
-		"OpenAL32",
-		"fmod",
-		"fmodstudio",
-		"Engine",
-		"SoundSystem",
-		"PhysicsEngine",
-		"RenderingEngine",
-		"EngineCommons"
-	}
-
-	vpaths {
-		["Headers/*"] = { "**.h", "**.hpp" },
-		["Sources/*"] = {"**.c", "**.cpp"}
-	}
-
-
-	filter "system:windows"
-		cppdialect "C++20"
-		staticruntime "On"
-		systemversion "latest"
-
-	filter "configurations:Debug"
-		symbols "On"
-		defines { "DEBUG"}
-
-	filter "configurations:Release"
-		optimize "On"
-		defines {"RELEASE"}
-			
-project "TestGame"
-		location "TestGame"
-		kind "ConsoleApp"
-		language "C#"
-		csversion ("11")
-	
-		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-		objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-	
-		files 
+		includedirs
 		{
-			"%{prj.name}/**.cs",
-			"%{prj.name}/**/**.cs"
+			"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
+			"%{prj.location}",
+			"EngineCommons",
+			"Packages/c++/includes"
 		}
-	
+		
 		links
 		{
-			"LowpEngine"
+			"assimp-vc143-mt",
+			"CompilerSpirV",
+			"draco",
+			"GlU32",
+			"kubazip",
+			"miniz",
+			"minizip",
+			"OpenGL32",
+			"poly2tri",
+			"polyclipping",
+			"pugixml",
+			"SDL2",
+			"ShaderAST",
+			"ShaderWriter",
+			"tinyexr",
+			"volk",
+			"zlib",
+			"EngineCommons"
 		}
+
+		files 
+		{
+			"%{prj.location}/**.h",
+			"%{prj.location}/**.cpp",
+			"%{prj.location}/**/**.h",
+			"%{prj.location}/**/**.cpp"
+		}
+	
+		vpaths {
+			["Headers/*"] = { "**.h", "**.hpp" },
+			["Sources/*"] = {"**.c", "**.cpp"}
+		}
+	
+	
+		filter "system:windows"
+			cppdialect "C++20"
+			staticruntime "On"
+			systemversion "latest"
 	
 		filter "configurations:Debug"
 			symbols "On"
-	
-		filter "configurations:Release"
+			defines {"DEBUG"}
+
+	    filter "configurations:Release"
 			optimize "On"
+			defines {"RELEASE"}
