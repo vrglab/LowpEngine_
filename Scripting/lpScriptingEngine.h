@@ -18,13 +18,6 @@
 #include <filesystem>
 #include <LowpCommons.h>
 
-LP_Export struct ScriptingEngine {
-	MonoDomain* root_domain;
-	MonoDomain* app_domain;
-	MonoAssembly* core_assembly;
-	MonoAssembly* game_assembly;
-};
-
 LP_Export struct MonoBehaviourChild
 {
 	MonoClass* classType;
@@ -34,6 +27,14 @@ LP_Export struct MonoBehaviourChild
 	MonoMethod* onEnableMethod;
 	MonoMethod* onDisableMethod;
 	MonoMethod* onDestroyMethod;
+};
+
+
+LP_Export struct ScriptingEngine {
+	MonoDomain* root_domain;
+	MonoDomain* app_domain;
+	MonoAssembly* core_assembly;
+	MonoAssembly* game_assembly;
 };
 
 
