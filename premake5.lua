@@ -150,6 +150,31 @@ project "TestGame"
 		filter "configurations:Release"
 			optimize "On"
 
+project "SharpScripting"
+		location "SharpScripting"
+		kind "SharedLib"
+		language "C#"
+		csversion ("11")
+	
+		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+		objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	
+		files 
+		{
+			"%{prj.name}/**.cs",
+			"%{prj.name}/**/**.cs"
+		}
+		links
+		{
+			"GlobalUtilities"
+		}
+	
+		filter "configurations:Debug"
+			symbols "On"
+	
+		filter "configurations:Release"
+			optimize "On"		
+
 -- Engines Console based tools
 group "C#/Console Apps"
 project "ConsoleAppEngine"
@@ -526,6 +551,87 @@ project "Launcher"
 
 	filter "configurations:Debug"
 		symbols "On"
+		defines {"DEBUG"}
+
+	filter "configurations:Release"
+		optimize "On"
+		defines {"RELEASE"}
+
+project "Scripting"
+	location "Scripting"
+	kind "StaticLib"
+	language "C++"
+	toolset "v143"
+	buildoptions
+	{
+		"/Zc:__cplusplus"
+	}
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+
+	if os.target() == "windows" then
+		pchheader "lpscpch.h"
+		cppdialect "C++latest"
+		links 
+		{
+			"d3d12",
+			"dxgi"
+		}
+		libdirs
+		{
+			"Packages/c++/libs/windows"
+		}
+	elseif os.target() == "linux" then
+		pchheader "%{prj.name}/lpscpch.h"
+	end
+
+	pchsource "%{prj.name}/lpscpch.cpp"
+
+	files 
+	{
+		"%{prj.name}/**.h",
+		"%{prj.name}/**.cpp",
+		"%{prj.name}/**/**.h",
+		"%{prj.name}/**/**.cpp"
+	}
+
+	libdirs
+	{
+		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/lib"
+	}
+
+	includedirs
+	{
+		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
+		"Packages/c++/includes",
+		"%{prj.name}",
+		"SoundSystem",
+		"PhysicsEngine",
+		"RenderingEngine",
+		"EngineCommons"
+	}
+	
+	links
+	{
+		"EngineCommons",
+		"mono-2.0-sgen"
+	}
+
+	vpaths {
+		["Headers/*"] = { "**.h", "**.hpp" },
+		["Sources/*"] = {"**.c", "**.cpp"}
+	}
+
+
+	filter "system:windows"
+		cppdialect "C++20"
+		staticruntime "On"
+		systemversion "latest"
+
+	filter "configurations:Debug"
+		symbols "On"
 		defines { "DEBUG"}
 
 	filter "configurations:Release"
@@ -783,88 +889,3 @@ project "RenderingEngine"
 	filter "configurations:Release"
 		optimize "On"
 		defines {"RELEASE"}
-
-project "Engine.UI"
-		location "Engine_UI"
-		kind "SharedLib"
-		language "C++"
-		toolset "v143"
-		buildoptions
-		{
-			"/Zc:__cplusplus"
-		}
-	
-		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-		objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-	
-	
-		if os.target() == "windows" then
-			pchheader "lpuipch.h"
-			cppdialect "C++latest"
-		elseif os.target() == "linux" then
-			pchheader "%{prj.location}/lpuipch.h"
-		end
-	
-		pchsource "%{prj.location}/lpuipch.cpp"
-	
-		libdirs
-		{
-			"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/lib"
-		}
-	
-		includedirs
-		{
-			"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
-			"%{prj.location}",
-			"EngineCommons",
-			"Packages/c++/includes"
-		}
-		
-		links
-		{
-			"assimp-vc143-mt",
-			"CompilerSpirV",
-			"draco",
-			"GlU32",
-			"kubazip",
-			"miniz",
-			"minizip",
-			"OpenGL32",
-			"poly2tri",
-			"polyclipping",
-			"pugixml",
-			"SDL2",
-			"ShaderAST",
-			"ShaderWriter",
-			"tinyexr",
-			"volk",
-			"zlib",
-			"EngineCommons"
-		}
-
-		files 
-		{
-			"%{prj.location}/**.h",
-			"%{prj.location}/**.cpp",
-			"%{prj.location}/**/**.h",
-			"%{prj.location}/**/**.cpp"
-		}
-	
-		vpaths {
-			["Headers/*"] = { "**.h", "**.hpp" },
-			["Sources/*"] = {"**.c", "**.cpp"}
-		}
-	
-	
-		filter "system:windows"
-			cppdialect "C++20"
-			staticruntime "On"
-			systemversion "latest"
-	
-		filter "configurations:Debug"
-			symbols "On"
-			defines {"DEBUG"}
-
-	    filter "configurations:Release"
-			optimize "On"
-			defines {"RELEASE"}

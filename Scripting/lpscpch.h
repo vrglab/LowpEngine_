@@ -7,27 +7,14 @@
 /* ======================================================================================== */
 #pragma once
 
-struct LP_Export Resolution
-{
-	int width, height;
-};
+#include <sstream>
+#include <iostream>
+#include <memory>
+#include <utility>
+#include <algorithm>
+#include <functional>
 
-class LP_Export Window
-{
-	private:
-		SDL_Window* sdl_window;
-		SDL_Renderer* sdl_renderer;
-		AppInfo* info;
-		bool shouldClose = false;
-
-	public:
-		Window(AppInfo*);
-		~Window();
-		void ProcessEvents();
-		void Open();
-		void Close();
-		bool ShouldClose();
-		RenderingFramework* framework;
-
-};
-
+#include <string>
+#include <vector>
+#include <unordered_map>
+#include <unordered_set>

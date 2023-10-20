@@ -14,10 +14,11 @@ void Application::Run()
 	while(!window->ShouldClose())
 	{
 		window->ProcessEvents();
-
+		ClearScreen(window->framework);
 
 
 		UpdateSoundSystem(soundSystem);
+		SwapBuffers(window->framework);
 	}
 
 	CloseSoundSystem(soundSystem);

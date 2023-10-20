@@ -5,29 +5,26 @@
 /*                                                                                          */
 /* Authors: Arad Bozorgmehr(Vrglab)                                                         */
 /* ======================================================================================== */
+
 #pragma once
-
-struct LP_Export Resolution
+class CSharpMonoBehaviour
 {
-	int width, height;
+public:
+	MonoObject* LoadedClass;
+	MonoMethod* Update;
+	MonoMethod* Start;
+	MonoMethod* Awake;
+	MonoMethod* OnDestroy;
+	MonoMethod* OnEnable;
+	MonoMethod* OnDisable;
+	~CSharpMonoBehaviour()
+	{
+		delete LoadedClass;
+		delete Update;
+		delete Start;
+		delete Awake;
+		delete OnDestroy;
+		delete OnEnable;
+		delete OnDisable;
+	}
 };
-
-class LP_Export Window
-{
-	private:
-		SDL_Window* sdl_window;
-		SDL_Renderer* sdl_renderer;
-		AppInfo* info;
-		bool shouldClose = false;
-
-	public:
-		Window(AppInfo*);
-		~Window();
-		void ProcessEvents();
-		void Open();
-		void Close();
-		bool ShouldClose();
-		RenderingFramework* framework;
-
-};
-
