@@ -25,6 +25,17 @@ LP_Export struct ScriptingEngine {
 	MonoAssembly* game_assembly;
 };
 
+LP_Export struct MonoBehaviourChild
+{
+	MonoClass* classType;
+	MonoMethod* awakeMethod;
+	MonoMethod* startMethod;
+	MonoMethod* updateMethod;
+	MonoMethod* onEnableMethod;
+	MonoMethod* onDisableMethod;
+	MonoMethod* onDestroyMethod;
+};
+
 
 LP_Export MonoAssembly* LoadCSharpAssembly(const std::string& assemblyPath);
 LP_Export int InitScriptingEngine(std::string GameName, ScriptingEngine* engine);

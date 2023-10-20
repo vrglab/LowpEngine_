@@ -535,87 +535,6 @@ project "Launcher"
 		optimize "On"
 		defines {"RELEASE"}
 
-project "Scripting"
-	location "Scripting"
-	kind "StaticLib"
-	language "C++"
-	toolset "v143"
-	buildoptions
-	{
-		"/Zc:__cplusplus"
-	}
-
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-
-
-	if os.target() == "windows" then
-		pchheader "lpscpch.h"
-		cppdialect "C++latest"
-		links 
-		{
-			"d3d12",
-			"dxgi"
-		}
-		libdirs
-		{
-			"Packages/c++/libs/windows"
-		}
-	elseif os.target() == "linux" then
-		pchheader "%{prj.name}/lpscpch.h"
-	end
-
-	pchsource "%{prj.name}/lpscpch.cpp"
-
-	files 
-	{
-		"%{prj.name}/**.h",
-		"%{prj.name}/**.cpp",
-		"%{prj.name}/**/**.h",
-		"%{prj.name}/**/**.cpp"
-	}
-
-	libdirs
-	{
-		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/lib"
-	}
-
-	includedirs
-	{
-		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
-		"Packages/c++/includes",
-		"%{prj.name}",
-		"SoundSystem",
-		"PhysicsEngine",
-		"RenderingEngine",
-		"EngineCommons"
-	}
-	
-	links
-	{
-		"EngineCommons",
-		"mono-2.0-sgen"
-	}
-
-	vpaths {
-		["Headers/*"] = { "**.h", "**.hpp" },
-		["Sources/*"] = {"**.c", "**.cpp"}
-	}
-
-
-	filter "system:windows"
-		cppdialect "C++20"
-		staticruntime "On"
-		systemversion "latest"
-
-	filter "configurations:Debug"
-		symbols "On"
-		defines { "DEBUG"}
-
-	filter "configurations:Release"
-		optimize "On"
-		defines {"RELEASE"}
-
 
 -- C++ Subsystems that are used in the engine
 group "C++/Subsystem"
@@ -863,6 +782,87 @@ project "RenderingEngine"
 	filter "configurations:Debug"
 		symbols "On"
 		defines {"DEBUG"}
+
+	filter "configurations:Release"
+		optimize "On"
+		defines {"RELEASE"}
+
+project "Scripting"
+	location "Scripting"
+	kind "StaticLib"
+	language "C++"
+	toolset "v143"
+	buildoptions
+	{
+		"/Zc:__cplusplus"
+	}
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+
+	if os.target() == "windows" then
+		pchheader "lpscpch.h"
+		cppdialect "C++latest"
+		links 
+		{
+			"d3d12",
+			"dxgi"
+		}
+		libdirs
+		{
+			"Packages/c++/libs/windows"
+		}
+	elseif os.target() == "linux" then
+		pchheader "%{prj.name}/lpscpch.h"
+	end
+
+	pchsource "%{prj.name}/lpscpch.cpp"
+
+	files 
+	{
+		"%{prj.name}/**.h",
+		"%{prj.name}/**.cpp",
+		"%{prj.name}/**/**.h",
+		"%{prj.name}/**/**.cpp"
+	}
+
+	libdirs
+	{
+		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/lib"
+	}
+
+	includedirs
+	{
+		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
+		"Packages/c++/includes",
+		"%{prj.name}",
+		"SoundSystem",
+		"PhysicsEngine",
+		"RenderingEngine",
+		"EngineCommons"
+	}
+	
+	links
+	{
+		"EngineCommons",
+		"mono-2.0-sgen"
+	}
+
+	vpaths {
+		["Headers/*"] = { "**.h", "**.hpp" },
+		["Sources/*"] = {"**.c", "**.cpp"}
+	}
+
+
+	filter "system:windows"
+		cppdialect "C++20"
+		staticruntime "On"
+		systemversion "latest"
+
+	filter "configurations:Debug"
+		symbols "On"
+		defines { "DEBUG"}
 
 	filter "configurations:Release"
 		optimize "On"
