@@ -1,5 +1,5 @@
 #include "lpscpch.h"
-#include "lpCsharScripting.h"
+#include "lpCsharpScripting.h"
 
 LP_Export Assembly* LoadAssembly()
 {
@@ -26,7 +26,7 @@ LP_Export int InitializeAssembly(Assembly* assembly)
 
     for (int i = 0; i < mono_array_length(scriptObjectsArrayUnboxed); i++) {
         MonoObject* scriptObject = mono_array_get(scriptObjectsArrayUnboxed, MonoObject*, i);
-        MonoClass* monoBehvaiourClass = (MonoClass*)mono_object_unbox(scriptObject);
+        MonoClass* monoBehvaiourClass = mono_object_get_class(scriptObject);
         CSharpMonoBehaviour* foundMonoBehvaiour = new CSharpMonoBehaviour();
         
         foundMonoBehvaiour->LoadedClass = scriptObject;
