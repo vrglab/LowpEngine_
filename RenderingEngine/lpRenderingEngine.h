@@ -104,6 +104,20 @@ enum RendererType
 	Metal = 3
 };
 
+#ifdef __d3d12_h__
+LP_Export struct Dx12RenderingResources
+{
+	ID3D12Resource* renderTarget; // This should be your swap chain's buffer
+	ID3D12Resource* depthStencilBuffer;
+
+	ID3D12DescriptorHeap* rtvHeap;
+	ID3D12DescriptorHeap* dsvHeap;
+
+	D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle;
+	D3D12_CPU_DESCRIPTOR_HANDLE dsvHandle;
+};
+#endif
+
 class RenderingFramework
 {
 public:
@@ -117,6 +131,9 @@ public:
 	void* pipeline_stat = nullptr;
 	int rendererType;
 	SDL_Window* sdl_window;
+#ifdef __d3d12_h__
+	Dx12RenderingResources* dx12Resources;
+#endif
 	~RenderingFramework();
 };
 
@@ -128,5 +145,5 @@ LP_Export RenderingFramework* InitializeRendering(RenderingEngineCreateInfo* cre
 
 LP_Export int SwapBuffers(RenderingFramework* renderer);
 
-LP_Export int ClearScreen(RenderingFramework* renderer);
+LP_Export int ClearScreen(RenderingFramework* renderer, float clearColor[4]);
 #endif

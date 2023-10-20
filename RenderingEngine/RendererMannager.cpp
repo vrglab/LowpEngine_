@@ -86,6 +86,44 @@ LP_Export RenderingFramework* InitializeRendering(RenderingEngineCreateInfo* cre
 		D3D12SerializeRootSignature(&rootSignatureDesc, D3D_ROOT_SIGNATURE_VERSION_1, &signature, &error);
 		device->CreateRootSignature(0, signature->GetBufferPointer(), signature->GetBufferSize(), __uuidof(ID3D12RootSignature), &framework->root_signature);
 
+		framework->dx12Resources = new Dx12RenderingResources();
+
+
+		// Define the descriptor heap for RTVs
+		D3D12_DESCRIPTOR_HEAP_DESC rtvHeapDesc = {};
+		rtvHeapDesc.NumDescriptors = 1; // Specify the number of RTVs you need
+		rtvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
+		rtvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
+
+		ID3D12DescriptorHeap* rtvHeap;
+		HRESULT hr = device->CreateDescriptorHeap(&rtvHeapDesc, IID_PPV_ARGS(&rtvHeap));
+		if (FAILED(hr)) {
+			// Handle error
+		}
+		framework->dx12Resources->rtvHeap = rtvHeap;
+
+		// Define the descriptor heap for DSVs
+		D3D12_DESCRIPTOR_HEAP_DESC dsvHeapDesc = {};
+		dsvHeapDesc.NumDescriptors = 1; // Typically, you have only one DSV
+		dsvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_DSV;
+		dsvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
+
+		ID3D12DescriptorHeap* dsvHeap;
+		hr = device->CreateDescriptorHeap(&dsvHeapDesc, IID_PPV_ARGS(&dsvHeap));
+		if (FAILED(hr)) {
+			// Handle error
+		}
+		framework->dx12Resources->dsvHeap = dsvHeap;
+
+		// Create RTV for the swap chain buffer
+		framework->dx12Resources->rtvHandle = framework->dx12Resources->rtvHeap->GetCPUDescriptorHandleForHeapStart();
+		device->CreateRenderTargetView(framework->dx12Resources->renderTarget, nullptr, framework->dx12Resources->rtvHandle);
+
+		// Create DSV for the depth stencil buffer
+		framework->dx12Resources->dsvHandle = framework->dx12Resources->dsvHeap->GetCPUDescriptorHandleForHeapStart();
+		device->CreateDepthStencilView(framework->dx12Resources->depthStencilBuffer, nullptr, framework->dx12Resources->dsvHandle);
+
+
 		signature->Release();
 #endif
 	}
@@ -188,16 +226,35 @@ LP_Export int SwapBuffers(RenderingFramework* renderer)
 	{
 		SDL_GL_SwapWindow(renderer->sdl_window);
 	}
+
+#ifdef __d3d12_h__
+	if (renderer->rendererType == RendererType::DirectX12)
+	{
+		((ID3D12GraphicsCommandList*)renderer->command_list)->Close();
+		((IDXGISwapChain1*)renderer->main_swapchain)->Present(0, 0);
+	}
+#endif
+	
 	return LowpResultCodes::Success;
 }
 
-LP_Export int ClearScreen(RenderingFramework* renderer)
+LP_Export int ClearScreen(RenderingFramework* renderer, float clearColor[4])
 {
 	if(renderer->rendererType == RendererType::OpenGL)
 	{
-		glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
+		glClearColor(clearColor[0], clearColor[1], clearColor[2], clearColor[3]);
 		glClear(GL_COLOR_BUFFER_BIT);
 	}
+
+#ifdef __d3d12_h__
+	if (renderer->rendererType == RendererType::DirectX12)
+	{
+		D3D12_CPU_DESCRIPTOR_HANDLE handle = {};
+		((ID3D12GraphicsCommandList*)renderer->command_list)->OMSetRenderTargets(1, &renderer->dx12Resources->rtvHandle, false, &renderer->dx12Resources->dsvHandle);
+		((ID3D12GraphicsCommandList*)renderer->command_list)->ClearRenderTargetView(renderer->dx12Resources->rtvHandle, clearColor, 0, nullptr);
+		((ID3D12GraphicsCommandList*)renderer->command_list)->ClearDepthStencilView(renderer->dx12Resources->dsvHandle, D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
+	}
+#endif
 
 	return LowpResultCodes::Success;
 }

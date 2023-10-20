@@ -33,7 +33,8 @@ LP_Export int StartGame(Game* game)
     while(!game->createdWindow->ShouldClose())
     {
         game->createdWindow->ProcessEvents();
-        ClearScreen(game->renderingFramework);
+        float clearColor[4] = { 0.4f, 1.0f, 0.4f, 1.0f };
+        ClearScreen(game->renderingFramework, clearColor);
 
         SwapBuffers(game->renderingFramework);
     }
