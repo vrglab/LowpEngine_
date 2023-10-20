@@ -16,9 +16,8 @@
 #include <mono/metadata/debug-helpers.h>
 #include <LowpCommons.h>
 
-class CSharpMonoBehaviour
+struct CSharpMonoBehaviour
 {
-public:
 	MonoObject* LoadedClass;
 	MonoMethod* Update;
 	MonoMethod* Start;
