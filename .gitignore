@@ -307,3 +307,4 @@ Makefile
 *.so
 *.dylib
 Packages/c#
+Runtime/

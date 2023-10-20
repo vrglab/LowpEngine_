@@ -18,6 +18,13 @@ LP_Export int InitGame(GameInfo* initInfo, Game* game)
 
     delete renderingEngineCreateInfo;
 
+    if(game->scriptingEngine == nullptr)
+    {
+        game->scriptingEngine = new ScriptingEngine();
+    }
+
+    InitScriptingEngine(initInfo->name, game->scriptingEngine);
+
     return LowpResultCodes::Success;
 }
 

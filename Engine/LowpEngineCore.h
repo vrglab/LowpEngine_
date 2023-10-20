@@ -13,6 +13,7 @@
 #include <lpPhysicsEngine.h>
 #include <LpSoundSystem.h>
 #include <lpRenderingEngine.h>
+#include <lpScriptingEngine.h>
 
 #include <glm/vec3.hpp>
 #include <glm/common.hpp>
@@ -89,6 +90,7 @@ LP_Export struct Game
     GameInfo* info;
     SoundSystem* soundSystem;
     RenderingFramework* renderingFramework;
+    ScriptingEngine* scriptingEngine;
 };
 
 
