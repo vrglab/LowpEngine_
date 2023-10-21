@@ -887,7 +887,8 @@ project "SceneEngine"
 	
 	links
 	{
-		"EngineCommons"
+		"EngineCommons",
+		"yaml-cpp"
 	}
 
 	vpaths {

@@ -15,3 +15,4 @@ Programs\vcpkg\vcpkg install ode
 Programs\vcpkg\vcpkg install box2d
 Programs\vcpkg\vcpkg install mnn
 Programs\vcpkg\vcpkg install tinyexr
+Programs\vcpkg\vcpkg install yaml-cpp
