@@ -7,16 +7,15 @@
 /* ======================================================================================== */
 #pragma once
 
-#ifndef lpEngine_Commons
-#define lpEngine_Commons
-#include <string>
-#include "Macros.h"
+#ifndef _lpEngine_Scene_Engine
+#define _lpEngine_Scene_Engine
+#include <LowpCommons.h>
 
-enum LowpResultCodes {
-	Success = 0,
-	UnknowError = 1,
-	SystemFailure = 2
+
+
+LP_Export struct Scene
+{
+	
 };
 
-LP_Export char* ReadBytes(const std::string& filepath, uint32_t* outSize);
 #endif

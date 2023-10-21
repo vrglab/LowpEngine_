@@ -308,3 +308,6 @@ Makefile
 *.dylib
 Packages/c#
 Runtime/
+x64/
+Universal Launcher/
+UWP Engine/
