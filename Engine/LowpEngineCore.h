@@ -50,39 +50,16 @@ private:
     static void processNode(const aiNode* node, const aiScene* scene, Mesh& mesh, bool root);
 };
 
-struct LP_Export Resolution
-{
-    int width, height;
-};
-
 LP_Export struct GameInfo
 {
     std::string name;
     std::string developer;
     std::string version;
     int flags;
+    int renderer_type;
     SoundSystemInitInfo soundSystemInfo;
     Resolution* resolution;
 };
-
-class LP_Export Windowing
-{
-private:
-    SDL_Renderer* sdl_renderer;
-    GameInfo* info;
-    bool shouldClose = false;
-
-public:
-    Windowing(GameInfo*);
-    ~Windowing();
-    void ProcessEvents();
-    void Open();
-    void Close();
-    bool ShouldClose();
-    RenderingFramework* framework;
-    SDL_Window* sdl_window;
-};
-
 
 LP_Export struct Game
 {

@@ -7,12 +7,17 @@ LP_Export int InitGame(GameInfo* initInfo, Game* game)
     game->soundSystem = new SoundSystem();
     InitSoundSystem(initInfo->soundSystemInfo, game->soundSystem);
 
-    game->createdWindow = new Windowing(game->info);
-    game->createdWindow->Open();
+    WindowingCreateInfo* windinfo = new WindowingCreateInfo();
+    windinfo->name = game->info->name;
+    windinfo->resolution = game->info->resolution;
+    windinfo->flags |= game->info->flags;
+
+    game->createdWindow = new Windowing(windinfo);
+
 
     RenderingEngineCreateInfo* renderingEngineCreateInfo = new RenderingEngineCreateInfo();
-    renderingEngineCreateInfo->window = game->createdWindow->sdl_window;
-    renderingEngineCreateInfo->rendererType = GetRendererType();
+    renderingEngineCreateInfo->window = game->createdWindow;
+    renderingEngineCreateInfo->rendererType = initInfo->renderer_type;
 
     game->renderingFramework = InitializeRendering(renderingEngineCreateInfo);
 

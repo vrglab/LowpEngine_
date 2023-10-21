@@ -34,7 +34,15 @@ LP_Export RenderingFramework* InitializeRendering(RenderingEngineCreateInfo* cre
 {
 	RenderingFramework* framework = new RenderingFramework();
 	framework->rendererType = createInfo->rendererType;
-	framework->sdl_window = createInfo->window;
+	if (createInfo->rendererType == RendererType::OpenGL)
+	{
+		createInfo->window->info->flags |= SDL_WINDOW_OPENGL;
+	}
+
+	createInfo->window->Open();
+	framework->sdl_window = createInfo->window->sdl_window;
+
+
 	if (createInfo->rendererType == RendererType::DirectX12) {
 #ifdef __d3d12_h__
 		DXGI_SWAP_CHAIN_DESC1 swapChainDesc = {};
@@ -51,9 +59,9 @@ LP_Export RenderingFramework* InitializeRendering(RenderingEngineCreateInfo* cre
 
 		SDL_SysWMinfo wmInfo;
 		SDL_VERSION(&wmInfo.version);
-		if (SDL_GetWindowWMInfo(createInfo->window, &wmInfo) == -1) {
+		if (SDL_GetWindowWMInfo(createInfo->window->sdl_window, &wmInfo) == -1) {
 			// Handle SDL_GetWindowWMInfo error
-			SDL_DestroyWindow(createInfo->window);
+			SDL_DestroyWindow(createInfo->window->sdl_window);
 			SDL_Quit();
 			return nullptr;
 		}
@@ -66,6 +74,47 @@ LP_Export RenderingFramework* InitializeRendering(RenderingEngineCreateInfo* cre
 		device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, __uuidof(ID3D12CommandAllocator), &framework->command_allocator);
 
 		device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, (ID3D12CommandAllocator*)framework->command_allocator, nullptr, __uuidof(ID3D12GraphicsCommandList), &framework->command_list);
+		((ID3D12GraphicsCommandList*)framework->command_list)->Close();
+
+
+
+		std::string vs = "cbuffer Constants{float4x4 WorldViewProjection; } struct VertexInput{ float3 Position : POSITION;  float4 Color : COLOR;}; struct PixelInput{float4 Position : SV_POSITION; float4 Color : COLOR;};PixelInput main(VertexInput input){PixelInput output;output.Position = mul(float4(input.Position, 1.0f), WorldViewProjection);output.Color = input.Color;return output;}";
+		std::string ps = "struct PixelInput{float4 Position : SV_POSITION; float4 Color : COLOR; };float4 main(PixelInput input) : SV_TARGET{return input.Color;}";
+
+		ID3DBlob* vsBytecode = nullptr;
+		ID3DBlob* psBytecode = nullptr;
+		ID3D10Blob* errorMessage = nullptr;
+
+		HRESULT result = D3DCompile(vs.c_str(), vs.length(), nullptr, nullptr, nullptr, "main", "vs_5_0", 0, 0, &vsBytecode, &errorMessage);
+		if (FAILED(result)) {
+			if (errorMessage) {
+				OutputDebugStringA(static_cast<const char*>(errorMessage->GetBufferPointer()));
+				errorMessage->Release();
+			}
+			// Handle the compilation error
+		}
+
+		result = D3DCompile(ps.c_str(), ps.length(), nullptr, nullptr, nullptr, "main", "ps_5_0", 0, 0, &psBytecode, &errorMessage);
+		if (FAILED(result)) {
+			if (errorMessage) {
+				OutputDebugStringA(static_cast<const char*>(errorMessage->GetBufferPointer()));
+				errorMessage->Release();
+			}
+			// Handle the compilation error
+		}
+
+		// Define and configure the pipeline state
+		D3D12_GRAPHICS_PIPELINE_STATE_DESC pipelineStateDesc = {};
+
+		pipelineStateDesc.VS = { vsBytecode->GetBufferPointer(), sizeof(vsBytecode->GetBufferPointer()) };
+		pipelineStateDesc.PS = { psBytecode->GetBufferPointer(), sizeof(psBytecode->GetBufferPointer()) };
+		D3D12_INPUT_ELEMENT_DESC inputLayout[] = {
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
+		};
+		pipelineStateDesc.InputLayout = { inputLayout, _countof(inputLayout) };
+		device->CreateGraphicsPipelineState(&pipelineStateDesc, __uuidof(ID3D12PipelineState), &framework->pipeline_stat);
+
 
 		D3D12_ROOT_PARAMETER rootParameters[1];
 		rootParameters[0].ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV;
@@ -133,8 +182,17 @@ LP_Export RenderingFramework* InitializeRendering(RenderingEngineCreateInfo* cre
 		{
 			return nullptr;
 		}
-		SDL_GLContext context = SDL_GL_CreateContext(createInfo->window);
-		SDL_GL_MakeCurrent(createInfo->window, context);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+		SDL_GLContext context = SDL_GL_CreateContext(createInfo->window->sdl_window);
+		if(context == nullptr)
+		{
+			std::cout << SDL_GetError() << std::endl;
+			return nullptr;
+		}
+		SDL_GL_MakeCurrent(createInfo->window->sdl_window, context);
 		framework->device = context;
 		framework->factory = new OpenGLResourceFactory();
 	}
@@ -231,7 +289,9 @@ LP_Export int SwapBuffers(RenderingFramework* renderer)
 	if (renderer->rendererType == RendererType::DirectX12)
 	{
 		((ID3D12GraphicsCommandList*)renderer->command_list)->Close();
-		((IDXGISwapChain1*)renderer->main_swapchain)->Present(0, 0);
+		ID3D12CommandList* ppCommandLists[] = { ((ID3D12GraphicsCommandList*)renderer->command_list) };
+		((ID3D12CommandQueue*)renderer->command_queue)->ExecuteCommandLists(_countof(ppCommandLists), ppCommandLists);
+		((IDXGISwapChain1*)renderer->main_swapchain)->Present(0,0);
 	}
 #endif
 	
@@ -243,13 +303,15 @@ LP_Export int ClearScreen(RenderingFramework* renderer, float clearColor[4])
 	if(renderer->rendererType == RendererType::OpenGL)
 	{
 		glClearColor(clearColor[0], clearColor[1], clearColor[2], clearColor[3]);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	}
 
 #ifdef __d3d12_h__
 	if (renderer->rendererType == RendererType::DirectX12)
 	{
-		D3D12_CPU_DESCRIPTOR_HANDLE handle = {};
+		((ID3D12GraphicsCommandList*)renderer->command_list)->Reset(((ID3D12CommandAllocator*)renderer->command_allocator), ((ID3D12PipelineState*)renderer->pipeline_stat));
+		((ID3D12GraphicsCommandList*)renderer->command_list)->SetPipelineState(((ID3D12PipelineState*)renderer->pipeline_stat));
+		((ID3D12GraphicsCommandList*)renderer->command_list)->SetGraphicsRootSignature(((ID3D12RootSignature*)renderer->root_signature));
 		((ID3D12GraphicsCommandList*)renderer->command_list)->OMSetRenderTargets(1, &renderer->dx12Resources->rtvHandle, false, &renderer->dx12Resources->dsvHandle);
 		((ID3D12GraphicsCommandList*)renderer->command_list)->ClearRenderTargetView(renderer->dx12Resources->rtvHandle, clearColor, 0, nullptr);
 		((ID3D12GraphicsCommandList*)renderer->command_list)->ClearDepthStencilView(renderer->dx12Resources->dsvHandle, D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);

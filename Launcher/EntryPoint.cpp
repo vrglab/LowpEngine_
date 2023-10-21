@@ -16,6 +16,7 @@ int WINAPI main(int argc, char* argv[]) {
     info->resolution->height = 400;
     info->soundSystemInfo = {};
     info->soundSystemInfo.be_Type = SoundSystemBackendType::OpenAL;
+    info->renderer_type = RendererType::OpenGL;
 
     Game* game = new Game();
 

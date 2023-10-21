@@ -40,6 +40,7 @@
 #include <SDL2/SDL_vulkan.h>
 #include<stb_image.h>
 
+
 struct CreatedGlResource
 {
 public:
@@ -88,22 +89,6 @@ private:
 	std::list<CreatedGlResource> createdResources = std::list<CreatedGlResource>();
 };
 
-
-LP_Export struct RenderingEngineCreateInfo
-{
-	int rendererType;
-	SDL_Window* window;
-};
-
-
-enum RendererType
-{
-	OpenGL = 0,
-	DirectX12 = 1,
-	Vulkan = 2,
-	Metal = 3
-};
-
 #ifdef __d3d12_h__
 LP_Export struct Dx12RenderingResources
 {
@@ -135,6 +120,52 @@ public:
 	Dx12RenderingResources* dx12Resources;
 #endif
 	~RenderingFramework();
+};
+
+struct LP_Export Resolution
+{
+	int width, height;
+};
+
+LP_Export struct WindowingCreateInfo
+{
+	std::string name;
+	int flags;
+	Resolution* resolution;
+};
+
+class LP_Export Windowing
+{
+private:
+	SDL_Renderer* sdl_renderer;
+	bool shouldClose = false;
+
+public:
+	Windowing(WindowingCreateInfo*);
+	~Windowing();
+	void ProcessEvents();
+	void Open();
+	void Close();
+	bool ShouldClose();
+	RenderingFramework* framework;
+	SDL_Window* sdl_window;
+	WindowingCreateInfo* info;
+};
+
+
+LP_Export struct RenderingEngineCreateInfo
+{
+	int rendererType;
+	Windowing* window;
+};
+
+
+enum RendererType
+{
+	OpenGL = 0,
+	DirectX12 = 1,
+	Vulkan = 2,
+	Metal = 3
 };
 
 int LP_Export GetRendererType();

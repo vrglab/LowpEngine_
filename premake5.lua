@@ -268,7 +268,8 @@ project "Engine"
 		links 
 		{
 			"d3d12",
-			"dxgi"
+			"dxgi",
+			"D3DCompiler"
 		}
 		libdirs
 		{
@@ -719,7 +720,8 @@ project "RenderingEngine"
 		links 
 		{
 			"d3d12",
-			"dxgi"
+			"dxgi",
+			"D3DCompiler"
 		}
 	elseif os.target() == "linux" then
 		pchheader "%{prj.name}/lprdpch.h"

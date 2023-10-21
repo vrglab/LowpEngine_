@@ -1,7 +1,7 @@
 #include "lppch.h"
 #include "LowpEngineCore.h"
 
-Windowing::Windowing(GameInfo* info)
+Windowing::Windowing(WindowingCreateInfo* info)
 {
 	this->info = info;
 }
@@ -46,10 +46,6 @@ void Windowing::Open()
 		SDL_Quit();
 		return;
 	}
-	RenderingEngineCreateInfo* createInfo = new RenderingEngineCreateInfo();
-	createInfo->rendererType = GetRendererType();
-	createInfo->window = sdl_window;
-	framework = InitializeRendering(createInfo);
 }
 
 void Windowing::Close()
