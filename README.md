@@ -3,22 +3,21 @@ C++/C# based Game Engine, fully free and open source.
 
 # Important
 I should mention certain project's such as the ConsoleAppEngine and GlobalUtilities projects are standalone projects than can be used in other things without the direct need of the Entire Engine. 
-## list of Projects and thier internal dependencies on eachother
+## list of Projects
 
-1. AssetSystem: is Dependent only on number 7.
-2. AssetsTool: is Dependent on numbers 1, 3, 7.
-3. ConsoleAppEngine: is Dependent only on number 7.
-4. Editor: is Dependent on numbers 1, 2, 7, 8.
-5. Engine (C++ Core): No internal project Dependencies.
-6. Engine.UI (c++ Engine UI lib): is Dependent only on number 5.
-7. GlobalUtilities: No internal project Dependencies.
-8. LowpEngine (C# bindings/implementation of Core Engine and Engine UI): is Dependent on numbers: 1, 5, 6, 7.
-9. Launcher: is Dependent on numbers: 7 and 8.
-1. TestGame: is Dependent only on number 8.
-1. PhysicsEngine (C++): No internal project Dependencies.
-1. RenderingEngine (C++): No internal project Dependencies.
-1. SoundSystem (C++): No internal project Dependencies.
-
+1. Engine (C++ Core): This is the core engine.
+1. PhysicsEngine (C++): The Physics engine, uses both ODE and Box2D to handle diffrent Physics contexts
+1. RenderingEngine (C++): The our own cross-platform Rendering Engine 
+1. SoundSystem (C++): The Engine in charge of handling audio systems (Multibackend: OpenAL, Fmod ...)
+1. Scripting (C++): The main engine handeling C# scripting
+1. EngineCommons (C++): All of the code shared between diffrent (C++) projects.
+9. Launcher(C++): The main launcher. (the executable to launch the game basically)
+1. AssetSystem(C#): Is a C# based engine that handles the games assets
+2. AssetsTool(C#): A tool for generating Asset bundles and turning asset bundles into their original form
+3. ConsoleAppEngine(C#): A Engine for making Cosnole application (executing commands, reading command options, loading custom commands to be executed ...)
+7. GlobalUtilities(C#): All of the code shared between diffrent (C#) projects.
+8. LowpEngine (C#): The Core's C# modul. (used for scripting)
+1. TestGame(C#): The C# scripting test.
 
 
 # Building/IDE Envoirment Generation

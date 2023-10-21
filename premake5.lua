@@ -214,38 +214,6 @@ project "AssetsTool"
 		filter "configurations:Release"
 			optimize "On"
 
-
--- Editor related stuff
-group "C#/Editor"
-project "Editor"
-	location "Editor"
-	kind "ConsoleApp"
-	language "C#"
-	csversion ("11")
-
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-
-	files 
-	{
-		"%{prj.name}/**.cs",
-		"%{prj.name}/**/**.cs"
-	}
-
-	links
-	{
-		"LowpEngine",
-		"GlobalUtilities",
-		"AssetsTool"
-	}
-
-	filter "configurations:Debug"
-		symbols "On"
-
-	filter "configurations:Release"
-		optimize "On"
-
-
 -- C++ core engine and its other helpers
 group "C++"
 project "Engine"
