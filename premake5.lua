@@ -271,7 +271,8 @@ project "Engine"
 		"PhysicsEngine",
 		"RenderingEngine",
 		"EngineCommons",
-		"Scripting"
+		"Scripting",
+		"SceneEngine"
 	}
 	
 	links
@@ -298,7 +299,8 @@ project "Engine"
 		"RenderingEngine",
 		"EngineCommons",
 		"mono-2.0-sgen",
-		"Scripting"
+		"Scripting",
+		"SceneEngine"
 	}
 
 	vpaths {
@@ -454,7 +456,8 @@ project "Launcher"
 		"PhysicsEngine",
 		"RenderingEngine",
 		"EngineCommons",
-		"Scripting"
+		"Scripting",
+		"SceneEngine"
 	}
 	
 	links
@@ -482,7 +485,8 @@ project "Launcher"
 		"SoundSystem",
 		"PhysicsEngine",
 		"RenderingEngine",
-		"EngineCommons"
+		"EngineCommons",
+		"SceneEngine"
 	}
 
 	vpaths {
@@ -814,13 +818,15 @@ project "Scripting"
 		"SoundSystem",
 		"PhysicsEngine",
 		"RenderingEngine",
-		"EngineCommons"
+		"EngineCommons",
+		"SceneEngine"
 	}
 	
 	links
 	{
 		"EngineCommons",
-		"mono-2.0-sgen"
+		"mono-2.0-sgen",
+		"SceneEngine"
 	}
 
 	vpaths {

@@ -11,12 +11,17 @@
 #define _lpEngine_Scene_Engine
 #include <LowpCommons.h>
 #include <yaml-cpp/yaml.h>
+#include "../Scripting/lpScriptingEngine.h"
 
 
 
 LP_Export struct Scene
 {
-	
+public:
+	std::map<MonoBehaviour*, MonoObject*> created_objects = {};
+	std::list<MonoBehaviour*> mono_behaviours_in_the_scene = {};
 };
+
+static Scene* activeScene;
 
 #endif

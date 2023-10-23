@@ -18,13 +18,17 @@
 #include <filesystem>
 #include <LowpCommons.h>
 
-LP_Export struct ScriptingEngine {
+LP_Export class ScriptingEngine {
+public:
 	MonoDomain* root_domain;
 	MonoDomain* app_domain;
 	MonoAssembly* core_assembly;
 	MonoAssembly* game_assembly;
-};
-
+	LP_Export MonoAssembly* LoadCSharpAssembly(const std::string& assemblyPath);
+	LP_Export int Init(std::string gamename);
+	LP_Export void Update();
+	LP_Export void Cleanup();
+}; 
 
 LP_Export class MonoBehaviour
 {
@@ -39,7 +43,5 @@ public:
 	MonoObject* CreateInstance(ScriptingEngine* engine);
 };
 
-LP_Export MonoAssembly* LoadCSharpAssembly(const std::string& assemblyPath);
-LP_Export int InitScriptingEngine(std::string GameName, ScriptingEngine* engine);
-LP_Export void CleanupScriptingEngine(ScriptingEngine* engine);
+static std::list<MonoBehaviour*> loadedBehaviours;
 #endif

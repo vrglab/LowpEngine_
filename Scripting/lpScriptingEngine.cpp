@@ -1,7 +1,8 @@
 #include "lpscpch.h"
 #include "lpScriptingEngine.h"
+#include "lpSceneEngine.h"
 
-LP_Export MonoAssembly* LoadCSharpAssembly(const std::string& assemblyPath)
+LP_Export MonoAssembly* ScriptingEngine::LoadCSharpAssembly(const std::string& assemblyPath)
 {
     uint32_t fileSize = 0;
     char* fileData = ReadBytes(assemblyPath, &fileSize);
@@ -26,20 +27,20 @@ LP_Export MonoAssembly* LoadCSharpAssembly(const std::string& assemblyPath)
     return assembly;
 }
 
-LP_Export int InitScriptingEngine(std::string GameName, ScriptingEngine* engine)
+LP_Export int ScriptingEngine::Init(std::string GameName)
 {
     std::string monoPath;
     monoPath.append(std::filesystem::current_path().string());
     monoPath.append("\\Runtime\\Mono");
     mono_set_assemblies_path(monoPath.c_str());
-    engine->root_domain = mono_jit_init("LowpEngineJITRuntime");
-    if(engine->root_domain == nullptr)
+    root_domain = mono_jit_init("LowpEngineJITRuntime");
+    if(root_domain == nullptr)
     {
         return LowpResultCodes::SystemFailure;
     }
 
-    engine->app_domain = mono_domain_create_appdomain((char*)GameName.c_str(), nullptr);
-    if (engine->app_domain == nullptr)
+    app_domain = mono_domain_create_appdomain((char*)GameName.c_str(), nullptr);
+    if (app_domain == nullptr)
     {
         return LowpResultCodes::SystemFailure;
     }
@@ -57,8 +58,8 @@ LP_Export int InitScriptingEngine(std::string GameName, ScriptingEngine* engine)
     coreAssembly.append("LowpEngine.dylib");
 #endif
     
-    engine->core_assembly = LoadCSharpAssembly(coreAssembly);
-    if (engine->core_assembly == nullptr)
+    core_assembly = LoadCSharpAssembly(coreAssembly);
+    if (core_assembly == nullptr)
     {
         return LowpResultCodes::SystemFailure;
     }
@@ -77,8 +78,8 @@ LP_Export int InitScriptingEngine(std::string GameName, ScriptingEngine* engine)
     gameAssembly.append(".dylib");
 #endif
    
-    engine->game_assembly = LoadCSharpAssembly(gameAssembly);
-    if (engine->game_assembly == nullptr)
+    game_assembly = LoadCSharpAssembly(gameAssembly);
+    if (game_assembly == nullptr)
     {
         return LowpResultCodes::SystemFailure;
     }
@@ -86,9 +87,21 @@ LP_Export int InitScriptingEngine(std::string GameName, ScriptingEngine* engine)
     return LowpResultCodes::Success;
 }
 
-LP_Export void CleanupScriptingEngine(ScriptingEngine* engine)
+
+LP_Export void ScriptingEngine::Update()
+{
+    if (activeScene != nullptr)
+    {
+        for (auto behaviour : activeScene->created_objects)
+        {
+            mono_runtime_invoke(behaviour.first->updateMethod, nullptr, nullptr, &behaviour.second);
+        }
+    }
+}
+
+LP_Export void ScriptingEngine::Cleanup()
 {
     mono_assemblies_cleanup();
-    mono_jit_cleanup(engine->app_domain);
-    mono_jit_cleanup(engine->root_domain);
+    mono_jit_cleanup(app_domain);
+    mono_jit_cleanup(root_domain);
 }

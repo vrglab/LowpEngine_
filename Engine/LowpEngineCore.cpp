@@ -28,7 +28,7 @@ LP_Export int InitGame(GameInfo* initInfo, Game* game)
         game->scriptingEngine = new ScriptingEngine();
     }
 
-    InitScriptingEngine(initInfo->name, game->scriptingEngine);
+    game->scriptingEngine->Init(initInfo->name);
 
     return LowpResultCodes::Success;
 }
@@ -38,6 +38,9 @@ LP_Export int StartGame(Game* game)
     while(!game->createdWindow->ShouldClose())
     {
         game->createdWindow->ProcessEvents();
+        game->scriptingEngine->Update();
+
+
         float clearColor[4] = { 0.4f, 1.0f, 0.4f, 1.0f };
         ClearScreen(game->renderingFramework, clearColor);
 
@@ -54,7 +57,7 @@ LP_Export int CleanupGame(Game* game)
     delete game->info;
     delete game->renderingFramework;
     delete game->soundSystem;
-    CleanupScriptingEngine(game->scriptingEngine);
+    game->scriptingEngine->Cleanup();
     delete game->scriptingEngine;
     
     return LowpResultCodes::Success;
