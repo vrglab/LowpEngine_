@@ -26,7 +26,7 @@ LP_Export struct ScriptingEngine {
 };
 
 
-LP_Export class MonoBehaviourChild
+LP_Export class MonoBehaviour
 {
 public:
 	MonoClass* classType;
