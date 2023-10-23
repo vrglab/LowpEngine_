@@ -44,4 +44,5 @@ public:
 };
 
 static std::list<MonoBehaviour*> loadedBehaviours;
+static ScriptingEngine* activeScriptingEngine;
 #endif

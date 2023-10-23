@@ -20,8 +20,20 @@ LP_Export struct Scene
 public:
 	std::map<MonoBehaviour*, MonoObject*> created_objects = {};
 	std::list<MonoBehaviour*> mono_behaviours_in_the_scene = {};
+	LP_Export void OnLoad();
+	LP_Export void OnUnload();
 };
 
 static Scene* activeScene;
+
+LP_Export class SceneManager
+{
+private:
+	std::list<Scene*> LoadedScenes;
+
+public:
+	LP_Export void LoadSceneAsActive(Scene* scene);
+	LP_Export void LoadSceneAsActive(int sceneIndex);
+};
 
 #endif
