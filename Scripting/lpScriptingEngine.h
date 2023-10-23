@@ -18,18 +18,6 @@
 #include <filesystem>
 #include <LowpCommons.h>
 
-LP_Export struct MonoBehaviourChild
-{
-	MonoClass* classType;
-	MonoMethod* awakeMethod;
-	MonoMethod* startMethod;
-	MonoMethod* updateMethod;
-	MonoMethod* onEnableMethod;
-	MonoMethod* onDisableMethod;
-	MonoMethod* onDestroyMethod;
-};
-
-
 LP_Export struct ScriptingEngine {
 	MonoDomain* root_domain;
 	MonoDomain* app_domain;
@@ -38,7 +26,20 @@ LP_Export struct ScriptingEngine {
 };
 
 
+LP_Export class MonoBehaviourChild
+{
+public:
+	MonoClass* classType;
+	MonoMethod* awakeMethod;
+	MonoMethod* startMethod;
+	MonoMethod* updateMethod;
+	MonoMethod* onEnableMethod;
+	MonoMethod* onDisableMethod;
+	MonoMethod* onDestroyMethod;
+	MonoObject* CreateInstance(ScriptingEngine* engine);
+};
+
 LP_Export MonoAssembly* LoadCSharpAssembly(const std::string& assemblyPath);
 LP_Export int InitScriptingEngine(std::string GameName, ScriptingEngine* engine);
-
+LP_Export void CleanupScriptingEngine(ScriptingEngine* engine);
 #endif

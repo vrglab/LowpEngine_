@@ -688,10 +688,15 @@ project "RenderingEngine"
 		{
 			"d3d12",
 			"dxgi",
-			"D3DCompiler"
+			"D3DCompiler",
+			"OpenGL32",
 		}
 	elseif os.target() == "linux" then
 		pchheader "%{prj.name}/lprdpch.h"
+		links 
+		{
+			"OpenGL"
+		}
 	end
 
 	pchsource "%{prj.name}/lprdpch.cpp"

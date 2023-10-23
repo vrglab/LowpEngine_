@@ -54,6 +54,8 @@ LP_Export int CleanupGame(Game* game)
     delete game->info;
     delete game->renderingFramework;
     delete game->soundSystem;
+    CleanupScriptingEngine(game->scriptingEngine);
+    delete game->scriptingEngine;
     
     return LowpResultCodes::Success;
 }

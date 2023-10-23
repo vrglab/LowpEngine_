@@ -85,3 +85,10 @@ LP_Export int InitScriptingEngine(std::string GameName, ScriptingEngine* engine)
 
     return LowpResultCodes::Success;
 }
+
+LP_Export void CleanupScriptingEngine(ScriptingEngine* engine)
+{
+    mono_assemblies_cleanup();
+    mono_jit_cleanup(engine->app_domain);
+    mono_jit_cleanup(engine->root_domain);
+}
