@@ -5,7 +5,7 @@ LP_Export int InitGame(GameInfo* initInfo, Game* game)
 {
     game->info = initInfo;
     game->soundSystem = new SoundSystem();
-    InitSoundSystem(initInfo->soundSystemInfo, game->soundSystem);
+    game->soundSystem->Init(initInfo->soundSystemInfo);
 
     WindowingCreateInfo* windinfo = new WindowingCreateInfo();
     windinfo->name = game->info->name;

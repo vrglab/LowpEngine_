@@ -5,16 +5,18 @@
 /*                                                                                          */
 /* Authors: Arad Bozorgmehr(Vrglab)                                                         */
 /* ======================================================================================== */
-
-#ifndef lpEngine_SoundSystem
-#define lpEngine_SoundSystem
-
-#ifndef lpEngine_Commons
+#pragma once
 #include <LowpCommons.h>
-#endif
-
-#include "SoundSystemBackendType.h"
-
 #include "SoundSystemInitInfo.h"
-#include "SoundSystem.h"
-#endif
+#include "Windowing/Resolution.h"
+
+LP_Export struct GameInfo
+{
+    std::string name;
+    std::string developer;
+    std::string version;
+    int flags;
+    int renderer_type;
+    SoundSystemInitInfo soundSystemInfo;
+    Resolution* resolution;
+};

@@ -5,16 +5,15 @@
 /*                                                                                          */
 /* Authors: Arad Bozorgmehr(Vrglab)                                                         */
 /* ======================================================================================== */
-
-#ifndef lpEngine_SoundSystem
-#define lpEngine_SoundSystem
-
-#ifndef lpEngine_Commons
+#pragma once
 #include <LowpCommons.h>
-#endif
-
-#include "SoundSystemBackendType.h"
-
 #include "SoundSystemInitInfo.h"
-#include "SoundSystem.h"
-#endif
+
+LP_Export struct SoundSystem {
+public:
+	void* system;
+	int type;
+	LP_Export int Init(SoundSystemInitInfo initInfo);
+	LP_Export int Update();
+	LP_Export int Close();
+};

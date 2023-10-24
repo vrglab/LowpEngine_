@@ -1,10 +1,11 @@
 #include "lpsspch.h"
-#include "LpSoundSystem.h"
+#include "SoundSystem.h"
+#include "SoundSystemBackendType.h"
 
-LP_Export int InitSoundSystem(SoundSystemInitInfo initInfo, SoundSystem* ssystem)
+LP_Export int SoundSystem::Init(SoundSystemInitInfo initInfo)
 {
-	ssystem->type = initInfo.be_Type;
-	if (ssystem->type == SoundSystemBackendType::Fmod) {
+	type = initInfo.be_Type;
+	if (type == SoundSystemBackendType::Fmod) {
 
 		FMOD::System* fmod_system;
 		FMOD_RESULT fmod_result;
@@ -17,39 +18,38 @@ LP_Export int InitSoundSystem(SoundSystemInitInfo initInfo, SoundSystem* ssystem
 		if (fmod_result != FMOD_OK) {
 			return LowpResultCodes::SystemFailure;
 		}
-		ssystem->system = fmod_system;
+		system = fmod_system;
 		return LowpResultCodes::Success;
 	}
 
-	if (ssystem->type == SoundSystemBackendType::OpenAL) {
-		return LowpResultCodes::Success;
-	}
-	return LowpResultCodes::UnknowError;
-}
-
-LP_Export int UpdateSoundSystem(SoundSystem* ssystem)
-{
-	if (ssystem->type == SoundSystemBackendType::Fmod) {
-
-		return LowpResultCodes::Success;
-	}
-
-	if (ssystem->type == SoundSystemBackendType::OpenAL) {
+	if (type == SoundSystemBackendType::OpenAL) {
 		return LowpResultCodes::Success;
 	}
 	return LowpResultCodes::UnknowError;
 }
 
-LP_Export int CloseSoundSystem(SoundSystem* ssystem)
+LP_Export int SoundSystem::Update()
 {
-	if (ssystem->type == SoundSystemBackendType::Fmod) {
+	if (type == SoundSystemBackendType::Fmod) {
 
-		((FMOD::System*)ssystem->system)->release();
-		delete(ssystem);
 		return LowpResultCodes::Success;
 	}
 
-	if (ssystem->type == SoundSystemBackendType::OpenAL) {
+	if (type == SoundSystemBackendType::OpenAL) {
+		return LowpResultCodes::Success;
+	}
+	return LowpResultCodes::UnknowError;
+}
+
+LP_Export int SoundSystem::Close()
+{
+	if (type == SoundSystemBackendType::Fmod) {
+
+		((FMOD::System*)system)->release();
+		return LowpResultCodes::Success;
+	}
+
+	if (type == SoundSystemBackendType::OpenAL) {
 		return LowpResultCodes::Success;
 	}
 	return LowpResultCodes::UnknowError;

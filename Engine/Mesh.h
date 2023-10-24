@@ -5,16 +5,23 @@
 /*                                                                                          */
 /* Authors: Arad Bozorgmehr(Vrglab)                                                         */
 /* ======================================================================================== */
-
-#ifndef lpEngine_SoundSystem
-#define lpEngine_SoundSystem
-
-#ifndef lpEngine_Commons
+#pragma once
 #include <LowpCommons.h>
-#endif
+#include <glm/vec3.hpp>
+#include <glm/common.hpp>
+#include <vector>
 
-#include "SoundSystemBackendType.h"
+LP_Export struct Mesh
+{
+    std::vector<glm::vec3> vertices;
+    std::vector<glm::vec3> normals;
+    std::vector<glm::vec2> textureCoords;
+    std::vector<unsigned int> indices;
+    std::vector<Mesh> submeshes;
 
-#include "SoundSystemInitInfo.h"
-#include "SoundSystem.h"
-#endif
+    Mesh(const std::vector<glm::vec3>& vertices, const std::vector<glm::vec3>& normals,
+        const std::vector<glm::vec2>& textureCoords, const std::vector<unsigned int>& indices)
+        : vertices(vertices), normals(normals), textureCoords(textureCoords), indices(indices) {}
+    Mesh();
+    void AddSubMesh(const Mesh&);
+};

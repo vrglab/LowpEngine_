@@ -6,7 +6,6 @@
 /* Authors: Arad Bozorgmehr(Vrglab)                                                         */
 /* ======================================================================================== */
 #pragma once
-#include <gl/glew.h>
 #include <unordered_map>
 #include <unordered_set>
 #include "CreateGlResource.h"

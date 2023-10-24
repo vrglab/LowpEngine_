@@ -5,48 +5,24 @@
 /*                                                                                          */
 /* Authors: Arad Bozorgmehr(Vrglab)                                                         */
 /* ======================================================================================== */
-
-#ifndef lpEngine
-#define lpEngine
+#pragma once
 
 #include <LowpCommons.h>
-#include <lpPhysicsEngine.h>
-#include <LpSoundSystem.h>
-#include <lpRenderingEngine.h>
-#include <lpScriptingEngine.h>
-
-#include <glm/vec3.hpp>
-#include <glm/common.hpp>
+#include "Mesh.h"
 #include <assimp/Importer.hpp>
 #include <assimp/Scene.h>
 #include <assimp/Mesh.h>
 #include <assimp/postprocess.h>
 
-#include "Mesh.h"
-
-#include "AssimpLoader.h"
-
-#include "GameInfo.h"
-
-LP_Export class Game
+LP_Export class AssimpLoader
 {
 public:
-    Windowing* createdWindow;
-    GameInfo* info;
-    SoundSystem* soundSystem;
-    RenderingFramework* renderingFramework;
-    ScriptingEngine* scriptingEngine;
+    /// <summary>
+    /// Loads a Mesh from the given file
+    /// </summary>
+    /// <param name="file">The path to the file</param>
+    /// <returns>The loaded mesh</returns>
+    static Mesh* LoadMesh(const char* file);
+private:
+    static void processNode(const aiNode* node, const aiScene* scene, Mesh& mesh, bool root);
 };
-
-
-LP_Export int InitGame(GameInfo* initInfo, Game* game);
-
-LP_Export int StartGame(Game* game);
-
-LP_Export int CleanupGame(Game* game);
-
-LP_Extern{
-    LP_Export Mesh * Assimp_LoadMesh(const char* file);
-}
-
-#endif

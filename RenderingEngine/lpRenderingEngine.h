@@ -89,13 +89,5 @@ enum RendererType
 	Metal = 3
 };
 
-int LP_Export GetRendererType();
-
-std::string LP_Export GetRendereTypeName(int renderer);
-
-LP_Export RenderingFramework* InitializeRendering(RenderingEngineCreateInfo* createInfo);
-
-LP_Export int SwapBuffers(RenderingFramework* renderer);
-
-LP_Export int ClearScreen(RenderingFramework* renderer, float clearColor[4]);
+#include "FunctionDefinitions.h"
 #endif

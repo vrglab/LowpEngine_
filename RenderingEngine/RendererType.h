@@ -5,16 +5,11 @@
 /*                                                                                          */
 /* Authors: Arad Bozorgmehr(Vrglab)                                                         */
 /* ======================================================================================== */
-
-#ifndef lpEngine_SoundSystem
-#define lpEngine_SoundSystem
-
-#ifndef lpEngine_Commons
-#include <LowpCommons.h>
-#endif
-
-#include "SoundSystemBackendType.h"
-
-#include "SoundSystemInitInfo.h"
-#include "SoundSystem.h"
-#endif
+#pragma once
+enum RendererType
+{
+	OpenGL = 0,
+	DirectX12 = 1,
+	Vulkan = 2,
+	Metal = 3
+};
