@@ -6,9 +6,9 @@
 /* Authors: Arad Bozorgmehr(Vrglab)                                                         */
 /* ======================================================================================== */
 #pragma once
-#include <LowpCommons.h>
-#include "SoundSystemInitInfo.h"
-#include "Windowing/Resolution.h"
+#include <EngineCommons/LowpCommons.h>
+#include "SoundSystem/SoundSystemInitInfo.h"
+#include "RenderingEngine/Windowing/Windowing.h"
 
 LP_Export struct GameInfo
 {

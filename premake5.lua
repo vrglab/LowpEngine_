@@ -20,7 +20,7 @@ function determine_architecture()
 end
 
 
-workspace "LowpEngine"
+workspace "LowpEngineCPlussPluss"
 	architecture "x64"
 
 	configurations 
@@ -267,12 +267,7 @@ project "Engine"
 		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
 		"Packages/c++/includes",
 		"%{prj.name}",
-		"SoundSystem",
-		"PhysicsEngine",
-		"RenderingEngine",
-		"EngineCommons",
-		"Scripting",
-		"SceneEngine"
+		"."
 	}
 	
 	links
@@ -451,13 +446,7 @@ project "Launcher"
 		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
 		"Packages/c++/includes",
 		"%{prj.name}",
-		"Engine",
-		"SoundSystem",
-		"PhysicsEngine",
-		"RenderingEngine",
-		"EngineCommons",
-		"Scripting",
-		"SceneEngine"
+		"."
 	}
 	
 	links
@@ -554,8 +543,8 @@ project "SoundSystem"
 	{
 		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
 		"%{prj.name}",
-		"EngineCommons",
-		"Packages/c++/includes"
+		"Packages/c++/includes",
+		"."
 	}
 	
 	links
@@ -626,7 +615,8 @@ project "PhysicsEngine"
 		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
 		"%{prj.name}",
 		"EngineCommons",
-		"Packages/c++/includes"
+		"Packages/c++/includes",
+		"."
 	}
 	
 	links
@@ -722,7 +712,7 @@ project "RenderingEngine"
 	{
 		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
 		"%{prj.name}",
-		"EngineCommons"
+		"."
 	}
 	
 	links
@@ -815,11 +805,7 @@ project "Scripting"
 		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
 		"Packages/c++/includes",
 		"%{prj.name}",
-		"SoundSystem",
-		"PhysicsEngine",
-		"RenderingEngine",
-		"EngineCommons",
-		"SceneEngine"
+		"."
 	}
 	
 	links
@@ -893,7 +879,7 @@ project "SceneEngine"
 		"Programs/vcpkg/installed/"..vcpkg_arg_dir.."/include",
 		"Packages/c++/includes",
 		"%{prj.name}",
-		"EngineCommons"
+		"."
 	}
 	
 	links

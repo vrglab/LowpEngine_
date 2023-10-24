@@ -21,7 +21,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include <LowpCommons.h>
+#include <EngineCommons/LowpCommons.h>
 
 #ifdef _WIN32
 #include <Windows.h>

@@ -6,7 +6,7 @@
 /* Authors: Arad Bozorgmehr(Vrglab)                                                         */
 /* ======================================================================================== */
 #pragma once
-#include <LowpCommons.h>
+#include <EngineCommons/LowpCommons.h>
 #include "SoundSystemInitInfo.h"
 
 LP_Export struct SoundSystem {

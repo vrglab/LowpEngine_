@@ -11,7 +11,7 @@
 #include <mono/metadata/object.h>
 #include <mono/metadata/assembly.h>
 #include <mono/metadata/class.h>
-#include <LowpCommons.h>
+#include <EngineCommons/LowpCommons.h>
 
 LP_Export class ScriptingEngine {
 public:

@@ -9,11 +9,11 @@
 #ifndef lpEngine
 #define lpEngine
 
-#include <LowpCommons.h>
-#include <lpPhysicsEngine.h>
-#include <LpSoundSystem.h>
-#include <lpRenderingEngine.h>
-#include <lpScriptingEngine.h>
+#include <EngineCommons/LowpCommons.h>
+#include <PhysicsEngine/lpPhysicsEngine.h>
+#include <SoundSystem/LpSoundSystem.h>
+#include <RenderingEngine/lpRenderingEngine.h>
+#include <Scripting/lpScriptingEngine.h>
 
 #include <glm/vec3.hpp>
 #include <glm/common.hpp>

@@ -11,7 +11,7 @@
 #include <SDL2/SDL_syswm.h>
 #include <SDL2/SDL_opengl.h>
 #include <SDL2/SDL_vulkan.h>
-#include <LowpCommons.h>
+#include <EngineCommons/LowpCommons.h>
 #include "Windowing/WindowingCreateInfo.h"
 #include "RenderingFramework.h"
 

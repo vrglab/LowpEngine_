@@ -6,8 +6,8 @@
 /* Authors: Arad Bozorgmehr(Vrglab)                                                         */
 /* ======================================================================================== */
 #pragma once
-#include <LowpCommons.h>
-#include "../Scripting/MonoBehaviour.h"
+#include <EngineCommons/LowpCommons.h>
+#include <Scripting/MonoBehaviour.h>
 #include <unordered_map>
 #include <unordered_set>
 

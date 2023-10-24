@@ -16,7 +16,7 @@
 #include <mono/metadata/assembly.h>
 #include <mono/metadata/class.h>
 #include <filesystem>
-#include <LowpCommons.h>
+#include <EngineCommons/LowpCommons.h>
 #include "core_class.h"
 #include "MonoBehaviour.h"
 

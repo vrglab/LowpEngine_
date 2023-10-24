@@ -7,7 +7,7 @@
 /* ======================================================================================== */
 #pragma once
 
-#include <LowpCommons.h>
+#include <EngineCommons/LowpCommons.h>
 #include "Mesh.h"
 #include <assimp/Importer.hpp>
 #include <assimp/Scene.h>

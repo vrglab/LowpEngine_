@@ -1,6 +1,6 @@
 #include "lpscpch.h"
 #include "lpScriptingEngine.h"
-#include "lpSceneEngine.h"
+#include <SceneEngine/lpSceneEngine.h>
 
 LP_Export MonoAssembly* ScriptingEngine::LoadCSharpAssembly(const std::string& assemblyPath)
 {

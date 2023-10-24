@@ -9,7 +9,7 @@
 
 #ifndef _lpEngine_Scene_Engine
 #define _lpEngine_Scene_Engine
-#include <LowpCommons.h>
+#include <EngineCommons/LowpCommons.h>
 #include <yaml-cpp/yaml.h>
 #include "../Scripting/lpScriptingEngine.h"
 
