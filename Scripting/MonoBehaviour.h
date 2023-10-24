@@ -6,17 +6,21 @@
 /* Authors: Arad Bozorgmehr(Vrglab)                                                         */
 /* ======================================================================================== */
 #pragma once
-
-#ifndef _lpEngine_Scene_Engine
-#define _lpEngine_Scene_Engine
+#include <mono/metadata/metadata.h>
+#include <mono/metadata/object.h>
+#include <mono/metadata/assembly.h>
+#include <mono/metadata/class.h>
 #include <LowpCommons.h>
-#include <yaml-cpp/yaml.h>
-#include "../Scripting/lpScriptingEngine.h"
 
-#include "Scene.h"
-
-static Scene* activeScene;
-
-#include "SceneManager.h"
-
-#endif
+LP_Export class MonoBehaviour
+{
+public:
+	MonoClass* classType;
+	MonoMethod* awakeMethod;
+	MonoMethod* startMethod;
+	MonoMethod* updateMethod;
+	MonoMethod* onEnableMethod;
+	MonoMethod* onDisableMethod;
+	MonoMethod* onDestroyMethod;
+	MonoObject* CreateInstance(ScriptingEngine* engine);
+};

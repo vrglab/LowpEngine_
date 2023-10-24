@@ -6,17 +6,17 @@
 /* Authors: Arad Bozorgmehr(Vrglab)                                                         */
 /* ======================================================================================== */
 #pragma once
-
-#ifndef _lpEngine_Scene_Engine
-#define _lpEngine_Scene_Engine
 #include <LowpCommons.h>
-#include <yaml-cpp/yaml.h>
-#include "../Scripting/lpScriptingEngine.h"
-
 #include "Scene.h"
+#include <unordered_map>
+#include <unordered_set>
 
-static Scene* activeScene;
+LP_Export class SceneManager
+{
+private:
+	std::list<Scene*> LoadedScenes;
 
-#include "SceneManager.h"
-
-#endif
+public:
+	LP_Export void LoadSceneAsActive(Scene* scene);
+	LP_Export void LoadSceneAsActive(int sceneIndex);
+};

@@ -7,16 +7,28 @@
 /* ======================================================================================== */
 #pragma once
 
-#ifndef _lpEngine_Scene_Engine
-#define _lpEngine_Scene_Engine
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_syswm.h>
+#include <SDL2/SDL_opengl.h>
+#include <SDL2/SDL_vulkan.h>
 #include <LowpCommons.h>
-#include <yaml-cpp/yaml.h>
-#include "../Scripting/lpScriptingEngine.h"
+#include "Windowing/WindowingCreateInfo.h"
+#include "RenderingFramework.h"
 
-#include "Scene.h"
+LP_Export class Windowing
+{
+private:
+	SDL_Renderer* sdl_renderer;
+	bool shouldClose = false;
 
-static Scene* activeScene;
-
-#include "SceneManager.h"
-
-#endif
+public:
+	Windowing(WindowingCreateInfo*);
+	~Windowing();
+	void ProcessEvents();
+	void Open();
+	void Close();
+	bool ShouldClose();
+	RenderingFramework* framework;
+	SDL_Window* sdl_window;
+	WindowingCreateInfo* info;
+};

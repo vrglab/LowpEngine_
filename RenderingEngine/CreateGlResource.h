@@ -6,17 +6,11 @@
 /* Authors: Arad Bozorgmehr(Vrglab)                                                         */
 /* ======================================================================================== */
 #pragma once
+#include <gl/glew.h>
 
-#ifndef _lpEngine_Scene_Engine
-#define _lpEngine_Scene_Engine
-#include <LowpCommons.h>
-#include <yaml-cpp/yaml.h>
-#include "../Scripting/lpScriptingEngine.h"
-
-#include "Scene.h"
-
-static Scene* activeScene;
-
-#include "SceneManager.h"
-
-#endif
+struct CreatedGlResource
+{
+public:
+	GLuint glHandle;
+	int Type = 0;
+};

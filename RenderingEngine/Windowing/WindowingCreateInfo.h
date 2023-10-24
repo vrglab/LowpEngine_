@@ -6,17 +6,12 @@
 /* Authors: Arad Bozorgmehr(Vrglab)                                                         */
 /* ======================================================================================== */
 #pragma once
-
-#ifndef _lpEngine_Scene_Engine
-#define _lpEngine_Scene_Engine
 #include <LowpCommons.h>
-#include <yaml-cpp/yaml.h>
-#include "../Scripting/lpScriptingEngine.h"
+#include "Resolution.h"
 
-#include "Scene.h"
-
-static Scene* activeScene;
-
-#include "SceneManager.h"
-
-#endif
+LP_Export struct WindowingCreateInfo
+{
+	std::string name;
+	int flags;
+	Resolution* resolution;
+};

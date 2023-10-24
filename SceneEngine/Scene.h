@@ -6,17 +6,16 @@
 /* Authors: Arad Bozorgmehr(Vrglab)                                                         */
 /* ======================================================================================== */
 #pragma once
-
-#ifndef _lpEngine_Scene_Engine
-#define _lpEngine_Scene_Engine
 #include <LowpCommons.h>
-#include <yaml-cpp/yaml.h>
-#include "../Scripting/lpScriptingEngine.h"
+#include "../Scripting/MonoBehaviour.h"
+#include <unordered_map>
+#include <unordered_set>
 
-#include "Scene.h"
-
-static Scene* activeScene;
-
-#include "SceneManager.h"
-
-#endif
+LP_Export struct Scene
+{
+public:
+	std::map<MonoBehaviour*, MonoObject*> created_objects = {};
+	std::list<MonoBehaviour*> mono_behaviours_in_the_scene = {};
+	LP_Export void OnLoad();
+	LP_Export void OnUnload();
+};

@@ -51,13 +51,7 @@
 #include <SDL2/SDL_vulkan.h>
 #include<stb_image.h>
 
-
-struct CreatedGlResource
-{
-public:
-	GLuint glHandle;
-	int Type = 0;
-};
+#include "CreateGlResource.h"
 
 enum ResourceType
 {
@@ -72,103 +66,19 @@ enum ResourceType
 	IndexBuffer = 8
 };
 
-class OpenGLResourceFactory
-{
-public:
-	~OpenGLResourceFactory();
+#include "OpenGLResourceFactory.h"
 
-	GLuint CreateVertexBuffer();
-	GLuint CreateIndexBuffer();
-	GLuint CreateVertexArray();
-	GLuint CreateTexture(const char* imagePath);
-	GLuint CreateShaderProgram(const char* vertexShaderSource, const char* fragmentShaderSource);
-	GLuint CreateFrameBuffer();
-	GLuint CreateBuffer();
-	GLuint CreateRenderBuffer(int width, int height);
-	void SetUniformMat4(GLuint program, const char* name, const glm::mat4& matrix);
-	void BindVertexArray(GLuint vao);
-	void BindVertexBuffer(GLuint vbo, GLuint vao, GLuint attributeIndex, int size, int stride, int offset);
-	void BindIndexBuffer(GLuint ibo);
-	void UseProgram(GLuint program);
-	void ClearScreen(float r, float g, float b, float a);
-	void SetViewport(int x, int y, int width, int height);
-	void BindTexture(GLenum target, GLuint texture);
-	void BindFrameBuffer(GLenum target, GLuint framebuffer);
+#include "Dx12RenderinResource.h"
 
-private:
-	GLuint CompileShader(GLenum shaderType, const char* source);
-	std::list<CreatedGlResource> createdResources = std::list<CreatedGlResource>();
-};
+#include "RenderingFramework.h"
 
-#ifdef __d3d12_h__
-LP_Export struct Dx12RenderingResources
-{
-	ID3D12Resource* renderTarget; // This should be your swap chain's buffer
-	ID3D12Resource* depthStencilBuffer;
+#include "Windowing/Resolution.h"
 
-	ID3D12DescriptorHeap* rtvHeap;
-	ID3D12DescriptorHeap* dsvHeap;
+#include "Windowing/WindowingCreateInfo.h"
 
-	D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle;
-	D3D12_CPU_DESCRIPTOR_HANDLE dsvHandle;
-};
-#endif
+#include "Windowing/Windowing.h"
 
-class RenderingFramework
-{
-public:
-	void* device = nullptr;
-	void* factory = nullptr;
-	void* main_swapchain = nullptr;
-	void* command_queue = nullptr;
-	void* command_allocator = nullptr;
-	void* command_list = nullptr;
-	void* root_signature = nullptr;
-	void* pipeline_stat = nullptr;
-	int rendererType;
-	SDL_Window* sdl_window;
-#ifdef __d3d12_h__
-	Dx12RenderingResources* dx12Resources;
-#endif
-	~RenderingFramework();
-};
-
-struct LP_Export Resolution
-{
-	int width, height;
-};
-
-LP_Export struct WindowingCreateInfo
-{
-	std::string name;
-	int flags;
-	Resolution* resolution;
-};
-
-class LP_Export Windowing
-{
-private:
-	SDL_Renderer* sdl_renderer;
-	bool shouldClose = false;
-
-public:
-	Windowing(WindowingCreateInfo*);
-	~Windowing();
-	void ProcessEvents();
-	void Open();
-	void Close();
-	bool ShouldClose();
-	RenderingFramework* framework;
-	SDL_Window* sdl_window;
-	WindowingCreateInfo* info;
-};
-
-
-LP_Export struct RenderingEngineCreateInfo
-{
-	int rendererType;
-	Windowing* window;
-};
+#include "RenderingEngineCreateInfo.h"
 
 
 enum RendererType
